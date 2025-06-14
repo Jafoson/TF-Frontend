@@ -1,0 +1,24 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+}
+
+.title{
+    max-width: 28.125rem;
+    color: rgb(var(--primary));
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 32rem;
+}

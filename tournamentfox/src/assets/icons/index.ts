@@ -1,0 +1,5 @@
+export { default as MailIcon } from './MailIcon'
+export { default as CloseIcon } from './CloseIcon'
+export { default as EyeIcon } from './EyeIcon'
+export { default as EyeCloseIcon } from './EyeCloseIcon'
+export { default as LockIcon } from './LockIcon'

@@ -1,0 +1,26 @@
+body{
+    background-image: url("../../../public/background/LeagueofLegends_Worlds2022_ChaseCenter_California_Stage-1536x864.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: rgb(var(--primary-fixed-dim));
+    z-index: -3;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+
+    &::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: -2;
+        backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+}

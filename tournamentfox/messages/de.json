@@ -1,0 +1,59 @@
+{
+    "login": {
+        "title": "Willkommen zurück, Beschwörer!",
+        "mail": "E-Mail / Benutzername",
+        "mailPlaceholder": "max@example.com... | Example123...",
+        "password": "Passwort",
+        "passwordPlaceholder": "Password123...",
+        "login": "Einloggen",
+        "register": "Registrieren",
+        "forgotPassword": "Passwort vergessen?",
+        "rememberMe": "Angemeldet bleiben",
+        "dontHaveAccount": "Noch kein Konto?",
+        "or": "Oder",
+        "loginWith": "Einloggen mit",
+        "loginWithGoogle": "Einloggen mit Google",
+        "loginWithApple": "Einloggen mit Apple",
+        "loginWithFacebook": "Einloggen mit Facebook",
+        "loginWithTwitter": "Einloggen mit Twitter",
+        "loginWithLinkedin": "Einloggen mit Linkedin"
+    },
+    "register": {
+        "title": "Erstelle ein Account",
+        "mail": "E-Mail",
+        "mailPlaceholder": "max@example.com...",
+        "username": "Benutzername",
+        "usernamePlaceholder": "Example123...",
+        "password": "Passwort",
+        "passwordPlaceholder": "Password123...",
+        "confirmPassword": "Passwort bestätigen",
+        "confirmPasswordPlaceholder": "Password123...",
+        "register": "Registrieren",
+        "login": "Einloggen",
+        "alreadyHaveAccount": "Bereits ein Konto?",
+        "or": "Oder",
+        "registerWith": "Registrieren mit",
+        "registerWithGoogle": "Registrieren mit Google",
+        "registerWithApple": "Registrieren mit Apple",
+        "registerWithFacebook": "Registrieren mit Facebook",
+        "registerWithTwitter": "Registrieren mit Twitter",
+        "registerWithLinkedin": "Registrieren mit Linkedin"
+    },
+    "forgotPassword": {
+        "title": "Passwort zurücksetzen",
+        "subtitle": "Haben Sie Ihr Passwort vergessen?",
+        "description": "Kein Problem – geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+        "resendEmail": "E-Mail erneut senden",
+        "footerText": "Wenn Sie keine E-Mail erhalten, prüfen Sie bitte auch Ihren Spam-Ordner. Sie können den Link nach 60 Sekunden erneut anfordern.",
+        "mail": "E-Mail",
+        "mailPlaceholder": "max@example.com...",
+        "resetPassword": "Passwort zurücksetzen"
+    },
+    "confirmMail": {
+        "title": "Registrierung abschließen",
+        "subtitle": "Bitte bestätigen Sie Ihre E-Mail-Adresse",
+        "description": "Wir haben einen Bestätigungscode an {email} gesendet. Bitte geben Sie den Code hier ein, um Ihre Registrierung abzuschließen.",
+        "continue": "Weiter",
+        "resendEmail": "E-Mail erneut senden"
+    }
+}

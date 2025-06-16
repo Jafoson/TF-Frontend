@@ -11,8 +11,6 @@
     padding: 0.25rem;
     color: rgb(var(--on-surface));
     outline-offset: 2px;
-    outline: 0px solid transparent;
-    outline-color: rgb(var(--outline));
     
     &::after{
         margin: -2px;
@@ -37,7 +35,7 @@
     }
 
     &:not(:disabled):focus-visible{
-        outline-width: 1px;
+        outline: 2px solid rgb(var(--primary));
     }
 
     &:not(:disabled):hover::after{
@@ -52,14 +50,13 @@
         cursor: not-allowed;
         opacity: 0.38;
         filter: grayscale(1);
-    }
+    } 
 }
 
 .filled{
     background-color: rgb(var(--primary));
     color: rgb(var(--on-primary));
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-    outline-color: rgb(var(--primary));
 
     &::after{
         background-color: rgb(var(--on-primary));
@@ -75,7 +72,6 @@
 .tonal{
     background-color: rgb(var(--secondary-container));
     color: rgb(var(--on-secondary-container));
-    outline-color: rgb(var(--secondary));
 
     &::after{
         background-color: rgb(var(--on-secondary-container));
@@ -85,5 +81,4 @@
 .text{
     background-color: transparent;
     color: rgb(var(--on-surface));
-    outline-color: rgb(var(--outline));
 }

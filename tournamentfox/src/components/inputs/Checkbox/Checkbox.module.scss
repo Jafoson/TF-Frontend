@@ -1,0 +1,139 @@
+.checkboxContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.checkboxRow {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    position: relative;
+}
+
+.checkboxRow input[type="checkbox"] {
+    border: 1px solid rgb(var(--outline));
+    opacity: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    z-index: 2;
+    cursor: pointer;
+    padding: 0;
+}
+
+.checkboxRow label {
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgb(var(--on-surface));
+    padding: 0 0.5rem;
+    border-radius: 0.35rem;
+    padding-left: 1.75rem;
+    position: relative;
+    line-height: 1.6rem;
+    min-height: 1.6rem;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        font-size: 0.875rem;
+    }
+}
+
+.checkboxRow label:hover {
+    background: rgba(var(--on-surface), 0.08);
+}
+
+.checkboxRow label:active {
+    background: rgba(var(--on-surface), 0.12);
+}
+
+.checkboxRow label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.35rem;
+    border: 2px solid rgb(var(--outline));
+    box-sizing: border-box;
+    transition: background 0.2s, border 0.2s;
+    display: block;
+}
+
+
+.checkboxRow input[type="checkbox"]:checked + label::before,
+.checkboxRow input[type="checkbox"]:indeterminate + label::before {
+    background: rgb(var(--primary));
+    border: none;
+}
+
+.checkboxRow input[type="checkbox"]:hover + label::before {
+    transform: scale(1.05) translateY(-50%);
+    transition: transform 0.3s;
+}
+
+.checkboxRow input[type="checkbox"]:active + label::before {
+    transform: scale(0.95) translateY(-50%);
+    transition: transform 0.3s;
+}
+
+.checkboxRow input[type="checkbox"]:focus-visible + label::before {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 2px;
+}
+
+.checkboxRow input[type="checkbox"]:checked + label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 48%;
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: translateY(-50%);
+    display: block;
+    pointer-events: none;
+    background: rgb(var(--on-primary));
+    mask: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 10.5L9 15L15 7" stroke="black" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>') center/contain no-repeat;
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 10.5L9 15L15 7" stroke="black" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>') center/contain no-repeat;
+    background-color: rgb(var(--on-primary));
+}
+
+.checkboxRow input[type="checkbox"]:indeterminate + label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: translateY(-50%);
+    display: block;
+    pointer-events: none;
+    background: rgb(var(--on-primary));
+    mask: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="9" width="10" height="2" rx="1" fill="black"/></svg>') center/contain no-repeat;
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="9" width="10" height="2" rx="1" fill="black"/></svg>') center/contain no-repeat;
+    background-color: rgb(var(--on-primary));
+}
+
+.nestedContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-left: 1.5rem;
+    padding-left: 0.5rem;
+    border-left: 1px solid #e0e0e0;
+}

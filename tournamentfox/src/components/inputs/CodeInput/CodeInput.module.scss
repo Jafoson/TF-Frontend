@@ -23,6 +23,14 @@
   outline: none;
   transition: border 0.2s;
 
+  /* Entferne die Pfeile vom Number-Input */
+  -moz-appearance: textfield;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   @media (max-width: 480px) {
     width: 2.5rem;
     height: 3.5rem;

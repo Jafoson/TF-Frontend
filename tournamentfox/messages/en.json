@@ -37,7 +37,18 @@
         "registerWithApple": "Register with Apple",
         "registerWithFacebook": "Register with Facebook",
         "registerWithTwitter": "Register with Twitter",
-        "registerWithLinkedin": "Register with Linkedin"
+        "registerWithLinkedin": "Register with Linkedin",
+        "usernameMinLength": "The username must be at least 3 characters long",
+        "usernameMaxLength": "The username must be at most 50 characters long",
+        "usernameRegex": "The username must only contain letters, numbers, underscores and hyphens",
+        "emailInvalid": "Please enter a valid email address",
+        "emailMaxLength": "The email address is too long",
+        "passwordMinLength": "The password must be at least 8 characters long",
+        "passwordUppercase": "The password must contain at least one uppercase letter",
+        "passwordLowercase": "The password must contain at least one lowercase letter",
+        "passwordNumber": "The password must contain at least one number",
+        "passwordSpecial": "The password must contain at least one special character",
+        "passwordsDoNotMatch": "The passwords do not match"
     },
     "forgotPassword": {
         "title": "Reset Password",
@@ -55,5 +66,27 @@
         "description": "We have sent a confirmation code to {email}. Please enter the code here to complete your registration.",
         "continue": "Continue",
         "resendEmail": "Resend Email"
+    },
+    "confirmMailSuccess": {
+        "title": "Email successfully confirmed",
+        "subtitle": "Welcome to Tournament Fox!",
+        "description": "Your email address has been successfully confirmed. You can now start directly.",
+        "continue": "To Homepage"
+    },
+    "forgotPasswordMailSend": {
+        "title": "Email for password reset sent",
+        "subtitle": "Please check your inbox",
+        "description": "We have sent you an email with a link to reset your password. Follow the link to create a new password.",
+        "continue": "Back to Login"
+    },
+    "resetPassword": {
+        "title": "Set new password",
+        "subtitle": "Create a new password for your account.",
+        "description": "Please make sure to create a secure password that you can easily remember.",
+        "password": "Password",
+        "passwordPlaceholder": "Password123...",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordPlaceholder": "Password123...",
+        "resetPassword": "Reset Password"
     }
 }

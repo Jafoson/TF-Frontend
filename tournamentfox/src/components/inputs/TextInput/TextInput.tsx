@@ -65,18 +65,22 @@ export default function TextInput({label, placeholder, value, icon: Icon, error,
         </div>
         {error && errorMessage && (
           Array.isArray(errorMessage) ? (
-            <ul className={styles.error}>
-              {errorMessage.map((msg, idx) => <li key={idx}>{msg}</li>)}
-            </ul>
+            errorMessage.length > 0 && (
+              <ul className={styles.error}>
+                {errorMessage.map((msg, idx) => <li key={idx}>{msg}</li>)}
+              </ul>
+            )
           ) : (
             <div className={styles.error}>{errorMessage}</div>
           )
         )}
         {!error && helperText && (
           Array.isArray(helperText) ? (
-            <ul className={styles.helperText}>
-              {helperText.map((msg, idx) => <li key={idx}>{msg}</li>)}
-            </ul>
+            helperText.length > 0 && (
+              <ul className={styles.helperText}>
+                {helperText.map((msg, idx) => <li key={idx}>{msg}</li>)}
+              </ul>
+            )
           ) : (
             <div className={styles.helperText}>{helperText}</div>
           )

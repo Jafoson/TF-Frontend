@@ -294,6 +294,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
 * {
@@ -391,6 +392,9 @@ line-height: 2rem; /* 133.333% */
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
     width: 16px;
+    position: absolute;
+    right: 0;
+    background: transparent;
   }
 
   *::-webkit-scrollbar-track {

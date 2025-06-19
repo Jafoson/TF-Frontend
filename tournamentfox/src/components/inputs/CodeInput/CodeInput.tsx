@@ -70,7 +70,7 @@ function CodeInput({ length, value, onChange, error, disabled, ...props }: CodeI
         <input
           key={idx}
           ref={inputsRef[idx]}
-          type="text"
+          type="number"
           inputMode="numeric"
           maxLength={1}
           className={styles.codeInputBox}

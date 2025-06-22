@@ -81,6 +81,7 @@ export default function RegisterPage() {
       showSuccess('Registrierung erfolgreich', 'Ihr Konto wurde erfolgreich erstellt!')
       router.push('/register/confirm-mail')
     } catch (err) {
+      console.error(err)
       setErrors([{ field: 'general', message: t('registrationFailed') }])
       showError('Registrierung fehlgeschlagen', 'Ein unerwarteter Fehler ist aufgetreten.')
     } finally {

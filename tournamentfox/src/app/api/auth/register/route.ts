@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { RegisterRequestDTO, AuthResponseDTO } from '@/types/auth';
-import { registerSchema } from '@/schemas/auth';
 
 export async function POST(request: Request) {
   try {

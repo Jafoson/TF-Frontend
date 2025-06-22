@@ -1,9 +1,7 @@
 'use client'
 
-import React, { useState, Suspense } from 'react'
+import React, { useState } from 'react'
 import styles from './page.module.scss'
-import IconButton from '@/components/IconButton/IconButton'
-import CloseIcon from '@/assets/icons/CloseIcon'	
 import TextInput from '@/components/inputs/TextInput/TextInput'
 import Checkbox from '@/components/inputs/Checkbox/Checkbox'
 import {Link} from '@/i18n/navigation'

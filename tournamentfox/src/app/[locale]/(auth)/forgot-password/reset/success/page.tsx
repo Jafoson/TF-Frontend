@@ -2,17 +2,13 @@
 
 import React from 'react'
 import styles from './page.module.scss'
-import {useRouter} from '@/i18n/navigation'
 import Button from '@/components/Button/Button'
 import AuthTopBar from '@/components/Topbar/AuthTopBar/AuthTopBar'
 import ScrollContainer from '@/components/utils/ScrollContainer/ScrollContainer'
-import { useTranslations } from 'next-intl'
 import { SuccessIcon } from '@/assets/icons'
 
 
 export default function ConfirmMailSuccessPage() {
-  const router = useRouter()
-  const t = useTranslations('confirmMailSuccess')
   return (
     <>
     <AuthTopBar />
@@ -27,3 +23,5 @@ export default function ConfirmMailSuccessPage() {
     </>
   )
 }
+
+// TODO: Add translation

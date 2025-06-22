@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styles from './AuthTopBar.module.scss'
 import IconButton from '@/components/IconButton/IconButton'
 import { ArrowBackIcon, CloseIcon } from '@/assets/icons'

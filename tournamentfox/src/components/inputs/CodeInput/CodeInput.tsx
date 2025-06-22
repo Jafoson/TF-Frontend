@@ -10,7 +10,12 @@ type CodeInputProps = Omit<HTMLAttributes<HTMLInputElement>, 'onChange' | 'value
 }
 
 function CodeInput({ length, value, onChange, error, disabled, ...props }: CodeInputProps) {
-  const inputsRef = Array.from({ length }, () => useRef<HTMLInputElement>(null))
+  const inputsRef = useRef<(HTMLInputElement | null)[]>([])
+
+  // Initialisiere das refs-Array
+  React.useEffect(() => {
+    inputsRef.current = inputsRef.current.slice(0, length)
+  }, [length])
 
   const safeValue = value.padEnd(length, '')
 
@@ -20,7 +25,7 @@ function CodeInput({ length, value, onChange, error, disabled, ...props }: CodeI
       const newValue = safeValue.substring(0, idx) + val + safeValue.substring(idx + 1)
       onChange(newValue)
       if (idx < length - 1) {
-        inputsRef[idx + 1].current?.focus()
+        inputsRef.current[idx + 1]?.focus()
       }
     } else if (val === '') {
       const newValue = safeValue.substring(0, idx) + '' + safeValue.substring(idx + 1)
@@ -36,11 +41,11 @@ function CodeInput({ length, value, onChange, error, disabled, ...props }: CodeI
         onChange(newValue)
       } else if (idx > 0) {
         // Zum vorherigen Feld springen und dieses löschen
-        inputsRef[idx - 1].current?.focus()
+        inputsRef.current[idx - 1]?.focus()
         const newValue = safeValue.substring(0, idx - 1) + '' + safeValue.substring(idx)
         onChange(newValue)
         setTimeout(() => {
-          const prevInput = inputsRef[idx - 1].current
+          const prevInput = inputsRef.current[idx - 1]
           if (prevInput) {
             prevInput.setSelectionRange(1, 1)
           }
@@ -58,7 +63,7 @@ function CodeInput({ length, value, onChange, error, disabled, ...props }: CodeI
       // Fokus auf das letzte ausgefüllte Feld setzen
       setTimeout(() => {
         const nextIdx = Math.min(digits.length, length - 1)
-        inputsRef[nextIdx].current?.focus()
+        inputsRef.current[nextIdx]?.focus()
       }, 0)
       e.preventDefault()
     }
@@ -69,7 +74,7 @@ function CodeInput({ length, value, onChange, error, disabled, ...props }: CodeI
       {Array.from({ length }).map((_, idx) => (
         <input
           key={idx}
-          ref={inputsRef[idx]}
+          ref={el => { inputsRef.current[idx] = el }}
           type="number"
           inputMode="numeric"
           maxLength={1}

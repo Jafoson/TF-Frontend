@@ -44,6 +44,56 @@ function getAllValues(obj: CheckboxData): boolean[] {
     return values
 }
 
+// Separate Komponente für verschachtelte Checkboxen
+function NestedCheckbox({ 
+    key, 
+    value, 
+    path, 
+    onHandleChange, 
+    onHandleNestedChange, 
+    renderLabel 
+}: {
+    key: string
+    value: CheckboxData
+    path: string[]
+    onHandleChange: (key: string, value: boolean | CheckboxItem | CheckboxData) => void
+    onHandleNestedChange: (key: string, newNestedData: CheckboxData) => void
+    renderLabel: (key: string, value: boolean | CheckboxItem | CheckboxData) => ReactNode
+}) {
+    const allValues = getAllValues(value)
+    const allChecked = allValues.every(Boolean)
+    const someChecked = allValues.some(Boolean)
+    const ref = useRef<HTMLInputElement>(null)
+    
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.indeterminate = someChecked && !allChecked
+        }
+    }, [someChecked, allChecked])
+    
+    return (
+        <div className={styles.checkbox}>
+            <div className={styles.checkboxRow}>
+                <input
+                    ref={ref}
+                    type="checkbox"
+                    id={`checkbox-${key}-${path.join('-')}`}
+                    checked={allChecked}
+                    onChange={(e) => onHandleChange(key, e.target.checked)}
+                />
+                <label htmlFor={`checkbox-${key}-${path.join('-')}`}>{renderLabel(key, value)}</label>
+            </div>
+            <div className={styles.nestedContent}>
+                <Checkbox
+                    data={value}
+                    onChange={(newValue) => onHandleNestedChange(key, newValue)}
+                    path={[...path, key]}
+                />
+            </div>
+        </div>
+    )
+}
+
 export default function Checkbox<T extends CheckboxData>({ data, onChange, path = [] }: CheckboxProps<T>) {
     const handleChange = (key: string, value: boolean | CheckboxItem | CheckboxData) => {
         const currentValue = data[key]
@@ -107,35 +157,15 @@ export default function Checkbox<T extends CheckboxData>({ data, onChange, path 
                     )
                 } else {
                     // Parent Checkbox mit Childs
-                    const allValues = getAllValues(value as CheckboxData)
-                    const allChecked = allValues.every(Boolean)
-                    const someChecked = allValues.some(Boolean)
-                    const ref = useRef<HTMLInputElement>(null)
-                    useEffect(() => {
-                        if (ref.current) {
-                            ref.current.indeterminate = someChecked && !allChecked
-                        }
-                    }, [someChecked, allChecked])
                     return (
-                        <div key={key} className={styles.checkbox}>
-                            <div className={styles.checkboxRow}>
-                                <input
-                                    ref={ref}
-                                    type="checkbox"
-                                    id={`checkbox-${key}-${path.join('-')}`}
-                                    checked={allChecked}
-                                    onChange={(e) => handleChange(key, e.target.checked)}
-                                />
-                                <label htmlFor={`checkbox-${key}-${path.join('-')}`}>{renderLabel(key, value)}</label>
-                            </div>
-                            <div className={styles.nestedContent}>
-                                <Checkbox
-                                    data={value as CheckboxData}
-                                    onChange={(newValue) => handleNestedChange(key, newValue)}
-                                    path={[...path, key]}
-                                />
-                            </div>
-                        </div>
+                        <NestedCheckbox
+                            key={key}
+                            value={value as CheckboxData}
+                            path={path}
+                            onHandleChange={handleChange}
+                            onHandleNestedChange={handleNestedChange}
+                            renderLabel={renderLabel}
+                        />
                     )
                 }
             })}

@@ -17,7 +17,7 @@ type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
     iconSize?: number
     iconColor?: string
 }
-function Button({ title, className, variant = 'filled', size = 'medium', fullWidth = false, disabled = false, loading = false, error = false, success = false, icon:Icon, iconPosition = 'left', iconSize = 24, iconColor = 'currentColor', ...props }: ButtonProps) {
+function Button({ title, className, variant = 'filled', fullWidth = false, disabled = false, loading = false, error = false, success = false, icon:Icon, iconSize = 24, iconColor = 'currentColor', ...props }: ButtonProps) {
   return (
     <button className={`${styles.button} ${styles[variant]} ${className ? className : ''}`} disabled={disabled} data-loading={loading} data-error={error} data-success={success} data-full-width={fullWidth} {...props}>
         {loading? <ALoadingIcon className={styles.icon} style={{ color: iconColor, width: iconSize, height: iconSize }} /> : Icon && <Icon style={{ color: iconColor, width: iconSize, height: iconSize }} />}
@@ -27,3 +27,5 @@ function Button({ title, className, variant = 'filled', size = 'medium', fullWid
 }
 
 export default Button
+
+// TODO: Add size prop, add iconPosition prop

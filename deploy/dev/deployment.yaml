@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tournamentfox-frontend
+  namespace: tournamentfox
+  labels:
+    app: tournamentfox-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tournamentfox-frontend
+  template:
+    metadata:
+      labels:
+        app: tournamentfox-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: registry.gitlab.com/tournamentfox/frontend:dev-latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tournamentfox-frontend
+  namespace: tournamentfox
+spec:
+  selector:
+    app: tournamentfox-frontend
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP
+
+# Optional: Dummy timestamp für ArgoCD-Sync-Erkennung
+---
+timestamp: 2025-06-25T00:00:00Z

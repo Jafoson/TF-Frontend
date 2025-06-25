@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: registry.gitlab.com/tournamentfox/frontend:dev-latest
+          image: registry.gitlab.com/tournamentfox/frontend:dev-68af0aff
           ports:
             - containerPort: 3000
           env:
@@ -46,4 +46,4 @@ spec:
 
 # Optional: Dummy timestamp für ArgoCD-Sync-Erkennung
 ---
-timestamp: 2025-06-25T00:00:00Z
+timestamp: 2025-06-25T00:09:17Z

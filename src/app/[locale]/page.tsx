@@ -2,7 +2,7 @@ import React from 'react'
 
 function HomePage() {
   return (
-    <div>kleiner test</div>
+    <div>Hallo wenn du das liest, dann ist alles gut</div>
   )
 }
 

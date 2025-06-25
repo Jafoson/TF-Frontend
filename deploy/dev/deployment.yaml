@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: registry.gitlab.com/tournamentfox/frontend:dev-fa00d514
+          image: registry.gitlab.com/tournamentfox/frontend:dev-8481c69e
           ports:
             - containerPort: 3000
           env:

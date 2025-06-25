@@ -52,7 +52,7 @@ deploy-dev:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache git bash
+    - apk add --no-cache git bash yq
   script:
    - |
     TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -60,11 +60,7 @@ deploy-dev:
 
     # Image und timestamp setzen
     sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}|" "$YAML_PATH"
-    if grep -q "^timestamp:" "$YAML_PATH"; then
-      sed -i "s/^timestamp:.*/timestamp: ${TIMESTAMP}/" "$YAML_PATH"
-    else
-      echo -e "\ntimestamp: ${TIMESTAMP}" >> "$YAML_PATH"
-    fi
+    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deploy/dev/deployment.yaml
 
     # Git setup
     git config --global user.email "ci@tournamentfox.com"

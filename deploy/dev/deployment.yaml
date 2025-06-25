@@ -6,7 +6,7 @@ metadata:
   labels:
     app: tournamentfox-frontend
   annotations:
-    argocd.sync.timestamp: "2025-06-25T00:00:00Z" 
+    argocd.sync.timestamp: ""
 spec:
   replicas: 1
   selector:
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: registry.gitlab.com/tournamentfox/frontend:dev-latest
+          image: registry.gitlab.com/tournamentfox/frontend:dev-fa00d514
           ports:
             - containerPort: 3000
           env:
@@ -32,13 +32,14 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: tournamentfox-frontend
   namespace: tournamentfox
+  annotations:
+    argocd.sync.timestamp: ""
 spec:
   selector:
     app: tournamentfox-frontend

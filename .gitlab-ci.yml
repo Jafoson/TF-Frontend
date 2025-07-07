@@ -58,11 +58,6 @@ deploy-dev:
   script:
    - |
     TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    YAML_PATH="deployments/frontend/dev/deployment.yaml"
-
-    # Image und timestamp setzen
-    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}|" "$YAML_PATH"
-    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/dev/deployment.yaml
 
     # Git setup für externes Repository
     git config --global user.email "ci@tournamentfox.com"
@@ -76,15 +71,14 @@ deploy-dev:
     git fetch origin $EXTERNAL_REPO_BRANCH
     git checkout -B $EXTERNAL_REPO_BRANCH origin/$EXTERNAL_REPO_BRANCH
 
-    # Deployment-Manifest in externes Repository kopieren
-    mkdir -p deployments/frontend/dev
-    cp ../$YAML_PATH ./deployments/frontend/dev/deployment.yaml
+    # Image und timestamp in der existierenden Datei setzen
+    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}|" deployments/frontend/dev/deployment.yaml
+    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/dev/deployment.yaml
 
     # Commit und Push zum externen Repository
     git add deployments/frontend/dev/deployment.yaml
     git commit -m "Update frontend dev deployment manifest [skip ci] - Image: $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
 
-    git remote set-url origin https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/deployment.git
     git push origin $EXTERNAL_REPO_BRANCH
 
     echo "Deployment manifest erfolgreich in externes Repository gepusht"
@@ -106,11 +100,6 @@ deploy-prod:
   script:
    - |
     TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    YAML_PATH="deployments/frontend/prod/deployment.yaml"
-
-    # Image und timestamp setzen
-    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}|" "$YAML_PATH"
-    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/prod/deployment.yaml
 
     # Git setup für externes Repository
     git config --global user.email "ci@tournamentfox.com"
@@ -124,15 +113,14 @@ deploy-prod:
     git fetch origin $EXTERNAL_REPO_BRANCH
     git checkout -B $EXTERNAL_REPO_BRANCH origin/$EXTERNAL_REPO_BRANCH
 
-    # Deployment-Manifest in externes Repository kopieren
-    mkdir -p deployments/frontend/prod
-    cp ../$YAML_PATH ./deployments/frontend/prod/deployment.yaml
+    # Image und timestamp in der existierenden Datei setzen
+    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}|" deployments/frontend/prod/deployment.yaml
+    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/prod/deployment.yaml
 
     # Commit und Push zum externen Repository
     git add deployments/frontend/prod/deployment.yaml
     git commit -m "Update frontend production deployment manifest [skip ci] - Image: $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
 
-    git remote set-url origin https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/deployment.git
     git push origin $EXTERNAL_REPO_BRANCH
 
     echo "Production deployment manifest erfolgreich in externes Repository gepusht"

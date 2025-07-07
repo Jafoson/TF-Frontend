@@ -64,7 +64,7 @@ deploy-dev:
     git config --global user.name "GitLab CI"
 
     # Externes Repository klonen
-    git clone https://$DEP_USER:$DEP_TOKEN@gitlab.com/tournamentfox/deployment.git external-deployments
+    git clone https://$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD@gitlab.com/tournamentfox/deployment.git external-deployments
     cd external-deployments
 
     # Branch sauber auschecken
@@ -106,7 +106,7 @@ deploy-prod:
     git config --global user.name "GitLab CI"
 
     # Externes Repository klonen
-    git clone https://$DEP_USER:$DEP_TOKEN@gitlab.com/tournamentfox/deployment.git external-deployments
+    git clone https://$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD@gitlab.com/tournamentfox/deployment.git external-deployments
     cd external-deployments
 
     # Branch sauber auschecken

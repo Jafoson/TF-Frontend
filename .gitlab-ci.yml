@@ -6,7 +6,7 @@ stages:
 variables:
   NODE_VERSION: "18"
   IMAGE_NAME: registry.gitlab.com/tournamentfox/frontend
-  EXTERNAL_REPO_URL: "https://gitlab.com/tournamentfox/external-deployments.git"
+  EXTERNAL_REPO_URL: "https://gitlab.com/tournamentfox/deployment.git"
   EXTERNAL_REPO_BRANCH: "main"
 
 cache:
@@ -58,18 +58,18 @@ deploy-dev:
   script:
    - |
     TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    YAML_PATH="deploy/dev/deployment.yaml"
+    YAML_PATH="deployments/frontend/dev/deployment.yaml"
 
     # Image und timestamp setzen
     sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}|" "$YAML_PATH"
-    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deploy/dev/deployment.yaml
+    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/dev/deployment.yaml
 
     # Git setup für externes Repository
     git config --global user.email "ci@tournamentfox.com"
     git config --global user.name "GitLab CI"
 
     # Externes Repository klonen
-    git clone https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/external-deployments.git external-deployments
+    git clone https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/deployment.git external-deployments
     cd external-deployments
 
     # Branch sauber auschecken
@@ -77,14 +77,14 @@ deploy-dev:
     git checkout -B $EXTERNAL_REPO_BRANCH origin/$EXTERNAL_REPO_BRANCH
 
     # Deployment-Manifest in externes Repository kopieren
-    mkdir -p frontend/dev
-    cp ../$YAML_PATH ./frontend/dev/deployment.yaml
+    mkdir -p deployments/frontend/dev
+    cp ../$YAML_PATH ./deployments/frontend/dev/deployment.yaml
 
     # Commit und Push zum externen Repository
-    git add frontend/dev/deployment.yaml
-    git commit -m "Update frontend deployment manifest [skip ci] - Image: $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
+    git add deployments/frontend/dev/deployment.yaml
+    git commit -m "Update frontend dev deployment manifest [skip ci] - Image: $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
 
-    git remote set-url origin https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/external-deployments.git
+    git remote set-url origin https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/deployment.git
     git push origin $EXTERNAL_REPO_BRANCH
 
     echo "Deployment manifest erfolgreich in externes Repository gepusht"
@@ -106,18 +106,18 @@ deploy-prod:
   script:
    - |
     TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-    YAML_PATH="deploy/prod/deployment.yaml"
+    YAML_PATH="deployments/frontend/prod/deployment.yaml"
 
     # Image und timestamp setzen
     sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}|" "$YAML_PATH"
-    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deploy/prod/deployment.yaml
+    yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/prod/deployment.yaml
 
     # Git setup für externes Repository
     git config --global user.email "ci@tournamentfox.com"
     git config --global user.name "GitLab CI"
 
     # Externes Repository klonen
-    git clone https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/external-deployments.git external-deployments
+    git clone https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/deployment.git external-deployments
     cd external-deployments
 
     # Branch sauber auschecken
@@ -125,14 +125,14 @@ deploy-prod:
     git checkout -B $EXTERNAL_REPO_BRANCH origin/$EXTERNAL_REPO_BRANCH
 
     # Deployment-Manifest in externes Repository kopieren
-    mkdir -p frontend/prod
-    cp ../$YAML_PATH ./frontend/prod/deployment.yaml
+    mkdir -p deployments/frontend/prod
+    cp ../$YAML_PATH ./deployments/frontend/prod/deployment.yaml
 
     # Commit und Push zum externen Repository
-    git add frontend/prod/deployment.yaml
+    git add deployments/frontend/prod/deployment.yaml
     git commit -m "Update frontend production deployment manifest [skip ci] - Image: $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
 
-    git remote set-url origin https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/external-deployments.git
+    git remote set-url origin https://$EXTERNAL_REPO_USER:$EXTERNAL_REPO_TOKEN@gitlab.com/tournamentfox/deployment.git
     git push origin $EXTERNAL_REPO_BRANCH
 
     echo "Production deployment manifest erfolgreich in externes Repository gepusht"

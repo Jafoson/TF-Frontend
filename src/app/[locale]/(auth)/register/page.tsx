@@ -12,6 +12,7 @@ import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { registerSchema } from '@/schemas/auth'
 import { useNotification } from '@/context/NotificationContext'
+import { registerUser } from '@/actions/auth'
 
 interface ValidationError {
   field: string;
@@ -50,33 +51,28 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          username,
-          password,
-        }),
-      })
+      const formData = new FormData()
+      formData.append('email', email)
+      formData.append('username', username)
+      formData.append('password', password)
 
-      const data = await response.json()
+      const result = await registerUser(formData)
 
-      if (!response.ok) {
-        if (data.details) {
-          setErrors(data.details)
+      if (!result.success) {
+        if (result.details) {
+          setErrors(result.details)
         } else {
-          setErrors([{ field: 'general', message: data.error || t('registrationFailed') }])
+          setErrors([{ field: 'general', message: result.error || t('registrationFailed') }])
         }
-        showError('Registrierung fehlgeschlagen', data.error || t('registrationFailed'))
+        showError('Registrierung fehlgeschlagen', result.error || t('registrationFailed'))
         return
       }
 
-      localStorage.setItem('userID', data.user.userId)
-      localStorage.setItem('username', data.user.username)
-      localStorage.setItem('email', data.user.email)
+      if (result.user) {
+        localStorage.setItem('userID', result.user.userId)
+        localStorage.setItem('username', result.user.username)
+        localStorage.setItem('email', result.user.email)
+      }
 
       showSuccess('Registrierung erfolgreich', 'Ihr Konto wurde erfolgreich erstellt!')
       router.push('/register/confirm-mail')

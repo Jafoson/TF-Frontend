@@ -6,7 +6,9 @@ import {
   useState,
   ReactNode,
   useCallback,
+  useRef,
 } from 'react'
+import Notification from '@/components/Notification/Notification'
 
 export type NotificationType = 'success' | 'error' | 'warning' | 'info'
 
@@ -19,11 +21,21 @@ export interface Notification {
   persistent?: boolean
 }
 
+interface NotificationTimer {
+  id: string
+  timerId: NodeJS.Timeout | null
+  remainingTime: number
+  startTime: number
+  paused: boolean
+}
+
 interface NotificationContextProps {
   notifications: Notification[]
   addNotification: (notification: Omit<Notification, 'id'>) => string
   removeNotification: (id: string) => void
   clearNotifications: () => void
+  pauseTimer: (id: string) => void
+  resumeTimer: (id: string) => void
   showSuccess: (title: string, message?: string, duration?: number) => string
   showError: (title: string, message?: string, duration?: number) => string
   showWarning: (title: string, message?: string, duration?: number) => string
@@ -35,6 +47,8 @@ const NotificationContext = createContext<NotificationContextProps>({
   addNotification: () => '',
   removeNotification: () => {},
   clearNotifications: () => {},
+  pauseTimer: () => {},
+  resumeTimer: () => {},
   showSuccess: () => '',
   showError: () => '',
   showWarning: () => '',
@@ -43,6 +57,7 @@ const NotificationContext = createContext<NotificationContextProps>({
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const [notifications, setNotifications] = useState<Notification[]>([])
+  const timersRef = useRef<Map<string, NotificationTimer>>(new Map())
 
   const generateId = useCallback(() => {
     return Math.random().toString(36).substr(2, 9)
@@ -50,29 +65,77 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
 
   const removeNotification = useCallback((id: string) => {
     setNotifications(prev => prev.filter(notification => notification.id !== id))
+    // Timer entfernen
+    const timer = timersRef.current.get(id)
+    if (timer?.timerId) {
+      clearTimeout(timer.timerId)
+    }
+    timersRef.current.delete(id)
+  }, [])
+
+  const pauseTimer = useCallback((id: string) => {
+    const timer = timersRef.current.get(id)
+    if (timer && timer.timerId && !timer.paused) {
+      clearTimeout(timer.timerId)
+      const elapsed = Date.now() - timer.startTime
+      timer.remainingTime = Math.max(0, timer.remainingTime - elapsed)
+      timer.timerId = null
+      timer.paused = true
+      timersRef.current.set(id, timer)
+    }
+  }, [])
+
+  const resumeTimer = useCallback((id: string) => {
+    const timer = timersRef.current.get(id)
+    if (timer && timer.paused && timer.remainingTime > 0) {
+      timer.startTime = Date.now()
+      timer.paused = false
+      timer.timerId = setTimeout(() => {
+        setNotifications(current => current.filter(n => n.id !== id))
+        timersRef.current.delete(id)
+      }, timer.remainingTime)
+      timersRef.current.set(id, timer)
+    }
   }, [])
 
   const addNotification = useCallback((notification: Omit<Notification, 'id'>) => {
     const id = generateId()
     const newNotification: Notification = {
       id,
-      duration: 5000, // Standard-Dauer: 5 Sekunden
       ...notification,
+      duration: notification.duration ?? 5000, // Standard-Dauer: 5 Sekunden
     }
 
     setNotifications(prev => [...prev, newNotification])
 
-    // Automatisches Entfernen nach der angegebenen Dauer (außer bei persistenten Notifications)
+    // Timer für automatisches Entfernen setzen
     if (!newNotification.persistent && newNotification.duration) {
-      setTimeout(() => {
-        removeNotification(id)
+      const startTime = Date.now()
+      const timerId = setTimeout(() => {
+        setNotifications(current => current.filter(n => n.id !== id))
+        timersRef.current.delete(id)
       }, newNotification.duration)
+
+      timersRef.current.set(id, {
+        id,
+        timerId,
+        remainingTime: newNotification.duration,
+        startTime,
+        paused: false,
+      })
     }
 
     return id
-  }, [generateId, removeNotification])
+  }, [generateId])
 
   const clearNotifications = useCallback(() => {
+    // Alle Timer löschen
+    timersRef.current.forEach((timer) => {
+      if (timer.timerId) {
+        clearTimeout(timer.timerId)
+      }
+    })
+    timersRef.current.clear()
     setNotifications([])
   }, [])
 
@@ -119,6 +182,8 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
         addNotification,
         removeNotification,
         clearNotifications,
+        pauseTimer,
+        resumeTimer,
         showSuccess,
         showError,
         showWarning,
@@ -126,6 +191,17 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
+      {notifications.map((notification) => (
+        <Notification
+          key={notification.id}
+          type={notification.type}
+          title={notification.title}
+          description={notification.message ? [notification.message] : undefined}
+          onClose={() => removeNotification(notification.id)}
+          onMouseEnter={() => pauseTimer(notification.id)}
+          onMouseLeave={() => resumeTimer(notification.id)}
+        />
+      ))}
     </NotificationContext.Provider>
   )
 }

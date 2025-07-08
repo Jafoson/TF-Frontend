@@ -4,6 +4,11 @@ export interface RegisterRequestDTO {
   password: string;
 }
 
+export interface LoginRequestDTO {
+  usernameOrEmail: string;
+  password: string;
+}
+
 export interface UserDTO {
   userId: string;
   username: string;

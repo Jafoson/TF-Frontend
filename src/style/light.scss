@@ -48,6 +48,21 @@
   --surface-container: 238, 241, 243;
   --surface-container-high: 232, 235, 237;
   --surface-container-highest: 226, 229, 231;
+
+  --success: 46, 106, 68;
+  --on-success: 255, 255, 255;
+  --success-container: 177, 241, 193;
+  --on-success-container: 18, 81, 46;
+
+  --info: 47, 98, 140;
+  --on-info: 255, 255, 255;
+  --info-container: 206, 229, 255;
+  --on-info-container: 14, 74, 115;
+
+  --warning: 121, 89, 12;
+  --on-warning: 255, 255, 255;
+  --warning-container: 255, 222, 163;
+  --on-warning-container: 93, 66, 0;
 }
 
 @media (prefers-color-scheme: light) {

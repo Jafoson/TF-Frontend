@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import "@/app/globals.css";
 import "@/style/dark.scss"
 import "@/style/light.scss"
+import { NotificationProvider } from '@/context/NotificationContext';
 
 
  
@@ -25,7 +26,11 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body>
         <ThemeProvider>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider>
+            <NotificationProvider>
+              {children}
+            </NotificationProvider>
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>

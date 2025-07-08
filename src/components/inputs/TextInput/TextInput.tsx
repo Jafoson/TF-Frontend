@@ -29,7 +29,7 @@ export default function TextInput({label, placeholder, value, icon: Icon, error,
               ref={inputRef}
               placeholder={placeholder}
               value={value}
-              type={isPassword ? (showPassword ? 'text' : 'password') : type}
+              type={isPassword ? (showPassword ? 'text' : 'password') : 'text'}
               {...restProps}
             />
             {isPassword && (

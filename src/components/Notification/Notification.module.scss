@@ -1,0 +1,106 @@
+.notification {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 20rem;
+    min-width: 16rem;
+    background-color: rgb(var(--surface-container-high));
+    border: 1px solid rgb(var(--error-container));
+    overflow: hidden;
+    outline:none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.notification__header {
+    padding: 4px 6px 4px 10px;
+    background-color: rgb(var(--error));
+    color: rgb(var(--on-error));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.notification__list {
+    color: rgb(var(--error));
+    padding: 6px 10px;
+    font-size: 0.875rem;
+
+    & > li{
+        list-style: none;
+        position: relative;
+        padding-left: 1em;
+
+        &::before {
+            content: "•";
+            position: absolute;
+            left: 0.1em;
+        }
+    }
+}
+.notification__header__icon {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    & > p{
+        width: 100%;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.success {
+    border-color: rgb(var(--success-container));
+
+    .notification__header {
+        background-color: rgb(var(--success));
+        color: rgb(var(--on-success));
+    }
+
+    .notification__list {
+        color: rgb(var(--success));
+    }
+}
+
+.info {
+    border-color: rgb(var(--info-container));
+
+    .notification__header {
+        background-color: rgb(var(--info));
+        color: rgb(var(--on-info));
+    }
+
+    .notification__list {
+        color: rgb(var(--info));
+    }
+}
+.warning {
+    border-color: rgb(var(--warning-container));
+
+    .notification__header {
+        background-color: rgb(var(--warning));
+        color: rgb(var(--on-warning));
+    }
+
+    .notification__list {
+        color: rgb(var(--warning));
+    }
+}
+.error {
+    border-color: rgb(var(--error-container));
+
+    .notification__header {
+        background-color: rgb(var(--error));
+        color: rgb(var(--on-error));
+    }
+
+    .notification__list {
+        color: rgb(var(--error));
+    }
+}

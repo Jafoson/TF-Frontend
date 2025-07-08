@@ -1,7 +1,7 @@
 {
     "login": {
         "title": "Welcome back, Summoner!",
-        "mail": "Email / Username",
+        "mail": "E-Mail / Username",
         "mailPlaceholder": "max@example.com... | Example123...",
         "password": "Password",
         "passwordPlaceholder": "Password123...",
@@ -16,7 +16,16 @@
         "loginWithApple": "Login with Apple",
         "loginWithFacebook": "Login with Facebook",
         "loginWithTwitter": "Login with Twitter",
-        "loginWithLinkedin": "Login with Linkedin"
+        "loginWithLinkedin": "Login with Linkedin",
+        "error": "Error",
+        "success": "Success",
+        "fillAllFields": "Please fill in all fields",
+        "loginSuccessful": "You have been successfully logged in",
+        "loginFailed": "Login failed. Please check your credentials",
+        "unexpectedError": "An unexpected error occurred",
+
+        "LOGIN_INVALID_DATA": "Invalid data",
+        "LOGIN_INVALID_DATA_DESCRIPTION": "Password or username/email is incorrect, or the account is not activated"
     },
     "register": {
         "title": "Create an account",
@@ -48,7 +57,18 @@
         "passwordLowercase": "The password must contain at least one lowercase letter",
         "passwordNumber": "The password must contain at least one number",
         "passwordSpecial": "The password must contain at least one special character",
-        "passwordsDoNotMatch": "The passwords do not match"
+        "passwordsDoNotMatch": "The passwords do not match",
+
+        "REGISTRATION_CONFLICT": "Registration Error",
+        "REGISTRATION_CONFLICT_DESCRIPTION": "The username or email address is already in use",
+        "REGISTRATION_ERROR": "Registration Error",
+        "REGISTRATION_ERROR_DESCRIPTION": "An error occurred. Please try again",
+
+        "emailExists": "The email address is already in use",
+        "usernameExists": "The username is already in use",
+
+        "INVALID_REQUEST": "Invalid Request",
+        "INVALID_REQUEST_DESCRIPTION": "An unexpected error occurred. Please try again."
     },
     "forgotPassword": {
         "title": "Reset Password",

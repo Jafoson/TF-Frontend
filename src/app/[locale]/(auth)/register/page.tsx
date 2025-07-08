@@ -22,7 +22,7 @@ interface ValidationError {
 export default function RegisterPage() {
   const t = useTranslations('register')
   const router = useRouter()
-  const { showSuccess, showError } = useNotification()
+  const { showError } = useNotification()
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -46,7 +46,7 @@ export default function RegisterPage() {
     if (!validationResult.success) {
       setErrors(validationResult.error?.errors.map(err => ({ field: err.path.join('.'), message: t(err.message) })) || [])
       setIsLoading(false)
-      showError('Validierungsfehler', 'Bitte überprüfen Sie Ihre Eingaben.')
+      showError(t('REGISTRATION_ERROR'), t('REGISTRATION_ERROR_DESCRIPTION'))
       return
     }
 
@@ -59,12 +59,8 @@ export default function RegisterPage() {
       const result = await registerUser(formData)
 
       if (!result.success) {
-        if (result.details) {
-          setErrors(result.details)
-        } else {
-          setErrors([{ field: 'general', message: result.error || t('registrationFailed') }])
-        }
-        showError('Registrierung fehlgeschlagen', result.error || t('registrationFailed'))
+        showError(t(result.code || 'REGISTRATION_ERROR'), t(result.code + '_DESCRIPTION' || 'REGISTRATION_ERROR_DESCRIPTION'))
+        setErrors(result.errors?.map(err => ({ field: err.field, message: t(err.code) })) || [])
         return
       }
 
@@ -74,12 +70,11 @@ export default function RegisterPage() {
         localStorage.setItem('email', result.user.email)
       }
 
-      showSuccess('Registrierung erfolgreich', 'Ihr Konto wurde erfolgreich erstellt!')
       router.push('/register/confirm-mail')
     } catch (err) {
       console.error(err)
       setErrors([{ field: 'general', message: t('registrationFailed') }])
-      showError('Registrierung fehlgeschlagen', 'Ein unerwarteter Fehler ist aufgetreten.')
+      showError('INVALID_REQUEST', t('INVALID_REQUEST_DESCRIPTION'))
     } finally {
       setIsLoading(false)
     }
@@ -98,7 +93,9 @@ export default function RegisterPage() {
     <h4 className={styles.title}>{t('title')}</h4>
     <div className={styles.formContainer}>
     <form className={styles.form} onSubmit={handleRegister}>
-      <TextInput 
+      <TextInput
+        id='email'
+        autoComplete='email'
         type="email" 
         label={t('mail')} 
         placeholder={t('mailPlaceholder')} 
@@ -112,6 +109,8 @@ export default function RegisterPage() {
         errorMessage={getFieldError('email')}
       />
       <TextInput 
+        id='username'
+        autoComplete='username'
         type="text" 
         label={t('username')} 
         placeholder={t('usernamePlaceholder')} 
@@ -125,6 +124,8 @@ export default function RegisterPage() {
         errorMessage={getFieldError('username')}
       />
       <TextInput 
+        id='password'
+        autoComplete='new-password'
         type="password" 
         label={t('password')} 
         placeholder={t('passwordPlaceholder')} 
@@ -138,6 +139,8 @@ export default function RegisterPage() {
         errorMessage={getFieldError('password')}
       />
       <TextInput 
+        id='confirmPassword'
+        autoComplete='new-password'
         type="password" 
         label={t('confirmPassword')} 
         placeholder={t('confirmPasswordPlaceholder')} 

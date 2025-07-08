@@ -16,9 +16,19 @@
         "loginWithApple": "Einloggen mit Apple",
         "loginWithFacebook": "Einloggen mit Facebook",
         "loginWithTwitter": "Einloggen mit Twitter",
-        "loginWithLinkedin": "Einloggen mit Linkedin"
+        "loginWithLinkedin": "Einloggen mit Linkedin",
+        "error": "Fehler",
+        "success": "Erfolgreich",
+        "fillAllFields": "Bitte füllen Sie alle Felder aus",
+        "loginSuccessful": "Sie wurden erfolgreich eingeloggt",
+        "loginFailed": "Login fehlgeschlagen. Bitte prüfen Sie Ihre Eingaben",
+        "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten",
+
+        "LOGIN_INVALID_DATA": "Ungültige Daten",
+        "LOGIN_INVALID_DATA_DESCRIPTION": "Passwort oder Benutzername/E-Mail falsch, oder der Account ist nicht aktiviert"
     },
     "register": {
+
         "title": "Erstelle ein Account",
         "mail": "E-Mail",
         "mailPlaceholder": "max@example.com...",
@@ -48,7 +58,18 @@
         "passwordLowercase": "Das Passwort muss mindestens einen Kleinbuchstaben enthalten",
         "passwordNumber": "Das Passwort muss mindestens eine Zahl enthalten",
         "passwordSpecial": "Das Passwort muss mindestens ein Sonderzeichen enthalten",
-        "passwordsDoNotMatch": "Die Passwörter müssen übereinstimmen"
+        "passwordsDoNotMatch": "Die Passwörter müssen übereinstimmen",
+
+        "REGISTRATION_CONFLICT": "Fehler beim Registrieren",
+        "REGISTRATION_CONFLICT_DESCRIPTION": "Der Benutzername oder die E-Mail-Adresse ist bereits in Verwendung",
+        "REGISTRATION_ERROR": "Fehler beim Registrieren",
+        "REGISTRATION_ERROR_DESCRIPTION": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
+
+        "emailExists": "Die E-Mail-Adresse ist bereits in Verwendung",
+        "usernameExists": "Der Benutzername ist bereits in Verwendung",
+
+        "INVALID_REQUEST": "Ungültige Anfrage",
+        "INVALID_REQUEST_DESCRIPTION": "Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es erneut."
     },
     "forgotPassword": {
         "title": "Passwort zurücksetzen",

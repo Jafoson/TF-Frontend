@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react'
 import styles from './page.module.scss'
-import Button from '@/components/Button/Button'
 import AuthTopBar from '@/components/Topbar/AuthTopBar/AuthTopBar'
 import ScrollContainer from '@/components/utils/ScrollContainer/ScrollContainer'
 import { useTranslations } from 'next-intl'

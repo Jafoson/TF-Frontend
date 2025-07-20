@@ -86,7 +86,29 @@
         "subtitle": "Bitte bestätigen Sie Ihre E-Mail-Adresse",
         "description": "Wir haben einen Bestätigungscode an {email} gesendet. Bitte geben Sie den Code hier ein, um Ihre Registrierung abzuschließen.",
         "continue": "Weiter",
-        "resendEmail": "E-Mail erneut senden"
+        "resendEmail": "E-Mail erneut senden",
+        "INVALID_CODE": "Ungültiger Code",
+        "INVALID_CODE_DESCRIPTION": "Der Code ist ungültig. Bitte versuchen Sie es erneut",
+        "VERIFICATION_ERROR": "Verifizierungsfehler",
+        "VERIFICATION_ERROR_DESCRIPTION": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
+        "VERIFICATION_SUCCESS": "Verifizierung erfolgreich",
+        "VERIFICATION_SUCCESS_DESCRIPTION": "Ihre E-Mail-Adresse wurde erfolgreich bestätigt. Sie können jetzt direkt loslegen.",
+        "INTERNAL_SERVER_ERROR": "Interner Serverfehler",
+        "INTERNAL_SERVER_ERROR_DESCRIPTION": "Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es erneut",
+        "LOGIN_INVALID_DATA": "Ungültiger Code",
+        "LOGIN_INVALID_DATA_DESCRIPTION": "Der Code ist ungültig. Bitte versuchen Sie es erneut",
+        "VERIFICATION_CODE_SENT": "Neue E-Mail gesendet",
+        "VERIFICATION_CODE_SENT_DESCRIPTION": "Ein neuer Bestätigungscode wurde an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihren Posteingang.",
+        "EMAIL_REQUIRED": "E-Mail erforderlich",
+        "EMAIL_REQUIRED_DESCRIPTION": "Keine E-Mail-Adresse gefunden",
+        "USER_NOT_FOUND": "Benutzer nicht gefunden",
+        "USER_NOT_FOUND_DESCRIPTION": "Der Benutzer wurde nicht gefunden. Bitte versuchen Sie es erneut.",
+        "EMAIL_ALREADY_VERIFIED": "E-Mail bereits bestätigt",
+        "EMAIL_ALREADY_VERIFIED_DESCRIPTION": "Ihre E-Mail-Adresse wurde bereits bestätigt. Sie können jetzt direkt loslegen.",
+        "RESEND_FAILED": "E-Mail erneut senden fehlgeschlagen",
+        "RESEND_FAILED_DESCRIPTION": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+        "RESEND_SUCCESS": "E-Mail erfolgreich erneut gesendet",
+        "RESEND_SUCCESS_DESCRIPTION": "Ein neuer Bestätigungscode wurde an Ihre E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihren Posteingang."
     },
     "confirmMailSuccess": {
         "title": "E-Mail erfolgreich bestätigt",
@@ -109,6 +131,17 @@
         "confirmPassword": "Passwort bestätigen",
         "confirmPasswordPlaceholder": "Password123...",
         "resetPassword": "Passwort zurücksetzen"
+    },
+    "confirmMailState": {
+        "title": "Registrierung abschließen",
+        "subtitle": "Bitte warten Sie einen Moment",
+        "description": "Wir verifizieren Ihre E-Mail-Adresse. Dies kann einige Sekunden dauern."
+    },
+    "confirmMailFailure": {
+        "title": "Registrierung fehlgeschlagen",
+        "subtitle": "Bitte versuchen Sie es erneut",
+        "description": "Wir konnten Ihre E-Mail-Adresse nicht verifizieren.",
+        "resendEmail": "E-Mail erneut senden"
     }
 
 }

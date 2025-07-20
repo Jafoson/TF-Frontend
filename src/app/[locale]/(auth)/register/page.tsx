@@ -70,7 +70,7 @@ export default function RegisterPage() {
         localStorage.setItem('email', result.user.email)
       }
 
-      router.push('/register/confirm-mail')
+      router.push('/verify')
     } catch (err) {
       console.error(err)
       setErrors([{ field: 'general', message: t('registrationFailed') }])

@@ -85,8 +85,30 @@
         "subtitle": "Please confirm your email address",
         "description": "We have sent a confirmation code to {email}. Please enter the code here to complete your registration.",
         "continue": "Continue",
-        "resendEmail": "Resend Email"
-    },
+        "resendEmail": "Resend Email",
+        "INVALID_CODE": "Invalid Code",
+        "INVALID_CODE_DESCRIPTION": "The code is invalid. Please try again",
+        "VERIFICATION_ERROR": "Verification Error",
+        "VERIFICATION_ERROR_DESCRIPTION": "An error occurred. Please try again",
+        "VERIFICATION_SUCCESS": "Verification Successful",
+        "VERIFICATION_SUCCESS_DESCRIPTION": "Your email address has been successfully confirmed. You can now start directly.",
+        "INTERNAL_SERVER_ERROR": "Internal Server Error",
+        "INTERNAL_SERVER_ERROR_DESCRIPTION": "An unexpected error occurred. Please try again",
+        "LOGIN_INVALID_DATA": "Invalid Code",
+        "LOGIN_INVALID_DATA_DESCRIPTION": "The code is invalid. Please try again",
+        "VERIFICATION_CODE_SENT": "New Mail Sent",
+        "VERIFICATION_CODE_SENT_DESCRIPTION": "A new verification code has been sent to your email address. Please check your inbox.",
+        "EMAIL_REQUIRED": "Email Required",
+        "EMAIL_REQUIRED_DESCRIPTION": "No email address found",
+        "USER_NOT_FOUND": "User Not Found",
+        "USER_NOT_FOUND_DESCRIPTION": "The user was not found. Please try again.",
+        "EMAIL_ALREADY_VERIFIED": "Email Already Verified",
+        "EMAIL_ALREADY_VERIFIED_DESCRIPTION": "Your email address has already been confirmed. You can now start directly.",
+        "RESEND_FAILED": "Resend Failed",
+        "RESEND_FAILED_DESCRIPTION": "An error occurred. Please try again.",
+        "RESEND_SUCCESS": "Resend Success",
+        "RESEND_SUCCESS_DESCRIPTION": "A new verification code has been sent to your email address. Please check your inbox."
+    },	
     "confirmMailSuccess": {
         "title": "Email successfully confirmed",
         "subtitle": "Welcome to Tournament Fox!",
@@ -108,5 +130,16 @@
         "confirmPassword": "Confirm Password",
         "confirmPasswordPlaceholder": "Password123...",
         "resetPassword": "Reset Password"
+    },
+    "confirmMailState": {
+        "title": "Complete Registration",
+        "subtitle": "Please wait a moment",
+        "description": "We are verifying your email address. This may take a few seconds."
+    },
+    "confirmMailFailure": {
+        "title": "Registration failed",
+        "subtitle": "Please try again",
+        "description": "We were unable to verify your email address.",
+        "resendEmail": "Resend Email"
     }
 }

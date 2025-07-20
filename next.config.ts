@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: 'standalone',
   trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
 };
 
 const withNextIntl = createNextIntlPlugin();

@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Kopiere package.json und package-lock.json
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Rebuild der Anwendung
 FROM base AS builder
@@ -33,7 +33,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Kopiere die gebaute Anwendung
+# Kopiere die public-Dateien zuerst
 COPY --from=builder /app/public ./public
 
 # Setze die korrekten Berechtigungen für prerender cache
@@ -43,6 +43,9 @@ RUN chown nextjs:nodejs .next
 # Automatisch nutzen Sie die Ausgabe von 'npm run build'
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Stelle sicher, dass nextjs user Zugriff auf public hat
+RUN chown -R nextjs:nodejs ./public
 
 USER nextjs
 

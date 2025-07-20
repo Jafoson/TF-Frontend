@@ -158,3 +158,94 @@ export async function loginUser(formData: FormData) {
     }
   }
 } 
+
+export async function verifyCode(formData: FormData) {
+  try {
+    const code = formData.get('code') as string
+
+    const body = {
+      code,
+    }
+
+    // Explicitly check for development environment
+    const isDev = process.env.NODE_ENV === 'development'
+    const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
+    
+    console.log('NODE_ENV:', process.env.NODE_ENV)
+    console.log('API_URL from env:', process.env.API_URL)
+    console.log('Using API URL:', apiUrl)
+    console.log('Full endpoint:', `${apiUrl}/api/auth/verify-code`)
+
+    // API-Aufruf an das Backend
+    const backendResponse = await fetch(`${apiUrl}/api/auth/verify-code`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    console.log(backendResponse.status)
+
+    const data = await backendResponse.json()
+    console.log(data)
+
+    return {
+      success: data.success,
+      code: data.code,
+    }
+  } catch (error) {
+    console.error('Verify-Code-Fehler:', error)
+    return {
+      success: false,
+      code: 'INTERNAL_SERVER_ERROR',
+    }
+  }
+} 
+
+export async function resendVerificationEmail(formData: FormData) {
+  try {
+    const email = formData.get('email') as string
+    console.log('Extrahierte E-Mail aus FormData:', email)
+    console.log('E-Mail ist leer/null:', !email)
+
+    const body = {
+      email,
+    }
+    console.log('Request Body:', JSON.stringify(body))
+
+    // Explicitly check for development environment
+    const isDev = process.env.NODE_ENV === 'development'
+    const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
+    
+    console.log('NODE_ENV:', process.env.NODE_ENV)
+    console.log('API_URL from env:', process.env.API_URL)
+    console.log('Using API URL:', apiUrl)
+    console.log('Full endpoint:', `${apiUrl}/api/auth/resend-verification`)
+
+    // API-Aufruf an das Backend (POST-Request)
+    const backendResponse = await fetch(`${apiUrl}/api/auth/resend-verification`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    console.log(backendResponse.status)
+
+    const data = await backendResponse.json()
+    console.log(data)
+
+    return {
+      success: data.success,
+      code: data.code,
+    }
+  } catch (error) {
+    console.error('Resend-Verification-Fehler:', error)
+    return {
+      success: false,
+      code: 'INTERNAL_SERVER_ERROR',
+    }
+  }
+} 

@@ -23,6 +23,13 @@ export default function ForgotPasswordMailSendPage() {
     <p className={styles.description}>{t('description')}</p>
     <div className={styles.formContainer}>
     <Button title={t('continue')} variant='filled' fullWidth className={styles.continueButton} onClick={() => router.push('/login')}/>
+    <Button 
+      title={t('resendEmail')} 
+      variant='text' 
+      fullWidth 
+      className={styles.resendEmailButton} 
+      onClick={() => router.push('/forgot-password')}
+    />
     </div>
     </ScrollContainer>
     </>

@@ -249,3 +249,93 @@ export async function resendVerificationEmail(formData: FormData) {
     }
   }
 } 
+
+export async function requestPasswordReset(formData: FormData) {
+  try {
+    const email = formData.get('email') as string
+
+    const body = {
+      email,
+    }
+
+    // Explicitly check for development environment
+    const isDev = process.env.NODE_ENV === 'development'
+    const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
+    
+    console.log('NODE_ENV:', process.env.NODE_ENV)
+    console.log('API_URL from env:', process.env.API_URL)
+    console.log('Using API URL:', apiUrl)
+    console.log('Full endpoint:', `${apiUrl}/api/auth/request-mail-reset`)
+
+    // API-Aufruf an das Backend
+    const backendResponse = await fetch(`${apiUrl}/api/auth/request-mail-reset`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    console.log(backendResponse.status)
+
+    const data = await backendResponse.json()
+    console.log(data)
+
+    return {
+      success: data.success,
+      code: data.code,
+    }
+  } catch (error) {
+    console.error('Request-Password-Reset-Fehler:', error)
+    return {
+      success: false,
+      code: 'INTERNAL_SERVER_ERROR',
+    }
+  }
+}
+
+export async function resetPassword(formData: FormData) {
+  try {
+    const token = formData.get('token') as string
+    const newPassword = formData.get('newPassword') as string
+
+    const body = {
+      token,
+      newPassword,
+    }
+
+    // Explicitly check for development environment
+    const isDev = process.env.NODE_ENV === 'development'
+    const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
+    
+    console.log('NODE_ENV:', process.env.NODE_ENV)
+    console.log('API_URL from env:', process.env.API_URL)
+    console.log('Using API URL:', apiUrl)
+    console.log('Full endpoint:', `${apiUrl}/api/auth/reset-mail`)
+
+    // API-Aufruf an das Backend
+    const backendResponse = await fetch(`${apiUrl}/api/auth/reset-mail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+
+    console.log(backendResponse.status)
+
+    const data = await backendResponse.json()
+    console.log(data)
+
+    return {
+      success: data.success,
+      code: data.code,
+    }
+  } catch (error) {
+    console.error('Reset-Password-Fehler:', error)
+    return {
+      success: false,
+      code: 'INTERNAL_SERVER_ERROR',
+    }
+  }
+} 

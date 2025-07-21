@@ -76,10 +76,22 @@
         "subtitle": "Haben Sie Ihr Passwort vergessen?",
         "description": "Kein Problem – geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
         "resendEmail": "E-Mail erneut senden",
-        "footerText": "Wenn Sie keine E-Mail erhalten, prüfen Sie bitte auch Ihren Spam-Ordner. Sie können den Link nach 60 Sekunden erneut anfordern.",
+        "footerText": "Wenn Sie keine E-Mail erhalten, prüfen Sie bitte auch Ihren Spam-Ordner.",
         "mail": "E-Mail",
         "mailPlaceholder": "max@example.com...",
-        "resetPassword": "Passwort zurücksetzen"
+        "resetPassword": "Passwort zurücksetzen",
+        "EMAIL_REQUIRED": "E-Mail erforderlich",
+        "EMAIL_REQUIRED_DESCRIPTION": "Keine E-Mail-Adresse gefunden",
+        "INVALID_EMAIL": "Ungültige E-Mail-Adresse",
+        "INVALID_EMAIL_DESCRIPTION": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+        "REQUEST_RESET_ERROR": "Fehler beim Zurücksetzen des Passworts",
+        "REQUEST_RESET_ERROR_DESCRIPTION": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
+        "PASSWORD_RESET_SENT": "Passwort zurücksetzen",
+        "PASSWORD_RESET_SENT_DESCRIPTION": "Wir haben Ihnen eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts gesendet. Bitte überprüfen Sie Ihren Posteingang.",
+        "PASSWORD_RESET_FAILED": "Fehler beim Zurücksetzen des Passworts",
+        "PASSWORD_RESET_FAILED_DESCRIPTION": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
+        "REQUEST_RESET_SUCCESS": "Passwort zurücksetzen",
+        "REQUEST_RESET_SUCCESS_DESCRIPTION": "Wir haben Ihnen eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts gesendet. Bitte überprüfen Sie Ihren Posteingang."
     },
     "confirmMail": {
         "title": "Registrierung abschließen",
@@ -120,7 +132,8 @@
         "title": "E-Mail zum Zurücksetzen gesendet",
         "subtitle": "Bitte überprüfe dein Postfach",
         "description": "Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt. Folge dem Link, um ein neues Passwort zu erstellen.",
-        "continue": "Zurück zum Login"
+        "continue": "Zurück zum Login",
+        "resendEmail": "E-Mail erneut senden"
     },
     "resetPassword": {
         "title": "Neues Passwort festlegen",
@@ -130,7 +143,24 @@
         "passwordPlaceholder": "Password123...",
         "confirmPassword": "Passwort bestätigen",
         "confirmPasswordPlaceholder": "Password123...",
-        "resetPassword": "Passwort zurücksetzen"
+        "resetPassword": "Passwort zurücksetzen",
+        "PASSWORD_REQUIRED": "Passwort erforderlich",
+        "PASSWORD_REQUIRED_DESCRIPTION": "Kein Passwort gefunden",
+        "PASSWORDS_NOT_MATCH": "Passwörter stimmen nicht überein",
+        "PASSWORDS_NOT_MATCH_DESCRIPTION": "Die Passwörter stimmen nicht überein",
+        "PASSWORD_TOO_SHORT": "Passwort zu kurz",
+        "PASSWORD_TOO_SHORT_DESCRIPTION": "Das Passwort muss mindestens 8 Zeichen lang sein",
+        "INVALID_RESET_TOKEN": "Ungültiges Zurücksetzen-Token",
+        "INVALID_RESET_TOKEN_DESCRIPTION": "Der Link ist abgelaufen oder ungültig", 
+        "RESET_PASSWORD_ERROR": "Fehler beim Zurücksetzen des Passworts",
+        "RESET_PASSWORD_ERROR_DESCRIPTION": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut",
+        "RESET_PASSWORD_SUCCESS": "Passwort zurücksetzen",
+        "RESET_PASSWORD_SUCCESS_DESCRIPTION": "Ihr Passwort wurde erfolgreich zurückgesetzt. Sie können jetzt direkt loslegen.",
+        "TOKEN_ALREADY_USED": "Token bereits verwendet",
+        "TOKEN_ALREADY_USED_DESCRIPTION": "Der Link ist bereits verwendet worden. Bitte fordern Sie einen neuen Link an.",
+        "INTERNAL_SERVER_ERROR": "Interner Serverfehler",
+        "INTERNAL_SERVER_ERROR_DESCRIPTION": "Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es erneut"
+
     },
     "confirmMailState": {
         "title": "Registrierung abschließen",

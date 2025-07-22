@@ -265,10 +265,10 @@ export async function requestPasswordReset(formData: FormData) {
     console.log('NODE_ENV:', process.env.NODE_ENV)
     console.log('API_URL from env:', process.env.API_URL)
     console.log('Using API URL:', apiUrl)
-    console.log('Full endpoint:', `${apiUrl}/api/auth/request-mail-reset`)
+    console.log('Full endpoint:', `${apiUrl}/api/auth/request-password-reset`)
 
     // API-Aufruf an das Backend
-    const backendResponse = await fetch(`${apiUrl}/api/auth/request-mail-reset`, {
+    const backendResponse = await fetch(`${apiUrl}/api/auth/request-password-reset`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -311,10 +311,10 @@ export async function resetPassword(formData: FormData) {
     console.log('NODE_ENV:', process.env.NODE_ENV)
     console.log('API_URL from env:', process.env.API_URL)
     console.log('Using API URL:', apiUrl)
-    console.log('Full endpoint:', `${apiUrl}/api/auth/reset-mail`)
+    console.log('Full endpoint:', `${apiUrl}/api/auth/reset-password`)
 
     // API-Aufruf an das Backend
-    const backendResponse = await fetch(`${apiUrl}/api/auth/reset-mail`, {
+    const backendResponse = await fetch(`${apiUrl}/api/auth/reset-password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

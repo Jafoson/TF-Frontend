@@ -1,0 +1,15 @@
+.container {
+  background-color: rgb(var(--surface));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100dvh;
+}
+
+.content {
+  background-color: green;
+  width: 100%;
+  height: 100%;
+}

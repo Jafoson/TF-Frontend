@@ -172,6 +172,17 @@
         "subtitle": "Bitte versuchen Sie es erneut",
         "description": "Wir konnten Ihre E-Mail-Adresse nicht verifizieren.",
         "resendEmail": "E-Mail erneut senden"
+    },
+    "navigationDrawer": {
+        "home": "Startseite",
+        "games": "Spiele",
+        "events": "Events",
+        "teams": "Teams",
+        "matches": "Matches",
+        "settings": "Einstellungen",
+        "privacyPolicy": "Datenschutz",
+        "imprint": "Impressum",
+        "termsOfService": "AGBs"
     }
 
 }

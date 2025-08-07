@@ -170,5 +170,16 @@
         "subtitle": "Please try again",
         "description": "We were unable to verify your email address.",
         "resendEmail": "Resend Email"
+    },
+    "navigationDrawer": {
+        "home": "Home",
+        "games": "Games",
+        "events": "Events",
+        "teams": "Teams",
+        "matches": "Matches",
+        "settings": "Settings",
+        "privacyPolicy": "Privacy Policy",
+        "imprint": "Imprint",
+        "termsOfService": "Terms of Service"
     }
 }

@@ -42,8 +42,8 @@ docker-build:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build -t $IMAGE_NAME:frontend_dev-${CI_COMMIT_SHORT_SHA} .
-    - docker push $IMAGE_NAME:frontend_dev-${CI_COMMIT_SHORT_SHA}
+    - docker build -t $IMAGE_NAME:frontenddev-${CI_COMMIT_SHORT_SHA} .
+    - docker push $IMAGE_NAME:frontenddev-${CI_COMMIT_SHORT_SHA}
   dependencies:
     - build
   only:
@@ -73,12 +73,12 @@ deploy-dev:
     git checkout -B $EXTERNAL_REPO_BRANCH origin/$EXTERNAL_REPO_BRANCH
 
     # Image und timestamp in der existierenden Datei setzen
-    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:frontend_dev-${CI_COMMIT_SHORT_SHA}|" deployments/frontend/dev/deployment.yaml
+    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:frontenddev-${CI_COMMIT_SHORT_SHA}|" deployments/frontend/dev/deployment.yaml
     yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/dev/deployment.yaml
 
     # Commit und Push zum externen Repository
     git add deployments/frontend/dev/deployment.yaml
-    git commit -m "Update frontend dev deployment manifest [skip ci] - Image: $IMAGE_NAME:frontend_dev-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
+    git commit -m "Update frontend dev deployment manifest [skip ci] - Image: $IMAGE_NAME:frontenddev-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
 
     git push origin $EXTERNAL_REPO_BRANCH
 
@@ -115,12 +115,12 @@ deploy-prod:
     git checkout -B $EXTERNAL_REPO_BRANCH origin/$EXTERNAL_REPO_BRANCH
 
     # Image und timestamp in der existierenden Datei setzen
-    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:frontend_prod-${CI_COMMIT_SHORT_SHA}|" deployments/frontend/prod/deployment.yaml
+    sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:frontendprod-${CI_COMMIT_SHORT_SHA}|" deployments/frontend/prod/deployment.yaml
     yq -i '.metadata.annotations."argocd.sync.timestamp" = strenv(TIMESTAMP)' deployments/frontend/prod/deployment.yaml
 
     # Commit und Push zum externen Repository
     git add deployments/frontend/prod/deployment.yaml
-    git commit -m "Update frontend production deployment manifest [skip ci] - Image: $IMAGE_NAME:frontend_prod-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
+    git commit -m "Update frontend production deployment manifest [skip ci] - Image: $IMAGE_NAME:frontendprod-${CI_COMMIT_SHORT_SHA}" || echo "Nichts zu committen"
 
     git push origin $EXTERNAL_REPO_BRANCH
 

@@ -83,7 +83,7 @@ function NavigationDrawer() {
   );
 }
 
-const DrawerTabs = ({ t }: { t: any }) => {
+const DrawerTabs = ({ t }: { t: (key: string) => string }) => {
   const tabs = [
     {
       title: "home",

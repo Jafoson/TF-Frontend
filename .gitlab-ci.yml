@@ -33,6 +33,8 @@ build:
 
 # Docker Build and Push Stage
 docker-build:
+
+  echo "IMAGE_NAME: $IMAGE_NAME"
   stage: docker
   image: docker:latest
   services:

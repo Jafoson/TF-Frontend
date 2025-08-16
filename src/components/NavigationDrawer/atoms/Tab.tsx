@@ -7,12 +7,27 @@ interface TabProps {
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
   activeIcon: React.FC<React.SVGProps<SVGSVGElement>>;
   href: string;
+  isOpen: boolean;
+  isExpanded: boolean;
 }
 
-function Tab({ title, icon: Icon, activeIcon: ActiveIcon, href }: TabProps) {
+function Tab({
+  title,
+  icon: Icon,
+  activeIcon: ActiveIcon,
+  href,
+  isOpen,
+  isExpanded,
+}: TabProps) {
   const pathname = usePathname();
   return (
-    <Link data-active={pathname === href} href={href} className={styles.tab}>
+    <Link
+      data-active={pathname === href}
+      href={href}
+      className={styles.tab}
+      data-expanded={isExpanded}
+      data-open={isOpen}
+    >
       {pathname === href ? (
         <ActiveIcon height={28} width={28} />
       ) : (

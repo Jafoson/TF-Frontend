@@ -183,6 +183,9 @@
         "privacyPolicy": "Datenschutz",
         "imprint": "Impressum",
         "termsOfService": "AGBs"
+    },
+    "topBar": {
+        "login": "Login",
+        "register": "Registrieren"
     }
-
 }

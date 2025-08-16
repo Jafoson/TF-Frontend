@@ -181,5 +181,9 @@
         "privacyPolicy": "Privacy Policy",
         "imprint": "Imprint",
         "termsOfService": "Terms of Service"
+    },
+    "topBar": {
+        "login": "Login",
+        "register": "Register"
     }
 }

@@ -13,6 +13,7 @@
   transition: padding 0.2s ease-in-out;
   outline-color: rgb(var(--primary));
 
+
   &::after {
     background-color: rgb(var(--on-surface));
     content: "";
@@ -52,5 +53,63 @@
   &:focus-visible {
     outline-offset: 2px;
     outline: 2px solid rgb(var(--primary));
+  }
+
+  &[data-expanded="false"] {
+    &{
+      padding: 0.625rem;
+      justify-content: center;
+    }
+    & > span{
+      display: none;
+    }
+    &[data-active="true"] {
+      padding: 0.625rem;
+    }
+    &:hover{
+      padding: 0.625rem;
+    }
+    &:active {
+      padding: 0.625rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+
+    &{
+      padding: 0.625rem;
+      justify-content: center;
+    }
+    & > span{
+      display: none;
+    }
+    &[data-active="true"] {
+      padding: 0.625rem;
+    }
+    &:hover{
+      padding: 0.625rem;
+    }
+    &:active {
+      padding: 0.625rem;
+    }
+
+    &[data-open="true"] {
+      padding: 0.625rem 0.5rem;
+      justify-content: left;
+
+      & > span{
+        display: block;
+      }
+      &[data-active="true"] {
+        padding: 0.625rem 0.5rem;
+      }
+      &:hover{
+        padding-left: 0.75rem; 
+      }
+      &:active {
+        padding-left: 0.75rem;
+      }
+    }
+    
   }
 }

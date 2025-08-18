@@ -1,39 +1,24 @@
-import React from 'react'
-import Image from 'next/image'
+"use client";
+
+import React, { useEffect } from "react";
+import Image from "next/image";
+import { useTitle } from "@/context/TitleContext";
+import styles from "./page.module.scss";
+import ScrollContainer from "@/components/utils/ScrollContainer/ScrollContainer";
 
 function HomePage() {
+  const { setTitle } = useTitle();
+  useEffect(() => {
+    setTitle("Current Matches");
+  }, []);
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Hallo wenn du das liest, dann ist alles gut</h1>
-      <div style={{ marginTop: '2rem' }}>
-        <h2>Static Assets Test:</h2>
-        <div style={{ marginTop: '1rem' }}>
-          <h3>Logo Test:</h3>
-          <Image
-            src="/logo/tf_logo_light.svg"
-            alt="Tournament Fox Logo"
-            width={200}
-            height={100}
-            style={{ marginTop: '1rem' }}
-          />
-        </div>
-        <div style={{ marginTop: '1rem' }}>
-          <h3>Background Image Test:</h3>
-          <div 
-            style={{
-              width: '300px',
-              height: '200px',
-              backgroundImage: 'url(/background/LeagueofLegends_Worlds2022_ChaseCenter_California_Stage-1536x864.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              border: '1px solid #ccc',
-              marginTop: '1rem'
-            }}
-          />
-        </div>
-      </div>
+    <div className={styles.homePage}>
+      <ScrollContainer className={styles.scrollContainer}>
+        <h1>Hier kommen die Matches</h1>
+      </ScrollContainer>
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

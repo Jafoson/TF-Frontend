@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./TopBar.module.scss";
-import IconButton from "@/components/IconButton/IconButton";
+import IconButton from "@/components/atoms/IconButton/IconButton";
 import { MenuIcon } from "@/assets/icons";
-import Button from "@/components/Button/Button";
+import Button from "@/components/atoms/Button/Button";
 import { useTranslations } from "next-intl";
+import { useTitle } from "@/context/TitleContext";
 
 function TopBar({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
+  const { title } = useTitle();
   const [windowWidth, setWindowWidth] = useState(0);
   const t = useTranslations("topBar");
   useEffect(() => {
@@ -33,14 +35,13 @@ function TopBar({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
         iconSize={32}
         onClick={() => setIsOpen(true)}
       />
-      <h1>Tournamentfox</h1>
+      <h1>{title}</h1>
       <div className={styles.topBarRight}>
         <Button
           isLink
           variant={windowWidth < 600 ? "filled" : "outlined"}
           size="small"
           title={t("login")}
-          id={styles.topBarLoginButton}
           href="/login"
         />
         <Button
@@ -48,7 +49,7 @@ function TopBar({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
           variant="filled"
           size="small"
           title={t("register")}
-          id={styles.topBarRegisterButton}
+          className={styles.topBarRegisterButton}
           href="/register"
         />
       </div>

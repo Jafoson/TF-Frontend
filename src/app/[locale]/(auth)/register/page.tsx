@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import styles from "./page.module.scss";
-import TextInput from "@/components/inputs/TextInput/TextInput";
+import TextInput from "@/components/atoms/inputs/TextInput/TextInput";
 import { Link } from "@/i18n/navigation";
-import Button from "@/components/Button/Button";
+import Button from "@/components/atoms/Button/Button";
 import {
   AppleLogoIcon,
   GoogleLogoIcon,
@@ -12,7 +12,7 @@ import {
   MailIcon,
   UserIcon,
 } from "@/assets/icons";
-import AuthTopBar from "@/components/Topbar/AuthTopBar/AuthTopBar";
+import AuthTopBar from "@/components/layout/Topbar/AuthTopBar/AuthTopBar";
 import ScrollContainer from "@/components/utils/ScrollContainer/ScrollContainer";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";

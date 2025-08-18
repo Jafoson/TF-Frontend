@@ -1,14 +1,20 @@
-import React from 'react'
-import styles from './ScrollContainer.module.scss'
+import React from "react";
+import styles from "./ScrollContainer.module.scss";
 
-type ScrollContainerProps = {
-    children: React.ReactNode
-}
+type ScrollContainerProps = React.HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode;
+};
 
-function ScrollContainer({children}: ScrollContainerProps) {
+function ScrollContainer({
+  children,
+  className,
+  ...props
+}: ScrollContainerProps) {
   return (
-    <div className={styles.container}>{children}</div>
-  )
+    <div className={`${styles.container} ${className}`} {...props}>
+      {children}
+    </div>
+  );
 }
 
-export default ScrollContainer
+export default ScrollContainer;

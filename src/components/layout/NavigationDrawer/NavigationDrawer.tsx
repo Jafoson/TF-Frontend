@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
-import IconButton from "../IconButton/IconButton";
+import React, { useEffect, useState } from "react";
+import IconButton from "@/components/atoms/IconButton/IconButton";
 import {
-  CloseIcon,
   ControllerIcon,
   EventIcon,
   HomeIcon,
@@ -23,7 +22,7 @@ import Tab from "./atoms/Tab";
 import { useTranslations } from "next-intl";
 import styles from "./NavigationDrawer.module.scss";
 import { DiscordLogo, TFLogo, XLogo } from "@/assets/icons/logos";
-import { ArrowNextFillIcon, MailIcon } from "@/assets/icons";
+import { MailIcon } from "@/assets/icons";
 import { Link } from "@/i18n/navigation";
 
 interface NavigationDrawerProps {

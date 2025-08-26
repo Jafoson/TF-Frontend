@@ -34,7 +34,7 @@ build:
 # Docker Build and Push Stage
 include:
   - project: "tournamentfox/ci-templates"
-    file: "default/build.yml"
+    file: "default/docker-build.yml"
     ref: main
 
 # Deploy to External Repository (Development)

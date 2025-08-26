@@ -36,9 +36,6 @@ include:
   - project: "tournamentfox/ci-templates"
     file: "default/build.yml"
     ref: main
-    only:
-      - dev
-      - main
 
 # Deploy to External Repository (Development)
 deploy-dev:

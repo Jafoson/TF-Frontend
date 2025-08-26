@@ -32,29 +32,13 @@ build:
     - main
 
 # Docker Build and Push Stage
-docker-build:
-  stage: docker
-  image: docker:latest
-  services:
-    - docker:dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - echo "IMAGE_NAME ${IMAGE_NAME}"
-    - docker build -t $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA} .
-    - docker push $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}
-    - |
-      if [ "$CI_COMMIT_BRANCH" = "main" ]; then
-        docker tag $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA} $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}
-        docker push $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}
-      fi
-  dependencies:
-    - build
-  only:
-    - dev
-    - main
+include:
+  - project: "tournamentfox/ci-templates"
+    file: "default/build.yml"
+    ref: dev
+    only:
+      - dev
+      - main
 
 # Deploy to External Repository (Development)
 deploy-dev:

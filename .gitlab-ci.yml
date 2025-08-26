@@ -45,9 +45,10 @@ docker-build:
     - echo "IMAGE_NAME ${IMAGE_NAME}"
     - docker build -t $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA} .
     - docker push $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}
-    - if [ "$CI_COMMIT_BRANCH" = "main" ]; then \
-      docker tag $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA} $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}; \
-      docker push $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}; \
+    - |
+      if [ "$CI_COMMIT_BRANCH" = "main" ]; then
+        docker tag $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA} $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}
+        docker push $IMAGE_NAME:prod-${CI_COMMIT_SHORT_SHA}
       fi
   dependencies:
     - build

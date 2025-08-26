@@ -64,8 +64,6 @@ deploy-dev:
       git push origin $EXTERNAL_REPO_BRANCH
 
       echo "Deployment manifest erfolgreich in externes Repository gepusht"
-  dependencies:
-    - docker-build
   only:
     - dev
   environment:
@@ -100,8 +98,6 @@ deploy-prod:
       git push origin $EXTERNAL_REPO_BRANCH
 
       echo "Production deployment manifest erfolgreich in externes Repository gepusht"
-  dependencies:
-    - docker-build
   only:
     - main
   environment:

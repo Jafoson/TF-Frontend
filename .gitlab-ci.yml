@@ -1,6 +1,6 @@
 stages:
   - build
-  - docker
+  - docker-build
   - deploy
 
 variables:

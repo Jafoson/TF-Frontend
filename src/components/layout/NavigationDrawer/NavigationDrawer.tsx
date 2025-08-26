@@ -105,9 +105,11 @@ function NavigationDrawer({
             iconSize={32}
             variant={"text"}
             onClick={() => {
-              window.innerWidth > 1024
-                ? setIsExpanded(!isExpanded)
-                : setIsOpen(!isOpen);
+              if (window.innerWidth > 1024) {
+                setIsExpanded(!isExpanded);
+              } else {
+                setIsOpen(!isOpen);
+              }
             }}
           />
           <Image
@@ -178,7 +180,7 @@ const DrawerTabs = ({
   isOpen,
   isExpanded,
 }: {
-  t: any;
+  t: (key: string) => string;
   isOpen: boolean;
   isExpanded: boolean;
 }) => {

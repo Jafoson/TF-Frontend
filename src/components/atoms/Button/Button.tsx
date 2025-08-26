@@ -17,7 +17,7 @@ type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
   iconPosition?: "left" | "right";
   iconSize?: number;
   iconColor?: string;
-  href?: string | URL | undefined | null | any;
+  href?: string | URL | null;
   isLink?: boolean;
 };
 function Button({
@@ -46,7 +46,7 @@ function Button({
         data-error={error}
         data-success={success}
         data-full-width={fullWidth}
-        href={href}
+        href={href ? href : " "}
       >
         {loading ? (
           <ALoadingIcon

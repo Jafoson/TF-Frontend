@@ -35,7 +35,7 @@ build:
 include:
   - project: "tournamentfox/ci-templates"
     file: "default/build.yml"
-    ref: dev
+    ref: main
     only:
       - dev
       - main

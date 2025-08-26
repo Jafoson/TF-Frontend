@@ -1,35 +1,10 @@
 stages:
-  - build
   - docker-build
   - deploy
 
 variables:
-  NODE_VERSION: "18"
-  IMAGE_NAME: $CI_REGISTRY_IMAGE
-
   EXTERNAL_REPO_URL: "https://gitlab.com/tournamentfox/deployment.git"
   EXTERNAL_REPO_BRANCH: "main"
-
-cache:
-  paths:
-    - node_modules/
-
-# Build Stage
-build:
-  stage: build
-  image: node:${NODE_VERSION}
-  script:
-    - npm ci
-    - npm run build
-  artifacts:
-    paths:
-      - .next/
-      - public/
-      - node_modules/
-    expire_in: 1 hour
-  only:
-    - dev
-    - main
 
 # Docker Build and Push Stage
 include:

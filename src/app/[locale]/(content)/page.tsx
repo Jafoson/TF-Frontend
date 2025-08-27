@@ -1,14 +1,28 @@
 import React from "react";
 import { getSeries } from "@/actions/series";
+import { getGamesBatch } from "@/actions/game";
 import styles from "./page.module.scss";
 import { Metadata } from "next";
 import HomePageMatchList from "@/components/layout/Lists/HomePageMatchList/HomePageMatchList";
 import { SeriesDTO } from "@/types/series";
+import { GameDTO } from "@/types/game";
 
 // Diese Funktion wird serverseitig ausgeführt
 async function getData() {
   const seriesResponse = await getSeries(0, 10);
-  return seriesResponse.data?.data || [];
+  const series = seriesResponse.data?.data || [];
+
+  // Extrahiere alle einzigartigen gameIds aus den Series
+  const gameIds = [...new Set(series.map((s) => s.gameName))].filter(Boolean);
+
+  // Lade Game-Daten wenn gameIds vorhanden sind
+  let games: GameDTO[] = [];
+  if (gameIds.length > 0) {
+    const gamesResponse = await getGamesBatch(gameIds);
+    games = gamesResponse.success ? gamesResponse.data || [] : [];
+  }
+
+  return { series, games };
 }
 
 export const metadata: Metadata = {
@@ -18,11 +32,16 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Serverseitige Datenabfrage
-  const series = (await getData()) as SeriesDTO[];
+  const { series, games } = await getData();
 
   return (
     <div className={styles.homePage}>
-      <HomePageMatchList initialData={series} initialPage={0} pageSize={10} />
+      <HomePageMatchList
+        initialData={series}
+        initialGames={games}
+        initialPage={0}
+        pageSize={10}
+      />
     </div>
   );
 }

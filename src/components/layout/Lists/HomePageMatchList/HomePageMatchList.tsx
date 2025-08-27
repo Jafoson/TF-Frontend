@@ -3,23 +3,28 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./HomePageMatchList.module.scss";
 import { SeriesDTO } from "@/types/series";
+import { GameDTO } from "@/types/game";
 import SeriesCards from "../../Cards/SeriesCards/SeriesCards";
 import { getSeries } from "@/actions/series";
+import { getGamesBatch } from "@/actions/game";
 import { useInView } from "react-intersection-observer";
 import { SadIcon, ALoadingCircleIcon } from "@/assets/icons";
 
 type HomePageMatchListProps = {
   initialData: SeriesDTO[];
+  initialGames: GameDTO[];
   initialPage: number;
   pageSize: number;
 };
 
 function HomePageMatchList({
   initialData,
+  initialGames,
   initialPage,
   pageSize,
 }: HomePageMatchListProps) {
   const [series, setSeries] = useState<SeriesDTO[]>(initialData);
+  const [games, setGames] = useState<GameDTO[]>(initialGames);
   const [page, setPage] = useState<number>(initialPage);
   const [hasMoreData, setHasMoreData] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,13 +42,37 @@ function HomePageMatchList({
 
     try {
       const seriesResponse = await getSeries(nextPage, pageSize);
-      const series: SeriesDTO[] = seriesResponse.data?.data || [];
+      const newSeries: SeriesDTO[] = seriesResponse.data?.data || [];
 
-      if (series.length < pageSize) {
+      if (newSeries.length < pageSize) {
         setHasMoreData(false);
       }
 
-      setSeries((prevSeries) => [...prevSeries, ...series]);
+      // Extrahiere neue gameIds aus den neuen Series
+      const newGameIds = [...new Set(newSeries.map((s) => s.gameName))].filter(
+        Boolean
+      );
+
+      // Lade Game-Daten für neue gameIds wenn vorhanden
+      if (newGameIds.length > 0) {
+        try {
+          const gamesResponse = await getGamesBatch(newGameIds);
+          if (gamesResponse.success && gamesResponse.data) {
+            setGames((prevGames) => {
+              // Füge nur neue Games hinzu (vermeide Duplikate)
+              const existingGameIds = new Set(prevGames.map((g) => g.gameId));
+              const uniqueNewGames = gamesResponse.data!.filter(
+                (game) => !existingGameIds.has(game.gameId)
+              );
+              return [...prevGames, ...uniqueNewGames];
+            });
+          }
+        } catch (gameError) {
+          console.error("Error loading games:", gameError);
+        }
+      }
+
+      setSeries((prevSeries) => [...prevSeries, ...newSeries]);
     } catch (error) {
       console.error("Error loading more series:", error);
     } finally {
@@ -61,7 +90,7 @@ function HomePageMatchList({
     <div className={styles.scrollContainer}>
       {series.length > 0 ? (
         series.map((seriesItem) => (
-          <SeriesCards key={seriesItem.id} series={seriesItem} />
+          <SeriesCards key={seriesItem.id} series={seriesItem} games={games} />
         ))
       ) : (
         <div className={styles.noMatches}>

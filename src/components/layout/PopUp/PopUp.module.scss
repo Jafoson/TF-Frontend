@@ -1,0 +1,66 @@
+.trigger {
+  cursor: pointer;
+  display: inline-block;
+
+}
+
+.container {
+  background: rgb(var(--surface-container-highest));
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+  padding: 0.625rem 0.5rem;
+  min-width: 9rem;
+  max-width: 19rem;
+  z-index: 1000;
+}
+
+.property {
+  position: relative;
+  padding: 0.375rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(var(--on-surface));
+  outline-offset: 2px;
+
+  &:focus-visible{
+    outline: 2px solid rgb(var(--primary));
+  }
+
+  &::after{
+    margin: -1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: inherit;
+    background-color: rgb(var(--on-surface));
+    opacity: 0;
+    content: "";
+    transition: opacity 0.3s ease-in-out;
+}
+
+  &:hover::after{
+    opacity: 0.12;
+  }
+
+  &:active::after{
+    opacity: 0.20;
+  }
+  
+  // Disabled state
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}

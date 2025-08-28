@@ -195,25 +195,25 @@ const DrawerTabs = ({
       title: "games",
       icon: OutlineControllerIcon as React.FC<React.SVGProps<SVGSVGElement>>,
       activeIcon: ControllerIcon as React.FC<React.SVGProps<SVGSVGElement>>,
-      href: "/games",
+      href: "/games/",
     },
     {
       title: "matches",
       icon: OutlineSwordIcon as React.FC<React.SVGProps<SVGSVGElement>>,
       activeIcon: SwordIcon as React.FC<React.SVGProps<SVGSVGElement>>,
-      href: "/matches",
+      href: "/matches/",
     },
     {
       title: "teams",
       icon: OutlineTeamIcon as React.FC<React.SVGProps<SVGSVGElement>>,
       activeIcon: TeamIcon as React.FC<React.SVGProps<SVGSVGElement>>,
-      href: "/teams",
+      href: "/teams/",
     },
     {
       title: "events",
       icon: OutlineEventIcon as React.FC<React.SVGProps<SVGSVGElement>>,
       activeIcon: EventIcon as React.FC<React.SVGProps<SVGSVGElement>>,
-      href: "/events",
+      href: "/events/",
     },
   ];
 

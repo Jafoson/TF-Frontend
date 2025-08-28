@@ -17,7 +17,7 @@ export default function ConfirmMailStatePage() {
 
   useEffect(() => {
     const handleAutoVerify = async () => {
-      const code = params.code as string;
+      const code = params?.code as string;
 
       if (!code) {
         router.push("/verify/failure");
@@ -42,7 +42,7 @@ export default function ConfirmMailStatePage() {
     };
 
     handleAutoVerify();
-  }, [params.code, router]);
+  }, [params?.code, router]);
 
   return (
     <>

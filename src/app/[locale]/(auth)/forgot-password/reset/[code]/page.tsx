@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    const token = params.code as string;
+    const token = params?.code as string;
     if (!token) {
       showError(t("INVALID_RESET_TOKEN"), t("INVALID_RESET_TOKEN_DESCRIPTION"));
       setIsLoading(false);

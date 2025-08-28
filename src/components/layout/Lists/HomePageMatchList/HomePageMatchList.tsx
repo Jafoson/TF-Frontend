@@ -9,6 +9,7 @@ import { getSeries } from "@/actions/series";
 import { getGamesBatch } from "@/actions/game";
 import { useInView } from "react-intersection-observer";
 import { SadIcon, ALoadingCircleIcon } from "@/assets/icons";
+import { useTranslations } from "next-intl";
 
 type HomePageMatchListProps = {
   initialData: SeriesDTO[];
@@ -23,6 +24,7 @@ function HomePageMatchList({
   initialPage,
   pageSize,
 }: HomePageMatchListProps) {
+  const t = useTranslations("homeMatches");
   const [series, setSeries] = useState<SeriesDTO[]>(initialData);
   const [games, setGames] = useState<GameDTO[]>(initialGames);
   const [page, setPage] = useState<number>(initialPage);
@@ -95,18 +97,18 @@ function HomePageMatchList({
       ) : (
         <div className={styles.noMatches}>
           <SadIcon />
-          <p>Keine aktuellen Matches gefunden</p>
+          <p>{t("noMatches")}</p>
         </div>
       )}
       {hasMoreData ? (
         <div ref={scrollTrigger} className={styles.loading}>
           <ALoadingCircleIcon />
-          <p>Lade weitere Matches...</p>
+          <p>{t("loadingMore")}</p>
         </div>
       ) : (
         <div className={styles.noMatches}>
           <SadIcon />
-          <p>Keine weiteren Matches verfügbar</p>
+          <p>{t("noMoreMatches")}</p>
         </div>
       )}
     </div>

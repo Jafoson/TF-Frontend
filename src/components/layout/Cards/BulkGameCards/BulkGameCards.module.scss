@@ -15,6 +15,12 @@
   padding: 1rem 2rem;
   gap: 1rem;
 
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
 
   &::after{
     content: '';
@@ -40,7 +46,8 @@
 .image {
   width: 150px;
   height: 150px;
-  object-fit: fill;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 .content {
@@ -50,6 +57,13 @@
   flex-direction: column;
   justify-content: center;
   text-align: left;
+
+  @media (max-width: 480px) {
+    width: min-content;
+    min-width: 11rem;
+    max-width: 100%;
+  }
+
 
   & > h1{
     font-size: 1.75rem;
@@ -64,6 +78,10 @@
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+    @media (max-width: 480px) {
+      text-align: center;
+    }
   }
 
   & > p{

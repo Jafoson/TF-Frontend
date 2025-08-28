@@ -1,6 +1,6 @@
 import { StatusEnum } from "@/enum/statusEnum";
 import React from "react";
-import { useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import styles from "./ContentWrapper.module.scss";
 
 interface ContentWrapperProps {
@@ -15,6 +15,7 @@ interface ContentWrapperProps {
   winnerId: string | null;
   team1Id: string;
   team2Id: string;
+  t: ReturnType<typeof useTranslations>;
 }
 
 function ContentWrapper({
@@ -29,6 +30,7 @@ function ContentWrapper({
   winnerId,
   team1Id,
   team2Id,
+  t,
 }: ContentWrapperProps) {
   const format = useFormatter();
   function TimeContainer() {
@@ -43,7 +45,7 @@ function ContentWrapper({
               hour: "2-digit",
               minute: "2-digit",
             })}
-            {" Uhr"}
+            {t("clock")}
           </b>
         </h5>
       </div>
@@ -54,7 +56,7 @@ function ContentWrapper({
     return (
       <div className={styles.liveContainer}>
         <h4>
-          <b>⏺︎ Live</b>
+          <b>⏺︎ {t("live")}</b>
         </h4>
       </div>
     );

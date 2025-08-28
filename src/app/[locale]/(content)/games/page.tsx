@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import GamesList from "@/components/layout/Lists/GamesList/GamesList";
 import styles from "./page.module.scss";
-import GameFilters from "@/pages/games/dashboard/filter/filterLogik";
 import { BulkGameDTO, BulkGamesParams } from "@/types/game";
 import { getBulkGames } from "@/actions/game";
+import { useTranslations } from "next-intl";
+import GameFilters from "@/logic/games/dashboard/filter/FilterLogik";
 
 // Diese Funktion wird serverseitig ausgeführt
 async function getData(params: BulkGamesParams) {
@@ -18,6 +19,7 @@ async function getData(params: BulkGamesParams) {
 }
 
 export default function GamesPage() {
+  const t = useTranslations("gamesList");
   const [games, setGames] = useState<BulkGameDTO[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentFilters, setCurrentFilters] = useState<BulkGamesParams>({
@@ -26,7 +28,7 @@ export default function GamesPage() {
   });
 
   // Gemeinsame Funktion zum Laden der Games
-  const loadGames = async (filters: BulkGamesParams) => {
+  const loadGames = useCallback(async (filters: BulkGamesParams) => {
     setIsLoading(true);
     try {
       const responseGames = await getData(filters);
@@ -38,20 +40,28 @@ export default function GamesPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  // Initiales Laden der Games
+  useEffect(() => {
+    loadGames({ page: 0, size: 10 });
+  }, [loadGames]);
 
   // ✅ Separater useEffect um zu sehen wenn games sich ändert
   useEffect(() => {
     console.log("Games State updated:", games);
   }, [games]);
 
-  const handleFiltersChange = async (newFilters: BulkGamesParams) => {
-    console.log("Filter changed:", newFilters);
-    setCurrentFilters(newFilters);
+  const handleFiltersChange = useCallback(
+    async (newFilters: BulkGamesParams) => {
+      console.log("Filter changed:", newFilters);
+      setCurrentFilters(newFilters);
 
-    // Lade neue Daten mit den Filtern
-    await loadGames(newFilters);
-  };
+      // Lade neue Daten mit den Filtern
+      await loadGames(newFilters);
+    },
+    [loadGames]
+  );
 
   return (
     <div className={styles.container}>
@@ -59,7 +69,7 @@ export default function GamesPage() {
       <div className={styles.gamesContainer}>
         {isLoading ? (
           <div className={styles.container}>
-            <div>Lade Spiele...</div>
+            <div>{t("loading")}</div>
           </div>
         ) : (
           <GamesList

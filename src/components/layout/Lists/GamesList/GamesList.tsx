@@ -7,6 +7,7 @@ import BulkGameCards from "../../Cards/BulkGameCards/BulkGameCards";
 import { getBulkGames } from "@/actions/game";
 import { useInView } from "react-intersection-observer";
 import { SadIcon, ALoadingCircleIcon } from "@/assets/icons";
+import { useTranslations } from "next-intl";
 
 type GamesListProps = {
   initialData: BulkGameDTO[];
@@ -21,6 +22,7 @@ function GamesList({
   pageSize,
   filters = { page: 0, size: 10 },
 }: GamesListProps) {
+  const t = useTranslations("gamesList");
   const [games, setGames] = useState<BulkGameDTO[]>(initialData);
   const [page, setPage] = useState<number>(initialPage);
   const [hasMoreData, setHasMoreData] = useState<boolean>(true);
@@ -82,18 +84,13 @@ function GamesList({
       ) : (
         <div className={styles.noGames}>
           <SadIcon />
-          <p>Keine Spiele gefunden</p>
+          <p>{t("noGames")}</p>
         </div>
       )}
-      {hasMoreData ? (
+      {hasMoreData && (
         <div ref={scrollTrigger} className={styles.loading}>
           <ALoadingCircleIcon />
-          <p>Lade weitere Spiele...</p>
-        </div>
-      ) : (
-        <div className={styles.noGames}>
-          <SadIcon />
-          <p>Keine weiteren Spiele verfügbar</p>
+          <p>{t("loadingMore")}</p>
         </div>
       )}
     </div>

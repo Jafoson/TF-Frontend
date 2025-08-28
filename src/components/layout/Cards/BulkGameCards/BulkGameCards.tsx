@@ -3,17 +3,18 @@ import React from "react";
 import Image from "next/image";
 import styles from "./BulkGameCards.module.scss";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface BulkGameCardsProps {
   game: BulkGameDTO;
 }
 
 function BulkGameCards({ game }: BulkGameCardsProps) {
-  const apiURL = process.env.NEXT_PUBLIC_API_URL;
+  const t = useTranslations("bulkGameCards");
   return (
     <Link className={styles.container} href={`/games/${game.uid}`}>
       <Image
-        src={apiURL + "/" + game.imgUrl}
+        src={"/" + game.imgUrl}
         alt={game.name + " Logo"}
         width={128}
         height={128}
@@ -23,17 +24,23 @@ function BulkGameCards({ game }: BulkGameCardsProps) {
         <h1>{game.name}</h1>
         <p>
           <b>
-            Entwickler:{" "}
+            {t("developer")}:{" "}
             {game.developers.map((developer) => developer.name).join(", ")}
           </b>
         </p>
 
-        <p>Mindestalter: {game.ages.map((age) => age.age).join(", ")}</p>
-        <p>Release Jahr: {game.publishingYear}</p>
-        <p>Genre: {game.genres.map((genre) => genre.name).join(", ")}</p>
+        <p>
+          {t("age")}: {game.ages.map((age) => age.age).join(", ")}
+        </p>
+        <p>
+          {t("publishingYear")}: {game.publishingYear}
+        </p>
+        <p>
+          {t("genre")}: {game.genres.map((genre) => genre.name).join(", ")}
+        </p>
 
         <p>
-          Plattformen:{" "}
+          {t("platform")}:{" "}
           {game.platforms.map((platform) => platform.name).join(", ")}
         </p>
       </div>

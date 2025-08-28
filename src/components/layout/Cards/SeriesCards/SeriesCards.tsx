@@ -7,6 +7,7 @@ import LogoWrapper from "./atoms/LogoWrapper/LogoWrapper";
 import ContentWrapper from "./atoms/ContentWrapper/ContentWrapper";
 import styles from "./SeriesCards.module.scss";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface SeriesCardsProps {
   series: SeriesDTO;
@@ -14,6 +15,7 @@ interface SeriesCardsProps {
 }
 
 function SeriesCards({ series, games }: SeriesCardsProps) {
+  const t = useTranslations("seriesCards");
   // Finde das entsprechende Game basierend auf series.gameName (gameId)
   const game = games.find((g) => g.gameId === series.gameName);
   const displayGameName = game?.gameName || series.gameName;
@@ -24,6 +26,7 @@ function SeriesCards({ series, games }: SeriesCardsProps) {
         teamName={series.team1Name}
       />
       <ContentWrapper
+        t={t}
         winnerId={series.winnerId}
         startDateTime={series.startDateTime}
         status={series.status}

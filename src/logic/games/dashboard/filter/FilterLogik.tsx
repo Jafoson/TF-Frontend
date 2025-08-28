@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import FilterChips from "@/components/atoms/Chips/FilterChips/FilterChips";
 import FilterChipsWrapper from "@/components/layout/Wrapper/FilterChipsWrapper/FilterChipsWrapper";
 import PopUp from "@/components/layout/PopUp/PopUp";
@@ -16,12 +16,24 @@ import type {
   PlatformDTO,
   BulkGamesParams,
 } from "@/types/game";
+import { useTranslations } from "next-intl";
+import styles from "./filterLogik.module.scss";
+import { FilterIcon } from "@/assets/icons";
 
 type GameFiltersProps = {
   onFiltersChange: (filters: BulkGamesParams) => void;
 };
 
 const GameFilters: React.FC<GameFiltersProps> = ({ onFiltersChange }) => {
+  const t = useTranslations("gameFilters");
+
+  const [expanded, setExpanded] = useState(false);
+
+  // Memoize onFiltersChange um useEffect Dependencies zu stabilisieren
+  const memoizedOnFiltersChange = useCallback(onFiltersChange, [
+    onFiltersChange,
+  ]);
+
   // Genre State
   const [genres, setGenres] = useState<GenreDTO[]>([]);
   const [isGenrePopUpOpen, setIsGenrePopUpOpen] = useState(false);
@@ -105,7 +117,7 @@ const GameFilters: React.FC<GameFiltersProps> = ({ onFiltersChange }) => {
       Object.entries(newFilters).filter(([, value]) => value !== undefined)
     ) as BulkGamesParams;
 
-    onFiltersChange(cleanedFilters);
+    memoizedOnFiltersChange(cleanedFilters);
   }, [
     selectedGenres,
     selectedAgeRatings,
@@ -113,6 +125,7 @@ const GameFilters: React.FC<GameFiltersProps> = ({ onFiltersChange }) => {
     selectedPublishYear,
     sortBy,
     sortDirection,
+    memoizedOnFiltersChange,
   ]);
 
   const loadGenres = async () => {
@@ -256,183 +269,217 @@ const GameFilters: React.FC<GameFiltersProps> = ({ onFiltersChange }) => {
     }
   };
 
+  const sortingFilter = () => {
+    return (
+      <PopUp>
+        <PopUp.Trigger>
+          <FilterChips
+            label={
+              sortBy
+                ? `${t("sortBy")} ${t(`${sortBy}`)} (${t(`${sortDirection}`)})`
+                : t("sortBy")
+            }
+            hasTrailingIcon
+            variant="outlined"
+          />
+        </PopUp.Trigger>
+        <PopUp.Container>
+          <PopUp.Property onClick={() => handleSortSelect("gameName")}>
+            {sortBy === "gameName"
+              ? `✓ ${t("gameName")} (${t(`${sortDirection}`)})`
+              : t("gameName")}
+          </PopUp.Property>
+          <PopUp.Property onClick={() => handleSortSelect("publishingYear")}>
+            {sortBy === "publishingYear"
+              ? `✓ ${t("publishingYear")} (${t(`${sortDirection}`)})`
+              : t("publishingYear")}
+          </PopUp.Property>
+          <PopUp.Property onClick={() => handleSortSelect("genre")}>
+            {sortBy === "genre"
+              ? `✓ ${t("genre")} (${t(`${sortDirection}`)})`
+              : t("genre")}
+          </PopUp.Property>
+          <PopUp.Property onClick={() => handleSortSelect("developer")}>
+            {sortBy === "developer"
+              ? `✓ ${t("developer")} (${t(`${sortDirection}`)})`
+              : t("developer")}
+          </PopUp.Property>
+          <PopUp.Property onClick={() => handleSortSelect("age")}>
+            {sortBy === "age"
+              ? `✓ ${t("ageRating")} (${t(`${sortDirection}`)})`
+              : t("ageRating")}
+          </PopUp.Property>
+          <PopUp.Property onClick={() => handleSortSelect("platform")}>
+            {sortBy === "platform"
+              ? `✓ ${t("platform")} (${t(`${sortDirection}`)})`
+              : t("platform")}
+          </PopUp.Property>
+        </PopUp.Container>
+      </PopUp>
+    );
+  };
+
   return (
-    <FilterChipsWrapper>
-      {/* Age Rating Filter */}
-      <PopUp onOpenChange={(open) => setIsAgeRatingPopUpOpen(open)}>
-        <PopUp.Trigger>
-          <FilterChips
-            label={
-              selectedAgeRatings.length > 0
-                ? `Age Rating (${selectedAgeRatings.length})`
-                : "Age Rating"
-            }
-            hasTrailingIcon
-            variant="elevated"
-          />
-        </PopUp.Trigger>
-        <PopUp.Container>
-          {isLoadingAgeRatings ? (
-            <PopUp.Property>Lade Altersfreigaben...</PopUp.Property>
-          ) : (
-            ageRatings.map((ageRating) => (
-              <PopUp.Property
-                key={ageRating.uid}
-                value={ageRating.uid}
-                onClick={() =>
-                  handleAgeRatingSelect(ageRating.uid, ageRating.description)
+    <div className={styles.filterWrapper}>
+      <div className={styles.filterHeader} data-expanded={expanded}>
+        <div
+          onClick={() => setExpanded(!expanded)}
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <FilterIcon />
+          <FilterChips label={t("filter")} hasTrailingIcon variant="elevated" />
+        </div>
+        {sortingFilter()}
+      </div>
+      <div className={styles.filterContainer} data-expanded={expanded}>
+        <FilterChipsWrapper>
+          {/* Age Rating Filter */}
+          <PopUp onOpenChange={(open) => setIsAgeRatingPopUpOpen(open)}>
+            <PopUp.Trigger>
+              <FilterChips
+                label={
+                  selectedAgeRatings.length > 0
+                    ? `${t("ageRating")} (${selectedAgeRatings.length})`
+                    : t("ageRating")
                 }
-              >
-                {selectedAgeRatings.includes(ageRating.uid)
-                  ? `✓ ${ageRating.description}`
-                  : ageRating.description}
-              </PopUp.Property>
-            ))
-          )}
-        </PopUp.Container>
-      </PopUp>
+                hasTrailingIcon
+                variant="elevated"
+              />
+            </PopUp.Trigger>
+            <PopUp.Container>
+              {isLoadingAgeRatings ? (
+                <PopUp.Property>{t("loadingAgeRatings")}</PopUp.Property>
+              ) : (
+                ageRatings.map((ageRating) => (
+                  <PopUp.Property
+                    key={ageRating.uid}
+                    value={ageRating.uid}
+                    onClick={() =>
+                      handleAgeRatingSelect(
+                        ageRating.uid,
+                        ageRating.description
+                      )
+                    }
+                  >
+                    {selectedAgeRatings.includes(ageRating.uid)
+                      ? `✓ ${ageRating.description}`
+                      : ageRating.description}
+                  </PopUp.Property>
+                ))
+              )}
+            </PopUp.Container>
+          </PopUp>
 
-      {/* Genre Filter */}
-      <PopUp onOpenChange={(open) => setIsGenrePopUpOpen(open)}>
-        <PopUp.Trigger>
-          <FilterChips
-            label={
-              selectedGenres.length > 0
-                ? `Genre (${selectedGenres.length})`
-                : "Genre"
-            }
-            hasTrailingIcon
-            variant="elevated"
-          />
-        </PopUp.Trigger>
-        <PopUp.Container>
-          {isLoadingGenres ? (
-            <PopUp.Property>Lade Genres...</PopUp.Property>
-          ) : (
-            genres.map((genre) => (
-              <PopUp.Property
-                key={genre.uid}
-                value={genre.uid}
-                onClick={() => handleGenreSelect(genre.uid, genre.name)}
-              >
-                {selectedGenres.includes(genre.uid)
-                  ? `✓ ${genre.name}`
-                  : genre.name}
-              </PopUp.Property>
-            ))
-          )}
-        </PopUp.Container>
-      </PopUp>
-
-      {/* Platform Filter */}
-      <PopUp onOpenChange={(open) => setIsPlatformPopUpOpen(open)}>
-        <PopUp.Trigger>
-          <FilterChips
-            label={
-              selectedPlatforms.length > 0
-                ? `Platform (${selectedPlatforms.length})`
-                : "Platform"
-            }
-            hasTrailingIcon
-            variant="elevated"
-          />
-        </PopUp.Trigger>
-        <PopUp.Container>
-          {isLoadingPlatforms ? (
-            <PopUp.Property>Lade Plattformen...</PopUp.Property>
-          ) : (
-            platforms.map((platform) => (
-              <PopUp.Property
-                key={platform.uid}
-                value={platform.uid}
-                onClick={() =>
-                  handlePlatformSelect(platform.uid, platform.name)
+          {/* Genre Filter */}
+          <PopUp onOpenChange={(open) => setIsGenrePopUpOpen(open)}>
+            <PopUp.Trigger>
+              <FilterChips
+                label={
+                  selectedGenres.length > 0
+                    ? `${t("genre")} (${selectedGenres.length})`
+                    : t("genre")
                 }
-              >
-                {selectedPlatforms.includes(platform.uid)
-                  ? `✓ ${platform.name}`
-                  : platform.name}
-              </PopUp.Property>
-            ))
-          )}
-        </PopUp.Container>
-      </PopUp>
+                hasTrailingIcon
+                variant="elevated"
+              />
+            </PopUp.Trigger>
+            <PopUp.Container>
+              {isLoadingGenres ? (
+                <PopUp.Property>{t("loadingGenres")}</PopUp.Property>
+              ) : (
+                genres.map((genre) => (
+                  <PopUp.Property
+                    key={genre.uid}
+                    value={genre.uid}
+                    onClick={() => handleGenreSelect(genre.uid, genre.name)}
+                  >
+                    {selectedGenres.includes(genre.uid)
+                      ? `✓ ${genre.name}`
+                      : genre.name}
+                  </PopUp.Property>
+                ))
+              )}
+            </PopUp.Container>
+          </PopUp>
 
-      {/* Publishing Year Filter */}
-      <PopUp onOpenChange={(open) => setIsPublishYearPopUpOpen(open)}>
-        <PopUp.Trigger>
-          <FilterChips
-            label={
-              selectedPublishYear
-                ? `Release Date (${selectedPublishYear})`
-                : "Release Date"
-            }
-            hasTrailingIcon
-            variant="elevated"
-          />
-        </PopUp.Trigger>
-        <PopUp.Container>
-          {isLoadingPublishYears ? (
-            <PopUp.Property>Lade Veröffentlichungsjahre...</PopUp.Property>
-          ) : (
-            publishYears.map((year) => (
-              <PopUp.Property
-                key={year}
-                value={year.toString()}
-                onClick={() => handlePublishYearSelect(year)}
-              >
-                {selectedPublishYear === year ? `✓ ${year}` : year}
-              </PopUp.Property>
-            ))
-          )}
-        </PopUp.Container>
-      </PopUp>
+          {/* Platform Filter */}
+          <PopUp onOpenChange={(open) => setIsPlatformPopUpOpen(open)}>
+            <PopUp.Trigger>
+              <FilterChips
+                label={
+                  selectedPlatforms.length > 0
+                    ? `${t("platform")} (${selectedPlatforms.length})`
+                    : t("platform")
+                }
+                hasTrailingIcon
+                variant="elevated"
+              />
+            </PopUp.Trigger>
+            <PopUp.Container>
+              {isLoadingPlatforms ? (
+                <PopUp.Property>{t("loadingPlatforms")}</PopUp.Property>
+              ) : (
+                platforms.map((platform) => (
+                  <PopUp.Property
+                    key={platform.uid}
+                    value={platform.uid}
+                    onClick={() =>
+                      handlePlatformSelect(platform.uid, platform.name)
+                    }
+                  >
+                    {selectedPlatforms.includes(platform.uid)
+                      ? `✓ ${platform.name}`
+                      : platform.name}
+                  </PopUp.Property>
+                ))
+              )}
+            </PopUp.Container>
+          </PopUp>
 
-      {/* Sort Filter */}
-      <FilterChipsWrapper.Actions>
-        <PopUp>
-          <PopUp.Trigger>
-            <FilterChips
-              label={
-                sortBy ? `Sort by ${sortBy} (${sortDirection})` : "Sort by"
-              }
-              hasTrailingIcon
-              variant="outlined"
-            />
-          </PopUp.Trigger>
-          <PopUp.Container>
-            <PopUp.Property onClick={() => handleSortSelect("gameName")}>
-              {sortBy === "gameName"
-                ? `✓ Game Name (${sortDirection})`
-                : "Game Name"}
-            </PopUp.Property>
-            <PopUp.Property onClick={() => handleSortSelect("publishingYear")}>
-              {sortBy === "publishingYear"
-                ? `✓ Publishing Year (${sortDirection})`
-                : "Publishing Year"}
-            </PopUp.Property>
-            <PopUp.Property onClick={() => handleSortSelect("genre")}>
-              {sortBy === "genre" ? `✓ Genre (${sortDirection})` : "Genre"}
-            </PopUp.Property>
-            <PopUp.Property onClick={() => handleSortSelect("developer")}>
-              {sortBy === "developer"
-                ? `✓ Developer (${sortDirection})`
-                : "Developer"}
-            </PopUp.Property>
-            <PopUp.Property onClick={() => handleSortSelect("age")}>
-              {sortBy === "age"
-                ? `✓ Age Rating (${sortDirection})`
-                : "Age Rating"}
-            </PopUp.Property>
-            <PopUp.Property onClick={() => handleSortSelect("platform")}>
-              {sortBy === "platform"
-                ? `✓ Platform (${sortDirection})`
-                : "Platform"}
-            </PopUp.Property>
-          </PopUp.Container>
-        </PopUp>
-      </FilterChipsWrapper.Actions>
-    </FilterChipsWrapper>
+          {/* Publishing Year Filter */}
+          <PopUp onOpenChange={(open) => setIsPublishYearPopUpOpen(open)}>
+            <PopUp.Trigger>
+              <FilterChips
+                label={
+                  selectedPublishYear
+                    ? `${t("releaseDate")} (${selectedPublishYear})`
+                    : t("releaseDate")
+                }
+                hasTrailingIcon
+                variant="elevated"
+              />
+            </PopUp.Trigger>
+            <PopUp.Container>
+              {isLoadingPublishYears ? (
+                <PopUp.Property>{t("loadingPublishYears")}</PopUp.Property>
+              ) : (
+                publishYears.map((year) => (
+                  <PopUp.Property
+                    key={year}
+                    value={year.toString()}
+                    onClick={() => handlePublishYearSelect(year)}
+                  >
+                    {selectedPublishYear === year ? `✓ ${year}` : year}
+                  </PopUp.Property>
+                ))
+              )}
+            </PopUp.Container>
+          </PopUp>
+
+          {/* Sort Filter */}
+          <div className={styles.sortFilter}>
+            <FilterChipsWrapper.Actions>
+              {sortingFilter()}
+            </FilterChipsWrapper.Actions>
+          </div>
+        </FilterChipsWrapper>
+      </div>
+    </div>
   );
 };
 

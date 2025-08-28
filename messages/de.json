@@ -187,5 +187,50 @@
     "topBar": {
         "login": "Login",
         "register": "Registrieren"
+    },
+    "homeMatches": {
+        "noMatches": "Keine aktuellen Matches gefunden",
+        "loadingMore": "Lade weitere Matches...",
+        "noMoreMatches": "Keine weiteren Matches verfügbar"
+    },
+    "seriesCards": {
+        "clock": "Uhr",
+        "live": "Live"
+    },
+    "gameFilters": {
+        "ageRating": "Altersfreigabe",
+        "genre": "Genre",
+        "platform": "Plattform",
+        "releaseDate": "Veröffentlichungsdatum",
+        "sortBy": "Sortieren nach",
+        "loadingAgeRatings": "Lade Altersfreigaben...",
+        "loadingGenres": "Lade Genres...",
+        "loadingPlatforms": "Lade Plattformen...",
+        "loadingPublishYears": "Lade Veröffentlichungsjahre...",
+        "loading": "Lade...",
+        "errorLoadingGenres": "Fehler beim Laden der Genres:",
+        "errorLoadingAgeRatings": "Fehler beim Laden der Altersfreigaben:",
+        "errorLoadingPlatforms": "Fehler beim Laden der Plattformen:",
+        "errorLoadingPublishYears": "Fehler beim Laden der Veröffentlichungsjahre:",
+        "developer": "Entwickler",
+        "publishingYear": "Veröffentlichungsjahr",
+        "gameName": "Spielname",
+        "age": "Alter",
+        "asc": "Aufsteigend",
+        "desc": "Absteigend",
+        "filter": "Filter"
+    },
+    "gamesList": {
+        "noGames": "Keine Spiele gefunden",
+        "loadingMore": "Lade weitere Spiele...",
+        "noMoreGames": "Keine weiteren Spiele verfügbar",
+        "loading": "Lade..."
+    },
+    "bulkGameCards": {
+        "developer": "Entwickler",
+        "age": "Alter",
+        "publishingYear": "Veröffentlichungsjahr",
+        "genre": "Genre",
+        "platform": "Plattform"
     }
 }

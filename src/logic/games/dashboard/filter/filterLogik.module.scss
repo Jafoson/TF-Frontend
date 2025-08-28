@@ -1,0 +1,48 @@
+.filterContainer {
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  padding-right: 1rem;
+  padding-left: 0.5rem;
+
+  @media (max-width: 768px) {
+    &[data-expanded="false"] {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding-inline: 1rem;
+  }
+}
+
+.sortFilter {
+  width: 100%;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.filterHeader {
+  width: 100%;
+  display: none;
+
+  @media (max-width: 768px) {
+    padding-bottom: 0.5rem;
+    padding-top: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(var(--outline-variant));
+
+    &[data-expanded="true"] {
+      border-bottom: none;
+    }
+  }
+}
+
+.filterWrapper {
+  width: 100%;
+}

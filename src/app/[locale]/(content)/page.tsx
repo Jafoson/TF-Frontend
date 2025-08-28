@@ -4,7 +4,6 @@ import { getGamesBatch } from "@/actions/game";
 import styles from "./page.module.scss";
 import { Metadata } from "next";
 import HomePageMatchList from "@/components/layout/Lists/HomePageMatchList/HomePageMatchList";
-import { SeriesDTO } from "@/types/series";
 import { GameDTO } from "@/types/game";
 
 // Diese Funktion wird serverseitig ausgeführt

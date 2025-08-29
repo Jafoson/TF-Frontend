@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  SVGProps,
+} from "react";
 import {
   useFloating,
   autoUpdate,
@@ -145,11 +151,17 @@ const PopUpTrigger: React.FC<PopUpTriggerProps> = ({ children, className }) => {
 interface PopUpContainerProps {
   children: ReactNode;
   className?: string;
+  width?: string | number;
+  minWidth?: string | number;
+  maxWidth?: string | number;
 }
 
 const PopUpContainer: React.FC<PopUpContainerProps> = ({
   children,
   className,
+  width,
+  minWidth,
+  maxWidth,
 }) => {
   const { isOpen, refs, floatingStyles, getFloatingProps, context } =
     usePopUp();
@@ -162,7 +174,20 @@ const PopUpContainer: React.FC<PopUpContainerProps> = ({
         <div
           ref={refs.setFloating}
           className={`${styles.container} ${className || ""}`}
-          style={floatingStyles}
+          style={{
+            ...floatingStyles,
+            ...(width && {
+              width: typeof width === "number" ? `${width}px` : width,
+            }),
+            ...(minWidth && {
+              minWidth:
+                typeof minWidth === "number" ? `${minWidth}px` : minWidth,
+            }),
+            ...(maxWidth && {
+              maxWidth:
+                typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth,
+            }),
+          }}
           {...getFloatingProps()}
         >
           {children}
@@ -174,17 +199,21 @@ const PopUpContainer: React.FC<PopUpContainerProps> = ({
 
 // Property Komponente
 interface PopUpPropertyProps {
+  icon?: React.FC<SVGProps<SVGSVGElement>>;
   value?: string;
   children: ReactNode;
   className?: string;
   onClick?: () => void;
+  selected?: boolean;
 }
 
 const PopUpProperty: React.FC<PopUpPropertyProps> = ({
+  icon: Icon,
   value,
   children,
   className,
   onClick,
+  selected = false,
 }) => {
   const { setIsOpen } = usePopUp();
 
@@ -197,6 +226,8 @@ const PopUpProperty: React.FC<PopUpPropertyProps> = ({
 
   return (
     <div
+      data-selected={selected}
+      data-has-icon={!!Icon}
       data-value={value || ""}
       className={`${styles.property} ${className || ""}`}
       onClick={handleClick}
@@ -209,6 +240,7 @@ const PopUpProperty: React.FC<PopUpPropertyProps> = ({
         }
       }}
     >
+      {Icon && <Icon width={24} height={24} />}
       {children}
     </div>
   );

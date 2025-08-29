@@ -184,7 +184,10 @@
     },
     "topBar": {
         "login": "Login",
-        "register": "Register"
+        "register": "Register",
+        "dark": "Dark Mode",
+        "light": "Light Mode",
+        "system": "System Mode"
     },
     "homeMatches": {
         "noMatches": "No matches found",

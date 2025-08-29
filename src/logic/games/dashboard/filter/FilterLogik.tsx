@@ -322,18 +322,13 @@ const GameFilters: React.FC<GameFiltersProps> = ({ onFiltersChange }) => {
   return (
     <div className={styles.filterWrapper}>
       <div className={styles.filterHeader} data-expanded={expanded}>
-        <div
+        <FilterChips
+          label={t("filter")}
+          hasTrailingIcon
+          variant="elevated"
+          icon={FilterIcon}
           onClick={() => setExpanded(!expanded)}
-          style={{
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <FilterIcon />
-          <FilterChips label={t("filter")} hasTrailingIcon variant="elevated" />
-        </div>
+        />
         {sortingFilter()}
       </div>
       <div className={styles.filterContainer} data-expanded={expanded}>

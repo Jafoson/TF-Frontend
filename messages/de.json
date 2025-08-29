@@ -186,7 +186,10 @@
     },
     "topBar": {
         "login": "Login",
-        "register": "Registrieren"
+        "register": "Registrieren",
+        "dark": "Dunkles Design",
+        "light": "Helles Design",
+        "system": "Gerätedesign"
     },
     "homeMatches": {
         "noMatches": "Keine aktuellen Matches gefunden",
@@ -194,7 +197,7 @@
         "noMoreMatches": "Keine weiteren Matches verfügbar"
     },
     "seriesCards": {
-        "clock": "Uhr",
+        "clock": " Uhr",
         "live": "Live"
     },
     "gameFilters": {

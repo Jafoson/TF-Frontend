@@ -1,17 +1,14 @@
 'use server'
 
-import { ResponseError, Response } from "@/types/response"
+import {ResponseError, Response, ActionResponse} from "@/types/response"
 import { PaginationResponseDTO } from "@/types/pagination"
 import { 
   GameDTO, 
   GameBatchRequest,
   BulkGameDTO,
-  BulkGamesParams,
-  GenreDTO,
-  PlatformDTO,
-  AgeRatingDTO,
-  DeveloperDTO
+  BulkGamesParams
 } from "@/types/game"
+import {FilterItem, FilterRequestDTO} from "@/types/filter";
 
 export async function getGamesBatch(gameIds: string[]) {
   try {
@@ -65,12 +62,18 @@ export async function getGamesBatch(gameIds: string[]) {
 /**
  * Alle verfügbaren Genres abrufen
  */
-export async function getAllGenres() {
+export async function getAllGenres(params: FilterRequestDTO) {
   try {
     const isDev = process.env.NODE_ENV === 'development'
     const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
 
-    const backendResponse = await fetch(`${apiUrl}/api/game/genre`, {
+      const searchParams = new URLSearchParams()
+
+      if (params.page !== undefined) searchParams.append('page', params.page.toString())
+      if (params.size !== undefined) searchParams.append('size', params.size.toString())
+      if (params.search !== undefined) searchParams.append('search', params.search.toString())
+
+    const backendResponse = await fetch(`${apiUrl}/api/game/genre${searchParams.toString() ? `?${searchParams.toString()}` : ''}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -89,8 +92,7 @@ export async function getAllGenres() {
       }
     }
 
-    const data: Response<GenreDTO[]> = await backendResponse.json()
-
+    const data: Response<PaginationResponseDTO<FilterItem[]>> = await backendResponse.json()
     return {
       success: true,
       data: data.data,
@@ -108,12 +110,18 @@ export async function getAllGenres() {
 /**
  * Alle verfügbaren Plattformen abrufen
  */
-export async function getAllPlatforms() {
+export async function getAllPlatforms(params: FilterRequestDTO) {
   try {
     const isDev = process.env.NODE_ENV === 'development'
     const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
 
-    const backendResponse = await fetch(`${apiUrl}/api/game/platform`, {
+      const searchParams = new URLSearchParams()
+
+      if (params.page !== undefined) searchParams.append('page', params.page.toString())
+      if (params.size !== undefined) searchParams.append('size', params.size.toString())
+      if (params.search !== undefined) searchParams.append('search', params.search.toString())
+
+    const backendResponse = await fetch(`${apiUrl}/api/game/platform${searchParams.toString() ? `?${searchParams.toString()}` : ''}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -132,7 +140,7 @@ export async function getAllPlatforms() {
       }
     }
 
-    const data: Response<PlatformDTO[]> = await backendResponse.json()
+    const data: Response<PaginationResponseDTO<FilterItem[]>> = await backendResponse.json()
 
     return {
       success: true,
@@ -151,12 +159,18 @@ export async function getAllPlatforms() {
 /**
  * Alle verfügbaren Altersfreigaben abrufen
  */
-export async function getAllAgeRatings() {
+export async function getAllAgeRatings(params: FilterRequestDTO) {
   try {
     const isDev = process.env.NODE_ENV === 'development'
     const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
 
-    const backendResponse = await fetch(`${apiUrl}/api/game/age`, {
+      const searchParams = new URLSearchParams()
+
+      if (params.page !== undefined) searchParams.append('page', params.page.toString())
+      if (params.size !== undefined) searchParams.append('size', params.size.toString())
+      if (params.search !== undefined) searchParams.append('search', params.search.toString())
+
+    const backendResponse = await fetch(`${apiUrl}/api/game/age${searchParams.toString() ? `?${searchParams.toString()}` : ''}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -175,7 +189,7 @@ export async function getAllAgeRatings() {
       }
     }
 
-    const data: Response<AgeRatingDTO[]> = await backendResponse.json()
+    const data: Response<PaginationResponseDTO<FilterItem[]>> = await backendResponse.json()
 
     return {
       success: true,
@@ -194,12 +208,20 @@ export async function getAllAgeRatings() {
 /**
  * Alle verfügbaren Entwickler abrufen
  */
-export async function getAllDevelopers() {
+export async function getAllDevelopers(params: FilterRequestDTO = {}) {
   try {
     const isDev = process.env.NODE_ENV === 'development'
     const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
 
-    const backendResponse = await fetch(`${apiUrl}/api/game/developer`, {
+      const searchParams = new URLSearchParams()
+
+      if (params.page !== undefined) searchParams.append('page', params.page.toString())
+      if (params.size !== undefined) searchParams.append('size', params.size.toString())
+      if (params.search !== undefined) searchParams.append('search', params.search.toString())
+
+
+
+      const backendResponse = await fetch(`${apiUrl}/api/game/developer${searchParams.toString() ? `?${searchParams.toString()}` : ''}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -218,7 +240,7 @@ export async function getAllDevelopers() {
       }
     }
 
-    const data: Response<DeveloperDTO[]> = await backendResponse.json()
+    const data: Response<PaginationResponseDTO<FilterItem[]>> = await backendResponse.json()
 
     return {
       success: true,
@@ -237,12 +259,18 @@ export async function getAllDevelopers() {
 /**
  * Alle verfügbaren Veröffentlichungsjahre abrufen
  */
-export async function getAllPublishYears() {
+export async function getAllPublishYears(params: FilterRequestDTO = {}) {
   try {
     const isDev = process.env.NODE_ENV === 'development'
     const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
 
-    const backendResponse = await fetch(`${apiUrl}/api/game/publishyear`, {
+      const searchParams = new URLSearchParams()
+
+      if (params.page !== undefined) searchParams.append('page', params.page.toString())
+      if (params.size !== undefined) searchParams.append('size', params.size.toString())
+      if (params.search !== undefined) searchParams.append('search', params.search.toString())
+
+    const backendResponse = await fetch(`${apiUrl}/api/game/publishyear${searchParams.toString() ? `?${searchParams.toString()}` : ''}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -261,7 +289,7 @@ export async function getAllPublishYears() {
       }
     }
 
-    const data: Response<number[]> = await backendResponse.json()
+    const data: Response<PaginationResponseDTO<FilterItem[]>> = await backendResponse.json()
 
     return {
       success: true,

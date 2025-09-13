@@ -1,0 +1,20 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  color: rgb(var(--on-surface-variant));
+}
+.itemsContainer {
+    margin-bottom: 0.75rem;
+    position: sticky;
+}
+
+.noItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(var(--on-surface-variant));
+  padding-bottom: 0.5rem;
+}

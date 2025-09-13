@@ -1,3 +1,6 @@
+import {FilterItem} from "@/types/filter";
+import {PaginationRespestDTO} from "@/types/pagination";
+
 export interface GameDTO {
   gameId: string;
   gameName: string;
@@ -10,26 +13,15 @@ export interface GameBatchRequest {
 }
 
 // Referenzdaten Types
-export interface GenreDTO {
-  uid: string;
-  name: string;
-}
+export interface GenreDTO extends FilterItem   {}
 
-export interface PlatformDTO {
-  uid: string;
-  name: string;
-}
+export interface PlatformDTO extends FilterItem {}
 
-export interface AgeRatingDTO {
-  uid: string;
+export interface AgeRatingDTO extends FilterItem {
   age: number;
-  description: string;
 }
 
-export interface DeveloperDTO {
-  uid: string;
-  name: string;
-}
+export interface DeveloperDTO extends FilterItem{}
 
 // Link/URL Types
 export interface GameLinkDTO {
@@ -78,7 +70,5 @@ export interface BulkGamesSorting {
   sortDirection?: 'asc' | 'desc';
 }
 
-export interface BulkGamesParams extends BulkGamesFilters, BulkGamesSorting {
-  page?: number;
-  size?: number;
+export interface BulkGamesParams extends BulkGamesFilters, BulkGamesSorting, PaginationRespestDTO {
 }

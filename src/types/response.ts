@@ -14,3 +14,8 @@ export type ErrorData = {
   field: string;
   code: string;
 };
+
+export interface ActionResponse<T> {
+  success: boolean;
+  data?: T;
+}

@@ -5,3 +5,8 @@ export interface PaginationResponseDTO<T> {
   totalElements: number;
   totalPages: number;
 }
+
+export interface PaginationRespestDTO {
+    page?: number;
+    size?: number;
+}

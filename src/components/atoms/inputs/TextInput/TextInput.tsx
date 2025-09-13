@@ -6,7 +6,7 @@ import EyeClosedIcon from "@/assets/icons/EyeCloseIcon";
 import CloseIcon from "@/assets/icons/CloseIcon";
 
 type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+  label?: string;
   placeholder: string;
   value: string;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -31,7 +31,7 @@ export default function TextInput({
   const isPassword = type === "password";
   return (
     <div data-error={error} className={styles.container}>
-      <label htmlFor={props.id}>{label}</label>
+      {label && <label htmlFor={props.id}>{label}</label>}
       <div
         className={styles.inputContainer}
         onClick={() => inputRef.current?.focus()}
@@ -64,7 +64,7 @@ export default function TextInput({
             }}
           />
         )}
-        {!isPassword && value && value.length > 0 && (
+        {!isPassword && (
           <IconButton
             className={styles.icon}
             iconSize={16}
@@ -77,6 +77,10 @@ export default function TextInput({
             variant="text"
             type="button"
             tabIndex={-1}
+            style={{ 
+              visibility: value && value.length > 0 ? 'visible' : 'hidden',
+              opacity: value && value.length > 0 ? 1 : 0
+            }}
             onClick={(e) => {
               e.stopPropagation();
               if (props.onChange) {

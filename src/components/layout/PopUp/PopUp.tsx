@@ -65,6 +65,7 @@ const PopUp: React.FC<PopUpProps> & {
   Trigger: typeof PopUpTrigger;
   Container: typeof PopUpContainer;
   Property: typeof PopUpProperty;
+  ScrollContainer: typeof PopUpScrollContainer;
 } = ({
   children,
   placement = "bottom-start",
@@ -147,6 +148,14 @@ const PopUpTrigger: React.FC<PopUpTriggerProps> = ({ children, className }) => {
   );
 };
 
+interface PopUpScrollContainerProps {
+  children: ReactNode;
+}
+
+const PopUpScrollContainer: React.FC<PopUpScrollContainerProps> = ({ children }) => {
+  return <div className={`${styles.scrollContainer}`}>{children}</div>;
+};
+
 // Container Komponente
 interface PopUpContainerProps {
   children: ReactNode;
@@ -205,6 +214,7 @@ interface PopUpPropertyProps {
   className?: string;
   onClick?: () => void;
   selected?: boolean;
+  closeOnClick?: boolean; // Ob das PopUp beim Klick geschlossen werden soll
 }
 
 const PopUpProperty: React.FC<PopUpPropertyProps> = ({
@@ -214,6 +224,7 @@ const PopUpProperty: React.FC<PopUpPropertyProps> = ({
   className,
   onClick,
   selected = false,
+  closeOnClick = true, // Standardmäßig schließen
 }) => {
   const { setIsOpen } = usePopUp();
 
@@ -221,7 +232,9 @@ const PopUpProperty: React.FC<PopUpPropertyProps> = ({
     if (onClick) {
       onClick();
     }
-    setIsOpen(false);
+    if (closeOnClick) {
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -250,12 +263,14 @@ const PopUpProperty: React.FC<PopUpPropertyProps> = ({
 PopUp.Trigger = PopUpTrigger;
 PopUp.Container = PopUpContainer;
 PopUp.Property = PopUpProperty;
+PopUp.ScrollContainer = PopUpScrollContainer;
 
 export default PopUp;
-export { PopUpTrigger, PopUpContainer, PopUpProperty };
+export { PopUpTrigger, PopUpContainer, PopUpProperty, PopUpScrollContainer };
 export type {
   PopUpProps,
   PopUpTriggerProps,
   PopUpContainerProps,
   PopUpPropertyProps,
+  PopUpScrollContainerProps,
 };

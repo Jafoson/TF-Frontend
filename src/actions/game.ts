@@ -1,6 +1,6 @@
 'use server'
 
-import {ResponseError, Response, ActionResponse} from "@/types/response"
+import {ResponseError, Response} from "@/types/response"
 import { PaginationResponseDTO } from "@/types/pagination"
 import { 
   GameDTO, 

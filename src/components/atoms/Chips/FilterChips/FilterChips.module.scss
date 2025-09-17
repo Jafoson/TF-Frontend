@@ -52,6 +52,15 @@
     transform: rotate(90deg);
     color: rgb(var(--on-surface-variant));
   }
+  .trailingIconAsc{
+    color: rgb(var(--on-surface-variant));
+    margin-right: -0.25rem;
+  }
+  .trailingIconDesc{
+    transform: rotate(180deg);
+    color: rgb(var(--on-surface-variant));
+    margin-right: -0.25rem;
+  }
 
   &::after{
     margin: -1px;

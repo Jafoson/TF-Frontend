@@ -14,13 +14,15 @@
   z-index: 1000;
   gap: 0.125rem;
   max-height: 30rem;
-  overflow-y: hidden;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+  
 }
 
 .scrollContainer {
   overflow-y: auto;
+  overflow-x: hidden;
   flex: 1; /* Nimmt den verfügbaren Platz ein */
   min-height: 0; /* Wichtig für flex-shrink */
   gap: 0.125rem;

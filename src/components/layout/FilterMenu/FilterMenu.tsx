@@ -5,7 +5,7 @@ import {FilterItem, FilterRequestDTO} from "@/types/filter";
 import {ActionResponse} from "@/types/response";
 import {PaginationResponseDTO} from "@/types/pagination";
 import TextInput from "@/components/atoms/inputs/TextInput/TextInput";
-import { ALoadingCircleIcon, ALoadingIcon, SearchIcon } from "@/assets/icons";
+import { ALoadingCircleIcon, SearchIcon } from "@/assets/icons";
 import styles from "./FilterMenu.module.scss";
 import { useInView } from "react-intersection-observer";
 
@@ -207,7 +207,14 @@ function FilterMenu({ label, variant, onItemSelected, onLoading, serverAction, m
         </div>
         <PopUp.ScrollContainer>
         {initialLoading ? <div className={styles.loading}><ALoadingCircleIcon height={20} width={20} color="currentColor"/></div> : 
-         items.length === 0 ? <div className={styles.noItems}>No items found</div> : items.map((item) => (
+         items.length === 0 ? <div className={styles.noItems}>No items found</div> : 
+         // Sortiere Items: ausgewählte zuerst, dann der Rest in ursprünglicher Reihenfolge
+         (() => {
+           const selectedItems = items.filter(item => selectedItem.find((i) => i.uid === item.uid));
+           const unselectedItems = items.filter(item => !selectedItem.find((i) => i.uid === item.uid));
+           return [...selectedItems, ...unselectedItems];
+         })()
+           .map((item) => (
            <PopUp.Property 
              key={item.uid} 
              value={item.uid} 
@@ -224,9 +231,17 @@ function FilterMenu({ label, variant, onItemSelected, onLoading, serverAction, m
                        return newSelected;
                    });
                } else {
-                   // Single-Select: Nur ein Item auswählen
-                   setSelectedItem([item]);
-                   onItemSelected([item]);
+                   // Single-Select: Item auswählen oder Auswahl entfernen
+                   const isSelected = selectedItem.find((i) => i.uid === item.uid);
+                   if (isSelected) {
+                       // Item ist bereits ausgewählt -> Auswahl entfernen
+                       setSelectedItem([]);
+                       onItemSelected([]);
+                   } else {
+                       // Item ist nicht ausgewählt -> Item auswählen
+                       setSelectedItem([item]);
+                       onItemSelected([item]);
+                   }
                }
            }}
            selected={!!selectedItem.find((i) => i.uid === item.uid)} >

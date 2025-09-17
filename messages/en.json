@@ -198,34 +198,16 @@
         "clock": "",
         "live": "Live"
     },
-    "gameFilters": {
-        "ageRating": "Age Rating",
-        "genre": "Genre",
-        "platform": "Platform",
-        "releaseDate": "Release Date",
-        "sortBy": "Sort by",
-        "loadingAgeRatings": "Loading age ratings...",
-        "loadingGenres": "Loading genres...",
-        "loadingPlatforms": "Loading platforms...",
-        "loadingPublishYears": "Loading publish years...",
-        "loading": "Loading...",
-        "errorLoadingGenres": "Error loading genres:",
-        "errorLoadingAgeRatings": "Error loading age ratings:",
-        "errorLoadingPlatforms": "Error loading platforms:",
-        "errorLoadingPublishYears": "Error loading publish years:",
-        "developer": "Developer",
-        "publishingYear": "Publishing Year",
-        "gameName": "Game Name",
-        "age": "Age",
+    "gamesList": {
+        "sort": "Sort by",
         "asc": "Ascending",
         "desc": "Descending",
-        "filter": "Filter"  
-    },
-    "gamesList": {
-        "noGames": "No games found",
-        "loadingMore": "Loading more games...",
-        "noMoreGames": "No more games available",
-        "loading": "Loading..."
+        "gameName": "Game",
+        "publishingYear": "Publishing Year",
+        "genre": "Genre",
+        "platform": "Platform",
+        "age": "Age",
+        "developer": "Developer"
     },
     "bulkGameCards": {
         "developer": "Developer",

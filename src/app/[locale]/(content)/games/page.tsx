@@ -6,7 +6,7 @@ import styles from "./page.module.scss";
 import { BulkGameDTO, BulkGamesParams } from "@/types/game";
 import { getBulkGames } from "@/actions/game";
 import { useTranslations } from "next-intl";
-import GameFilters from "@/logic/games/dashboard/filter/FilterLogik";
+import GameFilters from "@/components/layout/FiltersWrapper/GameFilters/GameFilters";
 
 // Diese Funktion wird serverseitig ausgeführt
 async function getData(params: BulkGamesParams) {

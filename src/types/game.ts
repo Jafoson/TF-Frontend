@@ -1,3 +1,5 @@
+import { SortGameEnum } from "@/enum/sortGameEnum";
+import { SortDirectionEnum } from "@/enum/sortDirectionEnum";
 import {FilterItem} from "@/types/filter";
 import {PaginationRespestDTO} from "@/types/pagination";
 
@@ -12,16 +14,9 @@ export interface GameBatchRequest {
   gameIds: string[];
 }
 
-// Referenzdaten Types
-export interface GenreDTO extends FilterItem   {}
-
-export interface PlatformDTO extends FilterItem {}
-
 export interface AgeRatingDTO extends FilterItem {
   age: number;
 }
-
-export interface DeveloperDTO extends FilterItem{}
 
 // Link/URL Types
 export interface GameLinkDTO {
@@ -47,8 +42,8 @@ export interface BulkGameDTO {
   altImgUrl: string;
   platforms: BulkGamePlatformDTO[];
   links: GameLinkDTO[];
-  genres: GenreDTO[];
-  developers: DeveloperDTO[];
+  genres: FilterItem[];
+  developers: FilterItem[];
   ages: AgeRatingDTO[];
   publishingYear: number;
   description: string;
@@ -66,8 +61,8 @@ export interface BulkGamesFilters {
 }
 
 export interface BulkGamesSorting {
-  sortBy?: 'gameName' | 'publishingYear' | 'genre' | 'developer' | 'age' | 'platform';
-  sortDirection?: 'asc' | 'desc';
+  sortBy?: SortGameEnum
+  sortDirection?: SortDirectionEnum
 }
 
 export interface BulkGamesParams extends BulkGamesFilters, BulkGamesSorting, PaginationRespestDTO {

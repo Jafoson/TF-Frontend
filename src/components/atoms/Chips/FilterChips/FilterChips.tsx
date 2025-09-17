@@ -2,11 +2,13 @@
 
 import React from "react";
 import styles from "./FilterChips.module.scss";
-import { TriangleRightIcon } from "@/assets/icons";
+import { ArrowTopIcon, TriangleRightIcon } from "@/assets/icons";
 import Image from "next/image";
+import { SortDirectionEnum } from "@/enum/sortDirectionEnum";
 
 type FilterChipsProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
+  sortDirection?: SortDirectionEnum;
   icon?: React.FC<React.SVGProps<SVGSVGElement>>;
   iconSize?: number;
   iconColor?: string;
@@ -23,6 +25,7 @@ type FilterChipsProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 function FilterChips({
+  sortDirection,
   label,
   icon: Icon,
   iconSize = 16,
@@ -42,7 +45,7 @@ function FilterChips({
   return (
     <button
       className={`${styles.filterChips} ${styles[variant]}`}
-      data-has-left-data={!!Icon || !!image}
+      data-has-left-data={!!Icon || !!image || !!sortDirection}
       data-trailing-icon={hasTrailingIcon}
       data-selected={isSelected}
       type="button"
@@ -50,6 +53,19 @@ function FilterChips({
       value={value}
       {...props}
     >
+      {sortDirection && (
+        sortDirection === SortDirectionEnum.ASC ? (<ArrowTopIcon
+        height={iconSize}
+        width={iconSize}
+        color={iconColor || "inherit"}
+        className={styles.trailingIconAsc}
+        />) : (<ArrowTopIcon
+        height={iconSize}
+        width={iconSize}
+        color={iconColor || "inherit"}
+        className={styles.trailingIconDesc}
+        />)
+      )}
       {Icon && !isSelected ? (
         <Icon
           height={iconSize}
@@ -103,6 +119,7 @@ function FilterChips({
       <span className={styles.label}>
         {selectedLabel && isSelected ? selectedLabel : label}
       </span>
+      
       {hasTrailingIcon && (
         <TriangleRightIcon
           height={iconSize}

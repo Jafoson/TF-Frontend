@@ -1,20 +1,86 @@
-.container {
-  box-sizing: border-box;
+.wrapper {
+  position: relative;
   width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: left;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  padding-left: 0.25rem;
-  border-bottom: 1px solid rgb(var(--outline-variant));
-  padding-top: 0.25rem;
-  overflow-x: auto;
+  flex-direction: column;
+  padding-bottom: 0.25rem;
+
+  &::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 0.5rem);
+    height: 1px;
+    background-color: rgb(var(--outline-variant));
+
+    @media (max-width: 600px) {
+      left: 0.5rem;
+      width: calc(100% - 1rem);
+    }
+  }
+  
+}
+.trailingItem{
+  padding-right: 1rem;
 }
 
-.actions {
+.content {
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   width: 100%;
   display: flex;
-  justify-content: right;
-  gap: 0.5rem;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  position: relative;
+
+  @media (max-width: 600px) {
+    padding-left: 1rem;
+  }
+}
+
+.contenWrapper {
+  width: 100%;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute; // bleibt im DOM, damit offsetWidth gemessen werden kann
+}
+
+.overflowRow {
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  overflow-x: auto;
+  width: 100%;
+  position: relative;
+
+  @media (max-width: 600px) {
+    padding-left: 1rem;
+  }
 }

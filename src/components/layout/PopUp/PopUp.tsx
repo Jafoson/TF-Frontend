@@ -45,7 +45,7 @@ const usePopUp = () => {
 };
 
 // Hauptkomponente
-interface PopUpProps {
+type PopUpProps = {
   children: ReactNode;
   placement?:
     | "top"

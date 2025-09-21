@@ -9,7 +9,8 @@ import { ALoadingCircleIcon, SearchIcon } from "@/assets/icons";
 import styles from "./FilterMenu.module.scss";
 import { useInView } from "react-intersection-observer";
 
-type FilterMenuProps = {
+type FilterMenuProps =  {
+    className?: string;
     serverAction: (params: FilterRequestDTO) => Promise<ActionResponse<PaginationResponseDTO<FilterItem[]>>>;
     label: string;
     variant: "elevated" | "outlined";
@@ -18,7 +19,7 @@ type FilterMenuProps = {
     multiple?: boolean; // Ob mehrere Items ausgewählt werden können
 };
 
-function FilterMenu({ label, variant, onItemSelected, onLoading, serverAction, multiple = false }: FilterMenuProps) {
+function FilterMenu({ label, variant, onItemSelected, onLoading, serverAction, multiple = false, className }: FilterMenuProps) {
     const [initialLoading, setInitialLoading] = React.useState(false);
     const [onOpenChange, setOpenChange] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState<FilterItem[] | []>([]);
@@ -187,7 +188,7 @@ function FilterMenu({ label, variant, onItemSelected, onLoading, serverAction, m
 
   return <PopUp onOpenChange={(open) =>{setOpenChange(open)}}>
 
-    <PopUp.Trigger>
+    <PopUp.Trigger className={className}>
       <FilterChips
         label={`${label} ${selectedItem.length > 0 && multiple ? `(${selectedItem.length})` : ""}`}
         hasTrailingIcon

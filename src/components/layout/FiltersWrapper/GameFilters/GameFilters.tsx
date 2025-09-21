@@ -7,6 +7,7 @@ import SortMenu from '../../FilterMenu/SortMenu/SortMenu';
 import { SortGameEnum } from '@/enum/sortGameEnum';
 import { SortDirectionEnum } from '@/enum/sortDirectionEnum';
 import { useTranslations } from 'next-intl';
+import FilterChipsWrapper from '../../Wrapper/FilterChipsWrapper/FilterChipsWrapper';
 type GameFiltersProps = {
     onFiltersChange: (filters: BulkGamesParams) => void;
   };
@@ -86,8 +87,14 @@ export default function GameFilters({ onFiltersChange }: GameFiltersProps) {
   const  t  = useTranslations("gamesList");
 
   return (
-    <div style={{ display: 'flex', gap: '2rem', width: '100%', justifyContent: 'space-between', padding: '0.5rem',paddingRight: '1rem', borderBottom: '1px solid rgb(var(--outline-variant))', overflow: 'hidden'}}>
-        <div style={{ display: 'flex', gap: '0.5rem', width: '100%', overflowX: 'auto'}}>
+        <FilterChipsWrapper trailingItem={<SortMenu
+          defaultSortDirection={SortDirectionEnum.ASC}
+          defaultSelectedItem={SortGameEnum.GAME_NAME}
+          variant="outlined"
+          items={SortGameEnum}
+          onItemSelected={handleSortChange}
+          t={t}
+        />}>
         <FilterMenu 
           serverAction={getAllGenres} 
           label={t(SortGameEnum.GENRE)} 
@@ -128,15 +135,7 @@ export default function GameFilters({ onFiltersChange }: GameFiltersProps) {
           onItemSelected={handlePlatformChange} 
           multiple={true} 
         />
-        </div>
-        <SortMenu
-          defaultSortDirection={SortDirectionEnum.ASC}
-          defaultSelectedItem={SortGameEnum.GAME_NAME}
-          variant="outlined"
-          items={SortGameEnum}
-          onItemSelected={handleSortChange}
-          t={t}
-        />
-    </div>
+        </FilterChipsWrapper>
+
   )
 }

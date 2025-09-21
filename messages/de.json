@@ -217,5 +217,9 @@
         "publishingYear": "Veröffentlichungsjahr",
         "genre": "Genre",
         "platform": "Plattform"
+    },
+    "filterChipsWrapper": {
+        "filters": "Filter",
+        "moreFilters": "Mehr Filter"
     }
 }

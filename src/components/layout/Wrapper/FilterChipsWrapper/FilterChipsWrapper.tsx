@@ -7,11 +7,13 @@ import { useTranslations } from 'next-intl';
 interface FilterChipsWrapperProps {
   children: React.ReactNode;
   trailingItem?: React.ReactNode;
+  hasDivider?: boolean;
 }
 
 export default function FilterChipsWrapper({ 
   children, 
-  trailingItem
+  trailingItem,
+  hasDivider = false
 }: FilterChipsWrapperProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
@@ -75,7 +77,7 @@ export default function FilterChipsWrapper({
   }, []);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-has-divider={hasDivider}>
       <div className={styles.contenWrapper}>
       <div className={styles.content} ref={wrapperRef}>
         {/* Alle Items werden gerendert, aber nur visibleItems sind wirklich sichtbar */}
@@ -109,8 +111,8 @@ export default function FilterChipsWrapper({
         )}
       </div>
 
-      {showOverflow && overflowItems.length > 0 && (
-        <div className={styles.overflowRow}>
+      {overflowItems.length > 0 && (
+        <div className={`${styles.overflowRow} ${showOverflow ? styles.visible : ''}`}>
           {overflowItems.map((idx) => {
             const item = React.Children.toArray(children)[idx];
             return (

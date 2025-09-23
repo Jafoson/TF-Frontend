@@ -87,7 +87,7 @@ export default function GameFilters({ onFiltersChange }: GameFiltersProps) {
   const  t  = useTranslations("gamesList");
 
   return (
-        <FilterChipsWrapper trailingItem={<SortMenu
+        <FilterChipsWrapper hasDivider={true} trailingItem={<SortMenu
           defaultSortDirection={SortDirectionEnum.ASC}
           defaultSelectedItem={SortGameEnum.GAME_NAME}
           variant="outlined"

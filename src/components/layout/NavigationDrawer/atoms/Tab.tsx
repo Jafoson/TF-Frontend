@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./Tab.module.scss";
 
 interface TabProps {
+  setIsOpen: (isOpen: boolean) => void;
   title: string;
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
   activeIcon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -12,6 +13,7 @@ interface TabProps {
 }
 
 function Tab({
+  setIsOpen,
   title,
   icon: Icon,
   activeIcon: ActiveIcon,
@@ -27,6 +29,7 @@ function Tab({
       className={styles.tab}
       data-expanded={isExpanded}
       data-open={isOpen}
+      onClick={() => setIsOpen(false)}
     >
       {pathname === href ? (
         <ActiveIcon height={28} width={28} />

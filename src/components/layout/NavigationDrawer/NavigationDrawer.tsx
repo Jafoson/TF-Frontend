@@ -122,9 +122,10 @@ function NavigationDrawer({
             height={48}
           />
         </div>
-        <DrawerTabs t={t} isOpen={isOpen} isExpanded={isExpanded} />
+        <DrawerTabs t={t} isOpen={isOpen} isExpanded={isExpanded} setIsOpen={setIsOpen} />
         <div className={styles.navigationDrawerFooter}>
           <Tab
+            setIsOpen={setIsOpen}
             isExpanded={isExpanded}
             isOpen={isOpen}
             title={t("settings")}
@@ -179,10 +180,12 @@ const DrawerTabs = ({
   t,
   isOpen,
   isExpanded,
+  setIsOpen,
 }: {
   t: (key: string) => string;
   isOpen: boolean;
   isExpanded: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }) => {
   const tabs = [
     {
@@ -221,6 +224,7 @@ const DrawerTabs = ({
     <nav className={styles.navigationDrawerTabs}>
       {tabs.map((tab) => (
         <Tab
+          setIsOpen={setIsOpen}
           isExpanded={isExpanded}
           isOpen={isOpen}
           key={tab.title}

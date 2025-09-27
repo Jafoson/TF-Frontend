@@ -18,9 +18,9 @@ function SeriesCards({ series, games }: SeriesCardsProps) {
   const t = useTranslations("seriesCards");
   // Finde das entsprechende Game basierend auf series.gameName (gameId)
   const game = games.find((g) => g.gameId === series.gameName);
-  const displayGameName = game?.gameName || series.gameName;
+  const displayGameName = game?.gameName || t("loading");
   return (
-    <Link className={styles.seriesCards} href={`/series/${series.id}`}>
+    <Link className={styles.seriesCards} href={`/series/${series.id}`} data-value={series.gameName}>
       <LogoWrapper
         logoUrl={series.team1LogoUrl || ""}
         teamName={series.team1Name}

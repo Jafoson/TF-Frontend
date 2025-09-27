@@ -1,27 +1,19 @@
 import React from "react";
 import { getSeries } from "@/actions/series";
-import { getGamesBatch } from "@/actions/game";
 import styles from "./page.module.scss";
 import { Metadata } from "next";
-import HomePageMatchList from "@/components/layout/Lists/HomePageMatchList/HomePageMatchList";
-import { GameDTO } from "@/types/game";
+import MatchList from "@/components/layout/Lists/MatchList/MatchList";
+import { StatusEnum } from "@/enum/statusEnum";
+import { formatDateForApi } from "@/utils/formatingDate";
+import { SortMatchEnum } from "@/enum/sortMatchEnum";
+import { SortDirectionEnum } from "@/enum/sortDirectionEnum";
 
 // Diese Funktion wird serverseitig ausgeführt
 async function getData() {
-  const seriesResponse = await getSeries(0, 10);
+  const seriesResponse = await getSeries({ page: 0, size: 10, from: formatDateForApi(new Date(Date.now()+ 30 * 60 * 1000)), duration: 'past', sort: SortMatchEnum.START_DATE, order: SortDirectionEnum.DESC, status: [StatusEnum.PENDING, StatusEnum.RUNNING, StatusEnum.FINISHED] });
   const series = seriesResponse.data?.data || [];
 
-  // Extrahiere alle einzigartigen gameIds aus den Series
-  const gameIds = [...new Set(series.map((s) => s.gameName))].filter(Boolean);
-
-  // Lade Game-Daten wenn gameIds vorhanden sind
-  let games: GameDTO[] = [];
-  if (gameIds.length > 0) {
-    const gamesResponse = await getGamesBatch(gameIds);
-    games = gamesResponse.success ? gamesResponse.data || [] : [];
-  }
-
-  return { series, games };
+  return { series };
 }
 
 export const metadata: Metadata = {
@@ -31,15 +23,21 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Serverseitige Datenabfrage
-  const { series, games } = await getData();
+  const { series } = await getData();
 
   return (
     <div className={styles.homePage}>
-      <HomePageMatchList
+      <MatchList
         initialData={series}
-        initialGames={games}
         initialPage={0}
         pageSize={10}
+        filters={{
+          from: formatDateForApi(new Date(Date.now()+ 30 * 60 * 1000)),
+          duration: 'past',
+          sort: SortMatchEnum.START_DATE,
+          order: SortDirectionEnum.DESC,
+          status: [StatusEnum.PENDING, StatusEnum.RUNNING, StatusEnum.FINISHED]
+        }}
       />
     </div>
   );

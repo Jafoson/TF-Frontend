@@ -196,7 +196,8 @@
     },
     "seriesCards": {
         "clock": "",
-        "live": "Live"
+        "live": "Live",
+        "loading": "Loading..."
     },
     "gamesList": {
         "sort": "Sort by",
@@ -219,5 +220,20 @@
     "filterChipsWrapper": {
         "filters": "Filters",
         "moreFilters": "More Filters"
+    },
+    "matchesList": {
+        "noMatches": "No matches found",
+        "loadingMore": "Loading more matches...",
+        "noMoreMatches": "No more matches available",
+        "game_id": "Game",
+        "start_date": "Start Date",
+        "status": "Status",
+        "team_id": "Team",
+        "tournament_id": "Tournament",
+        "max_rounds": "Max Rounds",
+        "asc": "Ascending",
+        "desc": "Descending",
+        "end_date": "End Date",
+        "format": "Format"
     }
 }

@@ -7,7 +7,7 @@ interface ContentWrapperProps {
   startDateTime: string;
   status: StatusEnum;
   formatName: string;
-  gameName: string;
+  gameName: string ;
   maxRounds: number;
   tournamentName: string;
   score1: number | null;

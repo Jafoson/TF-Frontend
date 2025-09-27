@@ -305,6 +305,52 @@ export async function getAllPublishYears(params: FilterRequestDTO = {}) {
   }
 }
 
+export async function getAllGames(params: FilterRequestDTO = {}) {
+  try {
+    const isDev = process.env.NODE_ENV === 'development'
+    const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
+
+      const searchParams = new URLSearchParams()
+
+      if (params.page !== undefined) searchParams.append('page', params.page.toString())
+      if (params.size !== undefined) searchParams.append('size', params.size.toString())
+      if (params.search !== undefined) searchParams.append('search', params.search.toString())
+
+    const backendResponse = await fetch(`${apiUrl}/api/game/all${searchParams.toString() ? `?${searchParams.toString()}` : ''}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    console.log('Publish years response status:', backendResponse.status)
+
+    if (!backendResponse.ok) {
+      const error: ResponseError = await backendResponse.json()
+      console.log('Publish years error:', error)
+      return {
+        success: false,
+        code: error.code || 'PUBLISH_YEARS_FETCH_ERROR',
+        errors: error.errors,
+      }
+    }
+
+    const data: Response<PaginationResponseDTO<FilterItem[]>> = await backendResponse.json()
+
+    return {
+      success: true,
+      data: data.data,
+    }
+  } catch (error) {
+    console.error('Fehler beim Laden der Veröffentlichungsjahre:', error)
+    return {
+      success: false,
+      error: 'Interner Serverfehler',
+      details: null,
+    }
+  }
+}
+
 /**
  * Paginierte Spieleliste mit Filtern und Sortierung abrufen
  */

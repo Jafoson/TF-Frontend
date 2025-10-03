@@ -11,6 +11,7 @@
     align-items: stretch; 
     grid-auto-rows: 14rem;
     padding-bottom: 2rem;
+    padding-top: 1rem;
 
     @media (max-width: 450px) {
         grid-auto-rows: 9rem;

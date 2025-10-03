@@ -359,6 +359,9 @@ export async function getBulkGames(params: BulkGamesParams = {}) {
     const isDev = process.env.NODE_ENV === 'development'
     const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
 
+    // Debug: Zeige die erhaltenen Parameter
+    console.log('🔍 getBulkGames - Erhaltene Parameter:', params)
+
     // Query Parameter aufbauen
     const searchParams = new URLSearchParams()
     
@@ -388,6 +391,10 @@ export async function getBulkGames(params: BulkGamesParams = {}) {
     if (params.sortDirection) searchParams.append('sortDirection', params.sortDirection)
 
     const url = `${apiUrl}/api/game/bulk${searchParams.toString() ? `?${searchParams.toString()}` : ''}`
+    
+    // Debug: Zeige die finale URL
+    console.log('🔍 getBulkGames - Finale URL:', url)
+    console.log('🔍 getBulkGames - Query Parameters:', searchParams.toString())
     
     const backendResponse = await fetch(url, {
       method: 'GET',

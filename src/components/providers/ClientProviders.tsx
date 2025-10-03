@@ -2,13 +2,13 @@
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { NextIntlClientProvider } from "next-intl";
+import { Messages, NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { NotificationProvider } from "@/context/NotificationContext";
 import ErrorBoundary from "./ErrorBoundary";
 
 interface ClientProvidersProps {
-  messages: any;
+  messages: Messages;
   locale: string;
   children: React.ReactNode;
 }

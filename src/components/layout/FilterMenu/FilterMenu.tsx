@@ -33,7 +33,7 @@ export default function FilterMenu({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const [open, setOpen] = useState(false)
+
   const [items, setItems] = useState<FilterItem[]>([])
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(0)
@@ -112,7 +112,6 @@ export default function FilterMenu({
 
   /** Beim Öffnen initial laden */
   const handleOpenChange = (isOpen: boolean) => {
-    setOpen(isOpen)
     if (isOpen && items.length === 0) {
       fetchItems('', 0, false)
     }

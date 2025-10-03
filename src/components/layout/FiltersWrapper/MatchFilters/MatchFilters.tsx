@@ -29,21 +29,21 @@ async function MatchFilters() {
             label={t(SortMatchEnum.GAME_ID)}
             variant="elevated"
             multiple={true}
-            urlKey="matchGames"
+            urlKey="games"
         />
         <FilterMenu
             serverAction={getAllFormats}
             label={t("format")}
             variant="elevated"
             multiple={true}
-            urlKey="matchFormats"
+            urlKey="formats"
         />
         <FilterMenu
             serverAction={getAllStatus}
             label={t(SortMatchEnum.STATUS_ID)}
             variant="elevated"
             multiple={true}
-            urlKey="matchStatuses"
+            urlKey="status"
         />
     </FilterChipsWrapper>
     <DayPicker urlKey="date" />

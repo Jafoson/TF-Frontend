@@ -10,12 +10,14 @@ type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     iconColor?: string | 'inherit'
     iconSize?: number
     className?: string
+    rotate?: number
+    padding?: string
 }
 
-function IconButton({icon: Icon, disabled = false, variant = 'text', iconColor, iconSize = 24, className, ...props}: IconButtonProps) {
+function IconButton({icon: Icon, disabled = false, variant = 'text', iconColor, iconSize = 24, className, rotate, padding, ...props}: IconButtonProps) {
     return (
-    <button className={`${styles.iconButton} ${styles[variant]} ${className || ''}`} disabled={disabled} {...props}>
-        <Icon height={iconSize} width={iconSize} color={iconColor || 'inherit'} />
+    <button className={`${styles.iconButton} ${styles[variant]} ${className || ''}`} disabled={disabled} style={{ padding: padding ? `${padding}rem` : '0.25rem' }} {...props}>
+        <Icon height={iconSize} width={iconSize} color={iconColor || 'inherit'}   style={{ transform: `rotate(${rotate}deg)` }}/>
     </button>
   )
 }

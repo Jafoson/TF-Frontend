@@ -1,3 +1,6 @@
+'use client'
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './FilterChipsWrapper.module.scss';
 import FilterChips from '@/components/atoms/Chips/FilterChips/FilterChips';

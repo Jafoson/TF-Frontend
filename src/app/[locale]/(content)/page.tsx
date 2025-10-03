@@ -27,7 +27,7 @@ export default async function HomePage() {
 
   return (
     <div className={styles.homePage}>
-      <MatchList
+      {/* <MatchList
         initialData={series}
         initialPage={0}
         pageSize={10}
@@ -38,7 +38,7 @@ export default async function HomePage() {
           order: SortDirectionEnum.DESC,
           status: [StatusEnum.PENDING, StatusEnum.RUNNING, StatusEnum.FINISHED]
         }}
-      />
+      /> */}
     </div>
   );
 }

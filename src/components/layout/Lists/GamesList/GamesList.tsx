@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import styles from "./GamesList.module.scss";
 import { BulkGameDTO, BulkGamesParams } from "@/types/game";
 import BulkGameCards from "../../Cards/BulkGameCards/BulkGameCards";
@@ -31,6 +31,9 @@ function GamesList({
     rootMargin: "600px 0px",
     threshold: 0,
   });
+
+  // Reset games when component mounts with new key (filter changes)
+  // This happens automatically when the key prop changes
 
   const loadMoreGames = useCallback(async () => {
     if (isLoading || !hasMoreData) return;
@@ -71,11 +74,17 @@ function GamesList({
     }
   }, [page, pageSize, hasMoreData, isLoading, filters]);
 
-  useEffect(() => {
-    if (isInView && hasMoreData && !isLoading) {
+  // Infinite scroll handler - called when scroll trigger comes into view
+  const handleScrollTrigger = () => {
+    if (hasMoreData && !isLoading) {
       loadMoreGames();
     }
-  }, [isInView, hasMoreData, isLoading, loadMoreGames]);
+  };
+
+  // Call loadMoreGames when isInView changes to true
+  if (isInView && hasMoreData && !isLoading) {
+    loadMoreGames();
+  }
 
   return (
     <div className={styles.scrollContainer}>
@@ -88,7 +97,10 @@ function GamesList({
         </div>
       )}
       {hasMoreData && (
-        <div ref={scrollTrigger} className={styles.loading}>
+        <div 
+          ref={scrollTrigger} 
+          className={styles.loading}
+        >
           <ALoadingCircleIcon />
           <p>{t("loadingMore")}</p>
         </div>

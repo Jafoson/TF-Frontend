@@ -59,6 +59,7 @@ type PopUpProps = {
   offset?: number;
   canOpenByHover?: boolean;
   onOpenChange?: (open: boolean) => void;
+  isOpen?: boolean;
 }
 
 const PopUp: React.FC<PopUpProps> & {
@@ -72,8 +73,9 @@ const PopUp: React.FC<PopUpProps> & {
   offset: offsetValue = 8,
   canOpenByHover = false,
   onOpenChange,
+  isOpen: initialIsOpen = false,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(initialIsOpen);
 
   // Custom setIsOpen handler um onOpenChange zu triggern
   const handleOpenChange = (open: boolean) => {

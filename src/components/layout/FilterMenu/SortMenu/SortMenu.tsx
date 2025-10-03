@@ -1,24 +1,47 @@
+'use client'
+
 import React from 'react'
 import PopUp from '../../PopUp/PopUp';
 import FilterChips from '@/components/atoms/Chips/FilterChips/FilterChips';
 import { SortDirectionEnum } from '@/enum/sortDirectionEnum';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
+
 interface SortMenuProps<T extends Record<string, string | number>> {
     variant: "elevated" | "outlined";
-    items: T; // Ein Enum oder ein Objekt mit string/number-Werten
-    onItemSelected: (item: T[keyof T], sortDirection: SortDirectionEnum) => void;
+    items: T; 
     defaultSortDirection: SortDirectionEnum;
     defaultSelectedItem: T[keyof T];
-    t: (key: string) => string;
+    translationKey: string; // Statt t-Funktion, nur den Translation-Key
   }
 
-export default function SortMenu<T extends Record<string, string | number>>({ variant, items, onItemSelected, defaultSortDirection, defaultSelectedItem, t }: SortMenuProps<T>) {
-    const [selectedSortDirection, setSelectedSortDirection] = React.useState<SortDirectionEnum>(defaultSortDirection);
-    const [selectedItem, setSelectedItem] = React.useState<T[keyof T] | null>(defaultSelectedItem);
+export default function SortMenu<T extends Record<string, string | number>>({ variant, items, defaultSortDirection, defaultSelectedItem, translationKey }: SortMenuProps<T>) {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname()
+    const t = useTranslations(translationKey);
+
+    // Ausgewählte Werte aus URL lesen
+    const selectedItem = (searchParams.get('sort') as T[keyof T]) || defaultSelectedItem;
+    const selectedSortDirection = (searchParams.get('direction') as SortDirectionEnum) || defaultSortDirection;
+
+    // URL aktualisieren
+    const updateURL = React.useCallback((item: T[keyof T], direction: SortDirectionEnum) => {
+        const params = new URLSearchParams(searchParams.toString())
+        params.set('sort', item.toString())
+        params.set('direction', direction)
+  
+        const newUrl = `${pathname}?${params.toString()}`
+        console.log('SortMenu: Updating URL to:', newUrl)
+        // Client-seitige Navigation → löst SSR-Neurendern aus
+        router.push(newUrl)
+      },
+      [pathname, router, searchParams]);
 
     const handleItemClick = (item: T[keyof T], direction: SortDirectionEnum) => {
-        setSelectedItem(item);
-        setSelectedSortDirection(direction);
-        onItemSelected(item, direction);
+        updateURL(item, direction);
+        // onItemSelected(item, direction);
       };
 
   const itemsArray = Object.values(items) as T[keyof T][];

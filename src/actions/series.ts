@@ -20,13 +20,17 @@ export async function getSeries(params: BulkSeriesParams = {}) {
   if (params.status) searchParams.append('status', params.status.join(','))
   if (params.team) searchParams.append('team', params.team.join(','))
   if (params.game) searchParams.append('game', params.game.join(','))
-  if (params.page) searchParams.append('page', params.page.toString())
-  if (params.size) searchParams.append('size', params.size.toString())
+  if (params.start) searchParams.append('start', params.start)
+  if (params.end) searchParams.append('end', params.end)
     
     try {
       // Explicitly check for development environment
       const isDev = process.env.NODE_ENV === 'development'
       const apiUrl = process.env.API_URL || (isDev ? 'http://localhost:8080' : 'https://api.tournamentfox.com')
+
+      console.log("searchParams:", searchParams.toString())
+
+      console.log(`${apiUrl}/api/series${searchParams.toString() ? `?${searchParams.toString()}` : ''}`)
   
       // API-Aufruf an das Backend
       const backendResponse = await fetch(`${apiUrl}/api/series${searchParams.toString() ? `?${searchParams.toString()}` : ''}`, {

@@ -29,6 +29,8 @@ export interface BulkSeriesFilters{
   status?: string[];
   game?: string[];
   format?: string[];
+  start?: string;
+  end?: string;
 }
 
 export interface BulkSeriesSorting{

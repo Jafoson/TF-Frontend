@@ -1,84 +1,80 @@
-"use client";
-
-import { useEffect, useState, useCallback } from "react";
-import GamesList from "@/components/layout/Lists/GamesList/GamesList";
-import styles from "./page.module.scss";
-import { BulkGameDTO, BulkGamesParams } from "@/types/game";
 import { getBulkGames } from "@/actions/game";
-import { useTranslations } from "next-intl";
+import GamesList from "@/components/layout/Lists/GamesList/GamesList";
 import GameFilters from "@/components/layout/FiltersWrapper/GameFilters/GameFilters";
+import styles from "./page.module.scss";
+import { BulkGamesParams } from "@/types/game";
+import { getTranslations } from "next-intl/server";
 
-// Diese Funktion wird serverseitig ausgeführt
-async function getData(params: BulkGamesParams) {
-  const gamesResponse = await getBulkGames(params);
-  console.log("Games response:", gamesResponse);
-  const games = gamesResponse.data?.data || [];
-  console.log("Games:", games);
-
-  return games;
-}
-
-export default function GamesPage() {
-  const t = useTranslations("gamesList");
-  const [games, setGames] = useState<BulkGameDTO[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentFilters, setCurrentFilters] = useState<BulkGamesParams>({
+// Hilfsfunktion: URL-Params in Filter umwandeln
+function mapSearchParamsToFilters(searchParams: { [key: string]: string | string[] | undefined }): BulkGamesParams {
+  const filters: BulkGamesParams = {
     size: 10,
     page: 0,
-  });
+  };
 
-  // Gemeinsame Funktion zum Laden der Games
-  const loadGames = useCallback(async (filters: BulkGamesParams) => {
-    setIsLoading(true);
-    try {
-      const responseGames = await getData(filters);
-      console.log("Games loaded with filters:", filters, "->", responseGames);
-      setGames(responseGames);
-    } catch (error) {
-      console.error("Error loading games:", error);
-      setGames([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  if (searchParams.genres) {
+    filters.genreIds = String(searchParams.genres).split(",");
+  }
 
-  // Initiales Laden der Games
-  useEffect(() => {
-    loadGames({ page: 0, size: 10 });
-  }, [loadGames]);
+  if (searchParams.year) {
+    filters.publishingYear = Number(searchParams.year);
+  }
 
-  // ✅ Separater useEffect um zu sehen wenn games sich ändert
-  useEffect(() => {
-    console.log("Games State updated:", games);
-  }, [games]);
+  if (searchParams.developers) {
+    filters.developerIds = String(searchParams.developers).split(",");
+  }
 
-  const handleFiltersChange = useCallback(
-    async (newFilters: BulkGamesParams) => {
-      console.log("Filter changed:", newFilters);
-      setCurrentFilters(newFilters);
+  if (searchParams.ages) {
+    filters.ageIds = String(searchParams.ages).split(",");
+  }
 
-      // Lade neue Daten mit den Filtern
-      await loadGames(newFilters);
-    },
-    [loadGames]
-  );
+  if (searchParams.platforms) {
+    filters.platformIds = String(searchParams.platforms).split(",");
+  }
+
+  if (searchParams.sort) {
+    filters.sortBy = searchParams.sort as any;
+  }
+
+  if (searchParams.direction) {
+    filters.sortDirection = searchParams.direction as any;
+  }
+
+  return filters;
+}
+
+// Server Component
+export default async function GamesPage({ 
+  searchParams 
+}: { 
+  searchParams: { [key: string]: string | string[] | undefined } 
+}) {
+  const t = await getTranslations("gamesList");
+
+  // Filter aus URL holen
+  const filters = mapSearchParamsToFilters(searchParams);
+
+  // Serverseitig Daten laden
+  const gamesResponse = await getBulkGames(filters);
+  
+  if (!gamesResponse.success) {
+    console.error('Error loading games:', gamesResponse);
+    throw new Error(gamesResponse.error || 'Failed to load games');
+  }
+  
+  const games = gamesResponse.data?.data || [];
 
   return (
     <div className={styles.container}>
-      <GameFilters onFiltersChange={handleFiltersChange} />
+      <GameFilters />
       <div className={styles.gamesContainer}>
-        {isLoading ? (
-          <div className={styles.container}>
-            <div>{t("loading")}</div>
-          </div>
-        ) : (
-          <GamesList
-            initialData={games}
-            initialPage={0}
-            pageSize={10}
-            filters={currentFilters}
-          />
-        )}
+        {/* <GamesList
+          key={JSON.stringify(filters)}
+          initialData={games}
+          initialPage={filters.page ?? 0}
+          pageSize={filters.size ?? 10}
+          filters={filters}
+        /> */}
       </div>
     </div>
   );

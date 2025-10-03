@@ -1,11 +1,11 @@
-import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { ThemeProvider } from "@/context/ThemeContext";
 import "@/app/globals.css";
 import "@/style/dark.scss";
 import "@/style/light.scss";
-import { NotificationProvider } from "@/context/NotificationContext";
+import { getMessages } from 'next-intl/server';
+import ClientProviders from "@/components/providers/ClientProviders";
 
 export default async function LocaleLayout({
   children,
@@ -20,13 +20,15 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
+
   return (
     <html lang={locale}>
-      <ThemeProvider>
-        <NextIntlClientProvider>
-          <NotificationProvider>{children}</NotificationProvider>
-        </NextIntlClientProvider>
-      </ThemeProvider>
+      <ClientProviders messages={messages} locale={locale}>
+        {children}
+      </ClientProviders>
     </html>
   );
 }

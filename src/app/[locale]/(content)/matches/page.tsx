@@ -1,59 +1,79 @@
-"use client";
-
-import React, { useCallback, useState, useEffect } from 'react'
+import React from 'react'
 import styles from './page.module.scss'
 import MatchFilters from '@/components/layout/FiltersWrapper/MatchFilters/MatchFilters'
 import { BulkSeriesParams, SeriesDTO } from '@/types/series';
 import MatchList from '@/components/layout/Lists/MatchList/MatchList';
 import { getSeries } from '@/actions/series';
+import { getTranslations } from 'next-intl/server';
 
-export default function MatchOverviewPage() {
-  const [matches, setMatches] = useState<SeriesDTO[]>([]);
-  const [currentFilters, setCurrentFilters] = useState<BulkSeriesParams>({
-    page: 0,
+// Hilfsfunktion: URL-Params in Filter umwandeln
+function mapSearchParamsToFilters(searchParams: { [key: string]: string | string[] | undefined }): BulkSeriesParams {
+  const filters: BulkSeriesParams = {
     size: 10,
-  });
-  const [, setIsLoading] = useState(true);
+    page: 0,
+  };
 
-  const loadMatches = useCallback(async(filters: BulkSeriesParams) => {
-    setIsLoading(true);
-    try {
-      const responseMatches = await getSeries(filters);
-      setMatches(responseMatches.data?.data || []);
-    } catch (error) {
-      console.error("Error loading matches:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
+  if (searchParams.matchGames) {
+    filters.game = String(searchParams.matchGames).split(",");
+  }
 
-  const handleFiltersChange = useCallback((filters: BulkSeriesParams) => {
-    console.log("Filters changed:", filters);
-    setCurrentFilters(filters);
-    setMatches([]);
-    loadMatches(filters);
-  }, [loadMatches]);
+  if (searchParams.matchFormats) {
+    filters.format = String(searchParams.matchFormats).split(",");
+  }
 
-  // Initial load only once
-  useEffect(() => {
-    loadMatches({
-      page: 0,
-      size: 10,
-    });
-  }, []); // Empty dependency array - only run once on mount
+  if (searchParams.matchStatuses) {
+    filters.status = String(searchParams.matchStatuses).split(",");
+  }
+
+  if (searchParams.date) {
+    filters.start = String(searchParams.date + "T00:00:00Z");
+    filters.end = String(searchParams.date + "T23:59:59Z");
+  }
+
+  if (searchParams.sort) {
+    filters.sort = searchParams.sort as any;
+  }
+
+  if (searchParams.direction) {
+    filters.order = searchParams.direction as any;
+  }
+
+  return filters;
+}
+
+// Server Component
+export default async function MatchOverviewPage({ 
+  searchParams 
+}: { 
+  searchParams: { [key: string]: string | string[] | undefined } 
+}) {
+  const t = await getTranslations("matchesList");
+
+  // Filter aus URL holen
+  const filters = mapSearchParamsToFilters(searchParams);
+
+  // Serverseitig Daten laden
+  const matchesResponse = await getSeries(filters);
+  
+  if (!matchesResponse.success) {
+    console.error('Error loading matches:', matchesResponse);
+    throw new Error(matchesResponse.error || 'Failed to load matches');
+  }
+  
+  const matches = matchesResponse.data?.data || [];
 
   return (
-        <div className={styles.container}>
-          <MatchFilters onFiltersChange={handleFiltersChange} />
-          <div className={styles.matchesContainer}>
-            <MatchList
-              key={JSON.stringify(currentFilters)}
-              initialData={matches}
-              initialPage={0}
-              pageSize={10}
-              filters={currentFilters}
-            />
-          </div>
-        </div>
-  )
+    <div className={styles.matchesContainer}>
+      <MatchFilters />
+      <div className={styles.matchesContainer}>
+        {/* <MatchList
+          key={JSON.stringify(filters)}
+          initialData={matches}
+          initialPage={filters.page ?? 0}
+          pageSize={filters.size ?? 10}
+          filters={filters}
+        /> */}
+      </div>
+    </div>
+  );
 }

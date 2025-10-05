@@ -1,7 +1,6 @@
 "use client";
 
 import ArrowBackIcon from '@/assets/icons/ArrowBackIcon';
-import DoubleArrowBackIcon from '@/assets/icons/DoubleArrowBackIcon';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './DayPicker.module.scss';
@@ -69,8 +68,6 @@ export default function DayPicker({ urlKey }: DayPickerProps) {
   // ---- Navigation Buttons ----
   const goToPreviousDay = () => updateDateAndWeek(selectedDate.subtract(1, "day"));
   const goToNextDay = () => updateDateAndWeek(selectedDate.add(1, "day"));
-  const goToPreviousWeek = () => updateDateAndWeek(selectedDate.subtract(1, "week"));
-  const goToNextWeek = () => updateDateAndWeek(selectedDate.add(1, "week"));
 
   // ---- Kalenderauswahl ----
   const handleCalendarDateChange = (newValue: dayjs.Dayjs | null) => {
@@ -118,13 +115,6 @@ export default function DayPicker({ urlKey }: DayPickerProps) {
       <div className={styles.wrapperContainer}>
         <div className={styles.container}>
           <IconButton
-            className={styles.iconButton}
-            icon={DoubleArrowBackIcon}
-            variant="text"
-            iconSize={24}
-            onClick={goToPreviousWeek}
-          />
-          <IconButton
             icon={ArrowBackIcon}
             variant="text"
             iconSize={24}
@@ -145,14 +135,6 @@ export default function DayPicker({ urlKey }: DayPickerProps) {
             variant="text"
             iconSize={24}
             onClick={goToNextDay}
-          />
-          <IconButton
-            className={styles.iconButton}
-            rotate={180}
-            icon={DoubleArrowBackIcon}
-            variant="text"
-            iconSize={24}
-            onClick={goToNextWeek}
           />
         </div>
       </div>

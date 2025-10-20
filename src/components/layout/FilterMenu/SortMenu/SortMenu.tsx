@@ -3,7 +3,7 @@
 import React from 'react'
 import PopUp from '../../PopUp/PopUp';
 import FilterChips from '@/components/atoms/Chips/FilterChips/FilterChips';
-import { SortDirectionEnum } from '@/enum/sortDirectionEnum';
+import { SortDirectionEnum } from '@/enum/sorting/sortDirectionEnum';
 import { useSearchParams } from 'next/navigation';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';

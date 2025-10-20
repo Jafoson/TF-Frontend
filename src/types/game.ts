@@ -1,5 +1,5 @@
-import { SortGameEnum } from "@/enum/sortGameEnum";
-import { SortDirectionEnum } from "@/enum/sortDirectionEnum";
+import { SortGameEnum } from "@/enum/sorting/sortGameEnum";
+import { SortDirectionEnum } from "@/enum/sorting/sortDirectionEnum";
 import {FilterItem} from "@/types/filter";
 import {PaginationRespestDTO} from "@/types/pagination";
 

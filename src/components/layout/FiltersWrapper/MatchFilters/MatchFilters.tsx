@@ -1,6 +1,6 @@
 import React from 'react'
-import { SortDirectionEnum } from '@/enum/sortDirectionEnum';
-import { SortMatchEnum } from '@/enum/sortMatchEnum';
+import { SortDirectionEnum } from '@/enum/sorting/sortDirectionEnum';
+import { SortMatchEnum } from '@/enum/sorting/sortMatchEnum';
 import { getTranslations } from 'next-intl/server';
 import FilterChipsWrapper from '../../Wrapper/FilterChipsWrapper/FilterChipsWrapper';
 import SortMenu from '../../FilterMenu/SortMenu/SortMenu';

@@ -1,6 +1,6 @@
-import { SortGameEnum } from '@/enum/sortGameEnum';
+import { SortGameEnum } from '@/enum/sorting/sortGameEnum';
 import { BulkGamesParams } from '@/types/game';
-import { SortDirectionEnum } from '@/enum/sortDirectionEnum';
+import { SortDirectionEnum } from '@/enum/sorting/sortDirectionEnum';
 
 export function parseBulkGamesParams(
   searchParams: Record<string, string | string[] | undefined>

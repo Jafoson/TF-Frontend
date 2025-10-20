@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./FilterChips.module.scss";
 import { ArrowTopIcon, TriangleRightIcon } from "@/assets/icons";
 import Image from "next/image";
-import { SortDirectionEnum } from "@/enum/sortDirectionEnum";
+import { SortDirectionEnum } from "@/enum/sorting/sortDirectionEnum";
 
 type FilterChipsProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;

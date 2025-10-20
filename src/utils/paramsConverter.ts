@@ -1,10 +1,12 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { BulkGamesParams } from "@/types/game";
 import { BulkSeriesParams } from "@/types/series";
-import { SortGameEnum } from "@/enum/sortGameEnum";
-import { SortMatchEnum } from "@/enum/sortMatchEnum";
-import { SortDirectionEnum } from "@/enum/sortDirectionEnum";
+import { SortGameEnum } from "@/enum/sorting/sortGameEnum";
+import { SortMatchEnum } from "@/enum/sorting/sortMatchEnum";
+import { SortDirectionEnum } from "@/enum/sorting/sortDirectionEnum";
 import { StatusEnum } from "@/enum/statusEnum";
+import { BulkTeamsParams } from "@/types/teams";
+import { SortTeamEnum } from "@/enum/sorting/sortTeamEnum";
 
 /**
  * Konvertiert URL SearchParams in BulkGamesParams für die Spiele-Filterung
@@ -260,4 +262,71 @@ export function convertBulkSeriesParamsToSearchParams(params: BulkSeriesParams):
   }
 
   return searchParams;
+}
+
+
+/**
+ * Konvertiert URL SearchParams in BulkTeamsParams für die Team-Filterung
+ * @param searchParams - Die URL SearchParams aus Next.js
+ * @returns BulkTeamsParams Objekt mit konvertierten Werten
+ */
+export function convertSearchParamsToBulkTeamsParams(searchParams: ReadonlyURLSearchParams): BulkTeamsParams {
+  const params: BulkTeamsParams = {};
+  
+  // Debug: Zeige alle verfügbaren URL-Parameter
+  console.log('🔍 paramsConverter - Alle URL-Parameter:', Object.fromEntries(searchParams.entries()));
+
+  // Pagination Parameter
+  const page = searchParams.get('page');
+  if (page) {
+    const pageNum = parseInt(page, 10);
+    if (!isNaN(pageNum) && pageNum >= 0) {
+      params.page = pageNum;
+    }
+  }
+
+  const size = searchParams.get('size');
+  if (size) {
+    const sizeNum = parseInt(size, 10);
+    if (!isNaN(sizeNum) && sizeNum > 0) {
+      params.size = sizeNum;
+    }
+  }
+
+  // Filter Parameter - Arrays aus kommagetrennten Strings
+  // Prüfe sowohl 'genreIds' als auch 'genres' für Rückwärtskompatibilität
+  const gameIds = searchParams.get('gameID') || searchParams.get('games');
+  if (gameIds) {
+    params.gameId = gameIds.split(',').filter(id => id.trim() !== '');
+  }
+
+  const foundingDate = searchParams.get('foundingYear') || searchParams.get('founding');
+  if (foundingDate) {
+    params.foundingDate = foundingDate;
+  }
+
+  const orgaId = searchParams.get('orgaID') || searchParams.get('orga');
+  if (orgaId) {
+    params.orgaId = orgaId;
+  }
+  const regionId = searchParams.get('regionID') || searchParams.get('region');
+  if (regionId) {
+    params.regionId = regionId;
+  }
+
+  // Sortierung Parameter - Prüfe sowohl 'sortBy' als auch 'sort' für Rückwärtskompatibilität
+  const sortBy = searchParams.get('sortBy') || searchParams.get('sort');
+  if (sortBy && Object.values(SortTeamEnum).includes(sortBy as SortTeamEnum)) {
+    params.sortBy = sortBy as SortTeamEnum;
+  }
+
+  const sortDirection = searchParams.get('sortDirection') || searchParams.get('direction');
+  if (sortDirection && Object.values(SortDirectionEnum).includes(sortDirection as SortDirectionEnum)) {
+    params.sortOrder = sortDirection as SortDirectionEnum;
+  }
+
+  // Debug: Zeige die konvertierten Parameter
+  console.log('🔍 paramsConverter - Konvertierte Parameter:', params);
+  
+  return params;
 }

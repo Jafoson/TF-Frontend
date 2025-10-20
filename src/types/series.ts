@@ -1,6 +1,6 @@
-import { SortMatchEnum } from "@/enum/sortMatchEnum";
+import { SortMatchEnum } from "@/enum/sorting/sortMatchEnum";
 import { StatusEnum } from "../enum/statusEnum";
-import { SortDirectionEnum } from "@/enum/sortDirectionEnum";
+import { SortDirectionEnum } from "@/enum/sorting/sortDirectionEnum";
 import { PaginationRespestDTO } from "./pagination";
 
 export interface SeriesDTO {

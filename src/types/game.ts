@@ -8,6 +8,7 @@ export interface GameDTO {
   gameName: string;
   imgUrl: string;
   altImgUrl: string;
+  slug: string;
 }
 
 export interface GameBatchRequest {
@@ -47,6 +48,7 @@ export interface BulkGameDTO {
   ages: AgeRatingDTO[];
   publishingYear: number;
   description: string;
+  slug: string;
 }
 
 // Die Referenzdaten-Endpunkte verwenden die Standard Response<T> Struktur aus @/types/response

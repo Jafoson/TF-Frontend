@@ -5,15 +5,19 @@ import { useInView } from 'react-intersection-observer'
 import { ALoadingCircleIcon, SadIcon } from '@/assets/icons'
 import styles from '../TeamList.module.scss'
 import { BulkTeamsParams, TeamBulkDTO } from '@/types/teams'
+import { GameDTO } from '@/types/game'
 import { getTeams } from '@/actions/teams'
 import BulkTeamCards from '@/components/layout/Cards/BulkTeamCards/BulkTeamCards'
 
 interface RenderListProps {
   teams: TeamBulkDTO[]
   filters: BulkTeamsParams
+  games: GameDTO[]
+  isLoadingGames: boolean
+  onLoadGameDetails: (teamsData: TeamBulkDTO[], isAppend?: boolean) => void
 }
 
-function RenderList({ teams: initialTeams, filters }: RenderListProps) {
+function RenderList({ teams: initialTeams, filters, games, isLoadingGames, onLoadGameDetails }: RenderListProps) {
   const [teams, setTeams] = useState<TeamBulkDTO[]>(initialTeams || [])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [hasMore, setHasMore] = useState<boolean>(true)
@@ -39,21 +43,26 @@ function RenderList({ teams: initialTeams, filters }: RenderListProps) {
         size: filters.size || 20,
       }
 
+      console.log('🔍 RenderList - Lade weitere Teams, Seite:', nextPage)
       const result = await getTeams(params)
       
       if (result.success && result.data) {
         const newTeams = result.data.data
+        console.log('🔍 RenderList - Neue Teams geladen:', newTeams.length)
         setTeams(prev => [...prev, ...newTeams])
         setHasMore(newTeams.length === (filters.size || 20))
         setCurrentPage(nextPage)
+        
+        // Lade Game-Details für die neuen Teams (append = true)
+        onLoadGameDetails(newTeams, true)
       } else {
-        setError(result.error || 'Fehler beim Laden der Spiele')
+        setError(result.error || 'Fehler beim Laden der Teams')
         setHasMore(false)
       }
     } catch (err) {
-      setError('Fehler beim Laden der Spiele')
+      setError('Fehler beim Laden der Teams')
       setHasMore(false)
-      console.error('Error loading more games:', err)
+      console.error('Error loading more teams:', err)
     } finally {
       setIsLoading(false)
     }
@@ -86,7 +95,7 @@ function RenderList({ teams: initialTeams, filters }: RenderListProps) {
   if (teams.length === 0 && !isLoading) {
     return (
       <div className={styles.emptyContainer}>
-        <p>Keine Spiele gefunden</p>
+        <p>Keine Teams gefunden</p>
       </div>
     )
   }
@@ -94,7 +103,12 @@ function RenderList({ teams: initialTeams, filters }: RenderListProps) {
   return (
     <>
         {teams.map((team) => (
-          <BulkTeamCards key={team.uid} team={team} />
+          <BulkTeamCards 
+            key={team.uid} 
+            team={team} 
+            games={games}
+            isLoadingGames={isLoadingGames}
+          />
         ))}
       
       {hasMore && (
@@ -102,7 +116,7 @@ function RenderList({ teams: initialTeams, filters }: RenderListProps) {
           {isLoading && (
             <div className={styles.loadingContainer}>
               <ALoadingCircleIcon className={styles.loadingIcon} />
-              <p>Weitere Teams‚ werden geladen...</p>
+              <p>Weitere Teams werden geladen...</p>
             </div>
           )}
         </div>

@@ -235,5 +235,26 @@
         "desc": "Descending",
         "end_date": "End Date",
         "format": "Format"
+    },
+    "bulkTeamCards": {
+        "region": "Region",
+        "foundingYear": "Founding Year",
+        "game": "Game",
+        "noTeams": "No teams found",
+        "loadingMore": "Loading more teams...",
+        "noMoreTeams": "No more teams available"
+    },
+    "teamList": {
+        "game": "Game",
+        "foundingYear": "Founding Year",
+        "region": "Region",
+        "sort": "Sort by",
+        "asc": "Ascending",
+        "desc": "Descending",
+        "name": "Name",
+        "slug": "Slug",
+        "logoURL": "Logo URL",
+        "altLogoURL": "Alt Logo URL",
+        "foundingDate": "Founding Year"
     }
 }

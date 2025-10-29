@@ -300,9 +300,9 @@ export function convertSearchParamsToBulkTeamsParams(searchParams: ReadonlyURLSe
     params.gameId = gameIds.split(',').filter(id => id.trim() !== '');
   }
 
-  const foundingDate = searchParams.get('foundingYear') || searchParams.get('founding');
-  if (foundingDate) {
-    params.foundingDate = foundingDate;
+  const foundingYear = searchParams.get('foundingYear') || searchParams.get('founding');
+  if (foundingYear) {
+    params.foundingYear = parseInt(foundingYear, 10);
   }
 
   const orgaId = searchParams.get('orgaID') || searchParams.get('orga');

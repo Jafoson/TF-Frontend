@@ -12,7 +12,7 @@ interface BulkGameCardsProps {
 function BulkGameCards({ game }: BulkGameCardsProps) {
   const t = useTranslations("bulkGameCards");
   return (
-    <Link className={styles.container} href={`/games/${game.uid}`}>
+    <Link className={styles.container} href={`/games/${game.slug}`}>
       <Image
         src={"/" + game.imgUrl}
         alt={game.name + " Logo"}

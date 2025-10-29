@@ -15,7 +15,7 @@ export interface TeamBulkDTO {
 
 export interface BulkTeamsFilter{
     gameId?: string[];
-    foundingDate?: string;
+    foundingYear?: number;
     regionId?: string;
     orgaId?: string;
 }

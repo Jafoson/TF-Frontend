@@ -1,7 +1,7 @@
 {
     "login": {
         "title": "Welcome back, Summoner!",
-        "mail": "Email / Username",
+        "mail": "E-Mail / Username",
         "mailPlaceholder": "max@example.com... | Example123...",
         "password": "Password",
         "passwordPlaceholder": "Password123...",
@@ -16,7 +16,16 @@
         "loginWithApple": "Login with Apple",
         "loginWithFacebook": "Login with Facebook",
         "loginWithTwitter": "Login with Twitter",
-        "loginWithLinkedin": "Login with Linkedin"
+        "loginWithLinkedin": "Login with Linkedin",
+        "error": "Error",
+        "success": "Success",
+        "fillAllFields": "Please fill in all fields",
+        "loginSuccessful": "You have been successfully logged in",
+        "loginFailed": "Login failed. Please check your credentials",
+        "unexpectedError": "An unexpected error occurred",
+
+        "LOGIN_INVALID_DATA": "Invalid data",
+        "LOGIN_INVALID_DATA_DESCRIPTION": "Password or username/email is incorrect, or the account is not activated"
     },
     "register": {
         "title": "Create an account",
@@ -48,7 +57,18 @@
         "passwordLowercase": "The password must contain at least one lowercase letter",
         "passwordNumber": "The password must contain at least one number",
         "passwordSpecial": "The password must contain at least one special character",
-        "passwordsDoNotMatch": "The passwords do not match"
+        "passwordsDoNotMatch": "The passwords do not match",
+
+        "REGISTRATION_CONFLICT": "Registration Error",
+        "REGISTRATION_CONFLICT_DESCRIPTION": "The username or email address is already in use",
+        "REGISTRATION_ERROR": "Registration Error",
+        "REGISTRATION_ERROR_DESCRIPTION": "An error occurred. Please try again",
+
+        "emailExists": "The email address is already in use",
+        "usernameExists": "The username is already in use",
+
+        "INVALID_REQUEST": "Invalid Request",
+        "INVALID_REQUEST_DESCRIPTION": "An unexpected error occurred. Please try again."
     },
     "forgotPassword": {
         "title": "Reset Password",
@@ -58,15 +78,49 @@
         "footerText": "If you don't receive an email, please check your spam folder. You can request the link again after 60 seconds.",
         "mail": "Email",
         "mailPlaceholder": "max@example.com...",
-        "resetPassword": "Reset Password"
+        "resetPassword": "Reset Password",
+        "EMAIL_REQUIRED": "Email Required",
+        "EMAIL_REQUIRED_DESCRIPTION": "No email address found",
+        "INVALID_EMAIL": "Invalid Email",
+        "INVALID_EMAIL_DESCRIPTION": "Please enter a valid email address",
+        "REQUEST_RESET_ERROR": "Reset Password Error",
+        "REQUEST_RESET_ERROR_DESCRIPTION": "An error occurred. Please try again",
+        "PASSWORD_RESET_SENT": "Password Reset Sent",
+        "PASSWORD_RESET_SENT_DESCRIPTION": "We have sent you an email with a link to reset your password. Please check your inbox.",
+        "PASSWORD_RESET_FAILED": "Password Reset Failed",
+        "PASSWORD_RESET_FAILED_DESCRIPTION": "An error occurred. Please try again",
+        "REQUEST_RESET_SUCCESS": "Password Reset Success",
+        "REQUEST_RESET_SUCCESS_DESCRIPTION": "We have sent you an email with a link to reset your password. Please check your inbox."
     },
     "confirmMail": {
         "title": "Complete Registration",
         "subtitle": "Please confirm your email address",
         "description": "We have sent a confirmation code to {email}. Please enter the code here to complete your registration.",
         "continue": "Continue",
-        "resendEmail": "Resend Email"
-    },
+        "resendEmail": "Resend Email",
+        "INVALID_CODE": "Invalid Code",
+        "INVALID_CODE_DESCRIPTION": "The code is invalid. Please try again",
+        "VERIFICATION_ERROR": "Verification Error",
+        "VERIFICATION_ERROR_DESCRIPTION": "An error occurred. Please try again",
+        "VERIFICATION_SUCCESS": "Verification Successful",
+        "VERIFICATION_SUCCESS_DESCRIPTION": "Your email address has been successfully confirmed. You can now start directly.",
+        "INTERNAL_SERVER_ERROR": "Internal Server Error",
+        "INTERNAL_SERVER_ERROR_DESCRIPTION": "An unexpected error occurred. Please try again",
+        "LOGIN_INVALID_DATA": "Invalid Code",
+        "LOGIN_INVALID_DATA_DESCRIPTION": "The code is invalid. Please try again",
+        "VERIFICATION_CODE_SENT": "New Mail Sent",
+        "VERIFICATION_CODE_SENT_DESCRIPTION": "A new verification code has been sent to your email address. Please check your inbox.",
+        "EMAIL_REQUIRED": "Email Required",
+        "EMAIL_REQUIRED_DESCRIPTION": "No email address found",
+        "USER_NOT_FOUND": "User Not Found",
+        "USER_NOT_FOUND_DESCRIPTION": "The user was not found. Please try again.",
+        "EMAIL_ALREADY_VERIFIED": "Email Already Verified",
+        "EMAIL_ALREADY_VERIFIED_DESCRIPTION": "Your email address has already been confirmed. You can now start directly.",
+        "RESEND_FAILED": "Resend Failed",
+        "RESEND_FAILED_DESCRIPTION": "An error occurred. Please try again.",
+        "RESEND_SUCCESS": "Resend Success",
+        "RESEND_SUCCESS_DESCRIPTION": "A new verification code has been sent to your email address. Please check your inbox."
+    },	
     "confirmMailSuccess": {
         "title": "Email successfully confirmed",
         "subtitle": "Welcome to Tournament Fox!",
@@ -77,7 +131,8 @@
         "title": "Email for password reset sent",
         "subtitle": "Please check your inbox",
         "description": "We have sent you an email with a link to reset your password. Follow the link to create a new password.",
-        "continue": "Back to Login"
+        "continue": "Back to Login",
+        "resendEmail": "Resend Email"
     },
     "resetPassword": {
         "title": "Set new password",
@@ -87,6 +142,119 @@
         "passwordPlaceholder": "Password123...",
         "confirmPassword": "Confirm Password",
         "confirmPasswordPlaceholder": "Password123...",
-        "resetPassword": "Reset Password"
+        "resetPassword": "Reset Password",
+        "PASSWORD_REQUIRED": "Password Required",
+        "PASSWORD_REQUIRED_DESCRIPTION": "No password found",
+        "PASSWORDS_NOT_MATCH": "Passwords do not match",
+        "PASSWORDS_NOT_MATCH_DESCRIPTION": "The passwords do not match",
+        "PASSWORD_TOO_SHORT": "Password too short",
+        "PASSWORD_TOO_SHORT_DESCRIPTION": "The password must be at least 8 characters long",
+        "INVALID_RESET_TOKEN": "Invalid Reset Token",
+        "INVALID_RESET_TOKEN_DESCRIPTION": "The link has expired or is invalid",
+        "RESET_PASSWORD_ERROR": "Reset Password Error",
+        "RESET_PASSWORD_ERROR_DESCRIPTION": "An error occurred. Please try again",
+        "RESET_PASSWORD_SUCCESS": "Reset Password Success",
+        "RESET_PASSWORD_SUCCESS_DESCRIPTION": "Your password has been successfully reset. You can now start directly.",
+        "TOKEN_ALREADY_USED": "Token already used",
+        "TOKEN_ALREADY_USED_DESCRIPTION": "The link has already been used. Please request a new link.",
+        "INTERNAL_SERVER_ERROR": "Internal Server Error",
+        "INTERNAL_SERVER_ERROR_DESCRIPTION": "An unexpected error occurred. Please try again"
+    },
+    "confirmMailState": {
+        "title": "Complete Registration",
+        "subtitle": "Please wait a moment",
+        "description": "We are verifying your email address. This may take a few seconds."
+    },
+    "confirmMailFailure": {
+        "title": "Registration failed",
+        "subtitle": "Please try again",
+        "description": "We were unable to verify your email address.",
+        "resendEmail": "Resend Email"
+    },
+    "navigationDrawer": {
+        "home": "Home",
+        "games": "Games",
+        "events": "Events",
+        "teams": "Teams",
+        "matches": "Matches",
+        "settings": "Settings",
+        "privacyPolicy": "Privacy Policy",
+        "imprint": "Imprint",
+        "termsOfService": "Terms of Service"
+    },
+    "topBar": {
+        "login": "Login",
+        "register": "Register",
+        "dark": "Dark Mode",
+        "light": "Light Mode",
+        "system": "System Mode"
+    },
+    "homeMatches": {
+        "noMatches": "No matches found",
+        "loadingMore": "Loading more matches...",
+        "noMoreMatches": "No more matches available"
+    },
+    "seriesCards": {
+        "clock": "",
+        "live": "Live",
+        "loading": "Loading..."
+    },
+    "gamesList": {
+        "sort": "Sort by",
+        "asc": "Ascending",
+        "desc": "Descending",
+        "gameName": "Game",
+        "publishingYear": "Publishing Year",
+        "genre": "Genre",
+        "platform": "Platform",
+        "age": "Age",
+        "developer": "Developer"
+    },
+    "bulkGameCards": {
+        "developer": "Developer",
+        "age": "Age",
+        "publishingYear": "Publishing Year",
+        "genre": "Genre",
+        "platform": "Platform"
+    },
+    "filterChipsWrapper": {
+        "filters": "Filters",
+        "moreFilters": "More Filters"
+    },
+    "matchesList": {
+        "noMatches": "No matches found",
+        "loadingMore": "Loading more matches...",
+        "noMoreMatches": "No more matches available",
+        "game_id": "Game",
+        "start_date": "Start Date",
+        "status": "Status",
+        "team_id": "Team",
+        "tournament_id": "Tournament",
+        "max_rounds": "Max Rounds",
+        "asc": "Ascending",
+        "desc": "Descending",
+        "end_date": "End Date",
+        "format": "Format"
+    },
+    "bulkTeamCards": {
+        "region": "Region",
+        "foundingYear": "Founding Year",
+        "game": "Game",
+        "noTeams": "No teams found",
+        "loadingMore": "Loading more teams...",
+        "noMoreTeams": "No more teams available"
+    },
+    "teamList": {
+        "game": "Game",
+        "foundingYear": "Founding Year",
+        "region": "Region",
+        "sort": "Sort by",
+        "asc": "Ascending",
+        "desc": "Descending",
+        "name": "Name",
+        "slug": "Slug",
+        "logoURL": "Logo URL",
+        "altLogoURL": "Alt Logo URL",
+        "foundingDate": "Founding Year"
     }
 }

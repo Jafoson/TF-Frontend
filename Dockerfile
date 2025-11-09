@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Kopiere package.json und package-lock.json
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+RUN npm ci
 
 # Rebuild der Anwendung
 FROM base AS builder
@@ -33,7 +33,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Kopiere die gebaute Anwendung
+# Kopiere die public-Dateien zuerst
 COPY --from=builder /app/public ./public
 
 # Setze die korrekten Berechtigungen für prerender cache
@@ -44,9 +44,19 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Stelle sicher, dass nextjs user Zugriff auf public hat
+RUN chown -R nextjs:nodejs ./public
+
 USER nextjs
 
 EXPOSE 3000
+
+# deine Variablen aus .env (werden überschreibbar sein!)
+ENV FRONTEND_URL=${FRONTEND_URL}
+ENV GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+ENV GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+ENV GOOGLE_REDIRECT_URI=${GOOGLE_REDIRECT_URI}
+ENV API_URL=${API_URL}
 
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"

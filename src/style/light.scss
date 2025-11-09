@@ -16,14 +16,14 @@
   --on-error: 255, 255, 255;
   --error-container: 255, 218, 214;
   --on-error-container: 65, 0, 2;
-  --background: 254, 250, 252;
+  --background: 245, 245, 245;
   --on-background: 25, 28, 30;
-  --surface: 254, 250, 252;
+  --surface: 245, 245, 245;
   --on-surface: 25, 28, 30;
   --surface-variant: 219, 228, 230;
   --on-surface-variant: 63, 72, 75;
   --outline: 63, 72, 74;
-  --outline-variant: 63, 72, 74;
+  --outline-variant: 191, 200, 203;
   --shadow: 0, 0, 0;
   --scrim: 0, 0, 0;
   --inverse-surface: 25, 28, 30;
@@ -48,6 +48,23 @@
   --surface-container: 238, 241, 243;
   --surface-container-high: 232, 235, 237;
   --surface-container-highest: 226, 229, 231;
+
+  --card-background: 255, 255, 255;
+
+  --success: 46, 106, 68;
+  --on-success: 255, 255, 255;
+  --success-container: 177, 241, 193;
+  --on-success-container: 18, 81, 46;
+
+  --info: 47, 98, 140;
+  --on-info: 255, 255, 255;
+  --info-container: 206, 229, 255;
+  --on-info-container: 14, 74, 115;
+
+  --warning: 121, 89, 12;
+  --on-warning: 255, 255, 255;
+  --warning-container: 255, 222, 163;
+  --on-warning-container: 93, 66, 0;
 }
 
 @media (prefers-color-scheme: light) {

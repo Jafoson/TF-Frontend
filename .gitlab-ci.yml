@@ -1,78 +1,11 @@
 stages:
-  - build
-  - docker
-  - deploy
+  - docker-build
+  - update_config
 
-variables:
-  NODE_VERSION: "18"
-  IMAGE_NAME: registry.gitlab.com/tournamentfox/frontend
-
-cache:
-  paths:
-    - node_modules/
-
-# Build Stage
-build:
-  stage: build
-  image: node:${NODE_VERSION}
-  script:
-    - npm ci
-    - npm run build
-  artifacts:
-    paths:
-      - .next/
-      - public/
-      - node_modules/
-    expire_in: 1 hour
-  only:
-    - dev
-    - main
-
-# Docker Build and Push Stage
-docker-build:
-  stage: docker
-  image: docker:latest
-  services:
-    - docker:dind
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - docker build -t $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA} .
-    - docker push $IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}
-  dependencies:
-    - build
-  only:
-    - dev
-    - main
-
-# Deploy to Dev Environment
-deploy-dev:
-  stage: deploy
-  image: alpine:latest
-  before_script:
-    - apk add --no-cache git bash
-  script:
-    - |
-      TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-      YAML_PATH="deploy/dev/deployment.yaml"
-      sed -i "s|^\(\s*image:\s*\).*|\1$IMAGE_NAME:dev-${CI_COMMIT_SHORT_SHA}|" "$YAML_PATH"
-      if grep -q "^timestamp:" "$YAML_PATH"; then
-        sed -i "s/^timestamp:.*/timestamp: ${TIMESTAMP}/" "$YAML_PATH"
-      else
-        echo -e "\ntimestamp: ${TIMESTAMP}" >> "$YAML_PATH"
-      fi
-      git config --global user.email "ci@tournamentfox.com"
-      git config --global user.name "GitLab CI"
-      git add "$YAML_PATH"
-      git commit -m "Update deployment manifest [skip ci]"
-      git push origin dev
-  dependencies:
-    - docker-build
-  only:
-    - dev
-  environment:
-    name: development
-    url: https://dev.tournamentfox.com
-  when: manual
+include:
+  - project: "tournamentfox/ci-templates"
+    file: "default/docker-build.yml"
+    ref: main
+  - project: "tournamentfox/ci-templates"
+    file: "default/deployment.yml"
+    ref: main

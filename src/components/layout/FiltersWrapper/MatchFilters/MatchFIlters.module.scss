@@ -1,0 +1,17 @@
+.wrapper {
+    position: relative;
+
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: calc(100% - 0.5rem);
+        height: 1px;
+        background-color: rgb(var(--outline-variant));
+
+        @media (max-width: 600px) {
+            left: 0.5rem;
+            width: calc(100% - 1rem);
+        }
+    }
+}

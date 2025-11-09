@@ -1,0 +1,65 @@
+.nowChip{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    gap: 0.25rem;
+    padding: 0.25rem 1rem;
+    border-radius: 6px;
+    background-color: rgb(var(--surface-container));
+    color: rgb(var(--primary));
+    outline: none;
+    border: 1px solid rgb(var(--surface-container-highest));
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    outline-offset: 2px;
+    white-space: nowrap;
+    box-shadow: 0 6px 10px 4px rgba(0, 0, 0, 0.15), 0 2px 3px 0 rgba(0, 0, 0, 0.30);
+
+
+    ::after{
+        margin: -1px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: inherit;
+        background-color: rgb(var(--on-surface));
+        opacity: 0;
+        content: "";
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    &:hover{
+        transform: scale(1.02);
+
+        &::after{
+            opacity: 0.12;
+        }
+    }
+
+    &:active{
+        transform: scale(0.98);
+
+        &::after{
+            opacity: 0.2;
+        }
+    }
+
+    &:focus-visible{
+        outline: 2px solid rgb(var(--primary));
+    }
+
+    
+}
+
+.absolutPosition{
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

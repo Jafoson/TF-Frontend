@@ -16,9 +16,9 @@
   --on-error: 105, 0, 5;
   --error-container: 147, 0, 10;
   --on-error-container: 255, 218, 214;
-  --background: 15, 20, 22;
+  --background: 25, 28, 30;
   --on-background: 222, 227, 229;
-  --surface: 15, 20, 22;
+  --surface: 25, 28, 30;
   --on-surface: 222, 227, 230;
   --surface-variant: 63, 72, 74;
   --on-surface-variant: 191, 200, 202;
@@ -48,6 +48,22 @@
   --surface-container: 27, 32, 34;
   --surface-container-high: 37, 43, 45;
   --surface-container-highest: 48, 54, 56;
+  --card-background: 37, 43, 45;
+
+  --success: 150, 213, 166;
+  --on-success: 0, 57, 28;
+  --success-container: 17, 81, 46;
+  --on-success-container: 177, 241, 193;
+
+  --info: 155, 203, 251;
+  --on-info: 0, 51, 83;
+  --info-container: 14, 74, 115;
+  --on-info-container: 206, 229, 255;
+
+  --warning: 235, 192, 108;
+  --on-warning: 65, 45, 0;
+  --warning-container: 93, 66, 0;
+  --on-warning-container: 255, 222, 163;
 }
 
 @media (prefers-color-scheme: dark) {

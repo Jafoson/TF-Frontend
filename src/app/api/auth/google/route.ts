@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
     // Set HttpOnly cookies for both tokens
     cookieStore.set('accessToken', accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      // secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 60 * 15, // 15 minutes
       path: '/',
@@ -81,7 +81,7 @@ export async function GET(req: NextRequest) {
   
     cookieStore.set('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      // secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 * 7, // 7 days
       path: '/',

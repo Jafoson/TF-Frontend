@@ -1,0 +1,12 @@
+stages:
+  - docker-build
+  - update_config
+
+include:
+  - project: "tournamentfox/ci-templates"
+    file: "default/docker-build.yml"
+    ref: main
+    
+  - project: "tournamentfox/ci-templates"
+    file: "default/deployment.yml"
+    ref: main

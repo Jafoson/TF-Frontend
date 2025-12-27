@@ -1,0 +1,7 @@
+export enum StatusEnum {
+  ABORTED = 'ABORTED',
+  RUNNING = 'RUNNING',
+  PENDING = 'PENDING',
+  CANCELLED = 'CANCELLED',
+  FINISHED = 'FINISHED'
+}

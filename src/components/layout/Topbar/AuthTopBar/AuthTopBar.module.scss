@@ -1,0 +1,33 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    .logo{ display: none; }
+
+    @media (max-width: 768px) {
+        .logo{
+            height: 3rem;
+            width: auto;
+            display: block;
+        }
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    @media (max-height: 850px) {
+        .logo{
+            height: 3rem;
+            width: auto;
+            display: block;
+        }
+    }
+
+    .placeholder{
+        width: 2rem;
+    }
+
+}

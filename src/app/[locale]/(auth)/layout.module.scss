@@ -1,0 +1,111 @@
+.body{
+    background-image: url("/background/LeagueofLegends_Worlds2022_ChaseCenter_California_Stage-1536x864.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: rgb(var(--on-primary-fixed));
+    z-index: -3;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    backdrop-filter: blur(10px);
+   
+
+    @media (max-width: 768px) {
+        padding: 0;
+        background-image: none;
+        background-color: rgb(var(--surface));
+        backdrop-filter: none;
+    }
+
+}
+
+.logo{
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    height: 3rem;
+    width: auto;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+
+    @media (max-height: 850px) {
+        display: none;
+    }
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    border: 5px solid transparent;
+    background-clip: padding-box;
+    border-radius: 1.5rem;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 37.5rem;
+    max-height: 90dvh;
+    width: 100%;
+    background-color: rgb(var(--surface));
+
+    &::before{
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: -5px;
+        background-image: linear-gradient(45deg, rgb(var(--surface-container-low)) 0%, rgb(var(--surface-container)) 30%, rgb(var(--surface-container)) 70%, rgb(var(--surface-container-low)) 100%);
+        border-radius: inherit;
+        box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
+        z-index: -1;
+    }
+
+    @media (max-width: 768px) {
+        justify-content: flex-start;
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: 100dvh;
+        border-radius: 0;
+        margin: 0;
+
+        &::before{
+            display: none;
+        }
+    }
+}
+
+.credit{
+    font-weight: 400;
+    text-decoration: none;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.75rem;
+    display: flex;
+padding: 0.375rem 0.75rem;
+align-items: flex-start;
+    color: white;
+    border-radius: 0.375rem;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+
+    @media (max-height: 850px) {
+        display: none;
+    }
+}

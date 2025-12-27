@@ -1,0 +1,46 @@
+.avatar {
+    background-color: rgb(var(--on-secondary-container));
+    color: rgb(var(--secondary-container));
+    transform: scale(1) !important;
+    cursor: default !important;
+    height: 64px !important;
+    width: 64px !important;
+
+    
+
+    font-size: 2rem !important;
+
+    &:hover{
+        background-color: none;
+    }
+}
+
+.profilCard {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem;
+    border-radius: 0.625rem;
+    background-color: rgb(var(--secondary-container));
+    color: rgb(var(--on-secondary-container));
+    border: 1px solid rgb(var(--on-secondary-container));
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    & > div > h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        letter-spacing: 0.0125rem;
+    }
+
+    & > div > p {
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.25rem;
+    }
+}

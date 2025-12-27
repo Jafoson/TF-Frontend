@@ -1,0 +1,125 @@
+.title{
+    max-width: 28.125rem;
+    color: rgb(var(--primary));
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 32rem;
+}
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 32rem;
+    margin-bottom: 1rem;
+}
+
+.checkboxContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+
+.orContainer{
+    max-width: 32rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    
+    & > hr{
+        margin:0;
+    }
+}
+.subtitle{
+    font-size: 1.25rem;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5rem;
+    letter-spacing: 0.00938rem;
+    margin-bottom: 0.125rem;
+}
+
+.description{
+    font-size: 0.875rem;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25rem;
+    letter-spacing: 0.01563rem;
+    margin-bottom: 1rem;
+    max-width: 28.125rem;
+    color: rgb(var(--on-surface-variant));
+}
+
+.footerText{
+    margin-top: 0.25rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1rem;
+    letter-spacing: 0.03125rem;
+    color: rgb(var(--on-surface-variant));
+}
+
+.resetPasswordButton{
+    margin-top: 1.5rem;
+}
+
+.socialContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 32rem;
+    margin-bottom: 1rem;
+}
+
+.footer{
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+
+
+}
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.forgotPassword{
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .forgotPassword{
+        font-size: 0.875rem;
+    }
+}
